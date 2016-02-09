@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.kmutpnb.buk.easytour.MainActivity">
+    tools:context="com.kmutpnb.buk.easytour.MainActivity"
+    android:background="@drawable/wlogin">
 
 
     <LinearLayout
@@ -27,13 +28,13 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/editTextUser"
             android:hint="User : " />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText2"
+            android:id="@+id/editTextPass"
             android:hint="Password : "
             android:inputType="textPassword" />
 
@@ -43,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login"
-        android:id="@+id/button"
+        android:id="@+id/btnLogin"
+        android:onClick="clickLogin"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>

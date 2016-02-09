@@ -5,6 +5,8 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Switch;
 
 import org.apache.http.HttpEntity;
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     //explicate
     private MyManageTable objMyManageTable;
+    private EditText userEditText, passwordEditText;
+    private String useString, passString;
+
 
 
     @Override
@@ -31,8 +36,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //request db
-        objMyManageTable = new MyManageTable(this);
+        //Blind winget ผูกwidget
+
+        blidWidget();
+
+
+                //request db
+                // objMyManageTable = new MyManageTable(this);
 
         //test add value
         //testAddValue();
@@ -45,6 +55,37 @@ public class MainActivity extends AppCompatActivity {
 
 
     }//Main Method
+    public void clickLogin(View view) {
+
+        //clickLogin
+        useString = userEditText.getText().toString().trim(); //trimตัดช่องว่างทิ้งทั้งหน้าหลัง
+        passString = passwordEditText.toString().toString();
+
+        //check speace มีช่องว่างไหม
+        if (useString.equals("")|| passwordEditText.equals("")) {
+
+            //have space ว่างเปล่า
+            MyAlertDialog objMyAlertDialog = new MyAlertDialog();
+            objMyAlertDialog.myDialog(MainActivity.this, "มีช่องว่าง", "กรุณากรอกข้อมูลให้ครบทุกช่องค่ะ");
+
+
+        } else {
+
+            //no space
+
+
+        }//if
+
+
+
+    }// clicklogin
+
+    private void blidWidget() {
+
+        userEditText = (EditText) findViewById(R.id.editTextPass);
+        passwordEditText = (EditText) findViewById(R.id.editTextPass);
+
+    }
 
     private void synJsontoSQlite() {
 
