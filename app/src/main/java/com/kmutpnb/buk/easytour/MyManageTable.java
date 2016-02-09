@@ -1,5 +1,6 @@
 package com.kmutpnb.buk.easytour;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -36,7 +37,13 @@ public class MyManageTable {
                         String strName,
                         String strStatus) {
 
-        return 0; //แปลง string to long int
+        ContentValues objContentValues = new ContentValues();
+        objContentValues.put(column_user, strUser);
+        objContentValues.put(column_password, strPassword);
+        objContentValues.put(column_name, strName);
+        objContentValues.put(column_status, strStatus);
+
+        return writeSqLiteDatabase.insert(table_user, null, objContentValues); //แปลง string to long int
     }
 
 }//main class
