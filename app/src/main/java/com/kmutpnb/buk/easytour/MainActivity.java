@@ -45,16 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //request db
-                // objMyManageTable = new MyManageTable(this);
+                objMyManageTable = new MyManageTable(this);
 
         //test add value
-        testAddValue();
+       // testAddValue();
         //deleteAllSQlite
 
-        //deleteAllSQlite();
+      deleteAllSQlite();
 
         //synchronize โหลดแค่ข้อมูล json to sqlite
-      //  synJsontoSQlite();
+      synJsontoSQlite();
 
 
     }//Main Method
@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
 
         //clickLogin
         useString = userEditText.getText().toString().trim(); //trimตัดช่องว่างทิ้งทั้งหน้าหลัง
-        passString = passwordEditText.toString().toString();
+        passString = passwordEditText.getText().toString().trim();
 
         //check speace มีช่องว่างไหม
-        if (useString.equals("")|| passwordEditText.equals("")) {
+        if (useString.equals("")|| passString.equals("")) {
 
             //have space ว่างเปล่า
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
             objMyAlertDialog.myDialog(MainActivity.this, "No This User",
-                    "No " + useString + "in my database");
+                    "No " + useString + " in my database");
 
         }
 
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void blidWidget() {
 
-        userEditText = (EditText) findViewById(R.id.editTextPass);
+        userEditText = (EditText) findViewById(R.id.editTextUser);
         passwordEditText = (EditText) findViewById(R.id.editTextPass);
 
     }
