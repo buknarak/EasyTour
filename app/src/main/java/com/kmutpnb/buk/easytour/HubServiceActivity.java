@@ -1,11 +1,13 @@
 package com.kmutpnb.buk.easytour;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class HubServiceActivity extends AppCompatActivity {
+public class HubServiceActivity extends AppCompatActivity implements View.OnClickListener {
 
 
         //Explicit
@@ -37,13 +39,16 @@ public class HubServiceActivity extends AppCompatActivity {
         nameString = getIntent().getStringExtra("Name"); //รับค่าให้ได้ก่อน
         showNameTextview.setText("Welcome : " + nameString);
 
-
-
     }//showName
 
     private void buttonController() {
 
-
+        authenButton.setOnClickListener(this);
+        listuserButton.setOnClickListener(this);
+        warningButton.setOnClickListener(this);
+        trackingButton.setOnClickListener(this);
+        recommendButton.setOnClickListener(this);
+        listtourButton.setOnClickListener(this);
 
     }
 
@@ -58,4 +63,31 @@ public class HubServiceActivity extends AppCompatActivity {
         listuserButton = (Button) findViewById(R.id.btnlistuser);
 
     }//bind wicket
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.btnauthen:
+
+                Intent authenIntent = new Intent(HubServiceActivity.this, RegisterActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                startActivity(authenIntent);
+
+                break;
+            case R.id.btnlisttour:
+                break;
+            case R.id.btnwarning:
+                break;
+            case R.id.btntracking:
+                break;
+            case R.id.btnrecommend:
+                break;
+            case R.id.btnlistuser:
+                break;
+
+        }//switch
+
+
+    }//on click
 }//main class

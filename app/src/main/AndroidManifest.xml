@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".HubServiceActivity" />
-        <activity android:name=".HubTourActivity"></activity>
+        <activity android:name=".HubTourActivity" />
+        <activity android:name=".RegisterActivity"></activity>
     </application>
 
 </manifest>
