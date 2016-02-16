@@ -8,4 +8,10 @@
     <string name="recommend">แนะนำสถานที่ท่องเที่ยว</string>
     <string name="listuser">รายชื่อทัวร์</string>
 
+    <string name="user">User</string>
+    <string name="pass">Password</string>
+    <string name="name">ชื่อผู้ใช้</string>
+    <string name="tour">ลูกทัวร์</string>
+    <string name="admin">มัคคุเทศน์</string>
+
 </resources>
