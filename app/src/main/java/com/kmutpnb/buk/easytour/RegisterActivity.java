@@ -59,6 +59,8 @@ public class RegisterActivity extends AppCompatActivity {
                 else {
 
                     //no space
+                    checkUser();
+
                 }
 
             }//event
@@ -66,6 +68,32 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     }//butttoncontroller
+
+    private void checkUser() {
+
+        try {
+         //user not ok ซ้ำกัน
+            MyManageTable objMyManageTable = new MyManageTable(this);
+            String[] resultString = objMyManageTable.searchUser(userString);
+
+            MyAlertDialog objMyAlertDialog = new MyAlertDialog();
+            objMyAlertDialog.myDialog(RegisterActivity.this, "User ซ้ำ",
+                    "เปลี่ยนยูเซอร์ใหม มี่" + resultString[1]+ "แล้ว" );
+
+
+        }
+            catch(Exception e) {
+                //user ok
+                confirmRegis();
+
+            }
+
+    }//checkuser
+
+    private void confirmRegis() {
+
+
+    }//confirmregister
 
     private boolean checkSpace() {
 
