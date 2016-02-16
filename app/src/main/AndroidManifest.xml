@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HubServiceActivity"></activity>
+        <activity android:name=".HubServiceActivity" />
+        <activity android:name=".HubTourActivity"></activity>
     </application>
 
 </manifest>

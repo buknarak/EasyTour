@@ -134,11 +134,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                Intent objIntent = new Intent(MainActivity.this, HubServiceActivity.class); //ย้ายการทำานจากเมน ไป หน้า ฮับ
-                objIntent.putExtra("Name", strName);
-                objIntent.putExtra("Status", strStatus);
-                startActivity(objIntent);
-                finish();//ปิดหน้าแรก
+                switch (Integer.parseInt(strStatus))
+                {
+                    case 1:
+                            Intent adminIntent = new Intent(MainActivity.this, HubServiceActivity.class);
+                        adminIntent.putExtra("Name",strName);
+                        startActivity(adminIntent);
+                       break;
+                    case 0:
+                        Intent tourIntent = new Intent(MainActivity.this, HubTourActivity.class);
+                        tourIntent.putExtra("Name", strName);
+                        startActivity(tourIntent);
+
+                        break;
+                }
+                finish();
+
+
+//                Intent objIntent = new Intent(MainActivity.this, HubServiceActivity.class); //ย้ายการทำานจากเมน ไป หน้า ฮับ
+//                objIntent.putExtra("Name", strName);
+//                objIntent.putExtra("Status", strStatus);
+//                startActivity(objIntent);
+//                finish();//ปิดหน้าแรก
 
             }
         });//event
