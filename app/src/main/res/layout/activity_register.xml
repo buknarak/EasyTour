@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/authen"
-            android:id="@+id/textView4"
+            android:id="@+id/tvauthen"
             android:layout_gravity="center_horizontal"
             android:textSize="@dimen/H1" />
 
@@ -36,14 +36,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/user"
-                android:id="@+id/textView7"
+                android:id="@+id/tvuser"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText3"
+                android:id="@+id/editTextuser111"
                 android:layout_weight="2"
                 android:inputType="text" />
         </LinearLayout>
@@ -57,14 +57,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/pass"
-                android:id="@+id/textView6"
+                android:id="@+id/tvpass"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText2"
+                android:id="@+id/editTextpass222"
                 android:layout_weight="2"
                 android:inputType="text" />
         </LinearLayout>
@@ -78,14 +78,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
-                android:id="@+id/textView5"
+                android:id="@+id/tvname"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1" />
 
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText"
+                android:id="@+id/editTextname"
                 android:layout_weight="2"
                 android:inputType="text" />
         </LinearLayout>
@@ -94,13 +94,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:id="@+id/ragposition">
 
             <RadioButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/tour"
-                android:id="@+id/radioButton"
+                android:id="@+id/ragtour"
                 android:layout_weight="1"
                 android:checked="true" />
 
@@ -108,7 +109,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/admin"
-                android:id="@+id/radioButton2"
+                android:id="@+id/ragadmin"
                 android:layout_weight="1" />
         </RadioGroup>
     </LinearLayout>
@@ -117,6 +118,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Register"
-        android:id="@+id/button"
+        android:id="@+id/btnregister"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
