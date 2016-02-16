@@ -7,5 +7,6 @@
     <dimen name="H2">20sp</dimen>
     <dimen name="my_margin">20dp</dimen>
 
+    <dimen name="mybutton">250dp</dimen>
 
 </resources>
