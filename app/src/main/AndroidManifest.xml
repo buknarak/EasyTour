@@ -3,6 +3,11 @@
     package="com.kmutpnb.buk.easytour">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.provider.gsf.permission.READ_GSERVICES"/> // ใช้พิกัดจากเสามือถือ
+
+
 
     <application
         android:allowBackup="true"
