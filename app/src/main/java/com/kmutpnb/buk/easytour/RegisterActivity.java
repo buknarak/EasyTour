@@ -1,5 +1,8 @@
 package com.kmutpnb.buk.easytour;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -92,8 +105,72 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void confirmRegis() {
 
+        String[] positionStrings = {"ลูกทัวร์","มัคคุเทศน์"};
+        int intIndex = Integer.parseInt(positionString);//position 0 1
+        AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+        objBuilder.setIcon(R.drawable.icon_myaccount);
+        objBuilder.setTitle("โปรดตรวจข้อมูล");
+        objBuilder.setMessage("User = " + userString + "\n" +
+                "Password = " + passwordString + "\n" +
+                "Name = "  + nameString + "\n" +
+                "Position = " + positionStrings[intIndex]);
+        objBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-    }//confirmregister
+                //update to mysql
+                updateToMySQL();
+                dialogInterface.dismiss(); //ทำให้ pop up หายไป
+
+
+            }
+        });
+        objBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dialogInterface.dismiss();
+            }
+        });
+
+        objBuilder.show();
+    }//confirm register
+
+    private void updateToMySQL() {
+
+        //change policy
+        StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build(); //ปลด policy ให้สามารถอัพเดทได้
+        StrictMode.setThreadPolicy(myPolicy);//สามารถเชื่อมต่อ potocal http
+        try {
+
+            ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
+            objNameValuePairs.add(new BasicNameValuePair("isAdd", "true")); //isAdd ตัวแปร php ในการแอดข้อมูล
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_user, userString));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_password, passwordString));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, nameString));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_status, positionString));
+
+            HttpClient objHttpClient = new DefaultHttpClient();
+            HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_user_buk.php");
+                objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
+            objHttpClient.execute(objHttpPost);
+
+            Toast.makeText(RegisterActivity.this, "อัพเดทข้อมูลเรียบร้อยแล้ว",
+                    Toast.LENGTH_SHORT).show();  //Toast คือคำสั่งข้อความที่ขึ้นมาแล้วหายไป
+            finish();
+
+        } catch (Exception e) {
+            Toast.makeText(RegisterActivity.this, "ไม่สามารถเชื่อมต่อ server ได้",
+                    Toast.LENGTH_SHORT).show();//short = 4 วิ
+
+        }
+
+
+
+
+    }//method update to mysql
+
 
     private boolean checkSpace() {
 

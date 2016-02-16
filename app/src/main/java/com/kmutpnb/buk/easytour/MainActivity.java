@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Blind winget ผูกwidget
+        //Blind winget ผูก widget
 
         blidWidget();
 
@@ -56,8 +56,18 @@ public class MainActivity extends AppCompatActivity {
         //synchronize โหลดแค่ข้อมูล json to sqlite
       synJsontoSQlite();
 
+        //Get location
+        getLocation();
+
 
     }//Main Method
+
+    private void getLocation() {
+
+
+
+    }//getlocation
+
     public void clickLogin(View view) {
 
         //clickLogin
