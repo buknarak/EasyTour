@@ -27,36 +27,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/authen"
-            android:id="@+id/button" />
+            android:id="@+id/btnauthen" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/listtour"
-            android:id="@+id/button2" />
+            android:id="@+id/btnlisttour" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/warning"
-            android:id="@+id/button3" />
+            android:id="@+id/btnwarning" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/tracking"
-            android:id="@+id/button4" />
+            android:id="@+id/btntracking" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/recommend"
-            android:id="@+id/button5" />
+            android:id="@+id/btnrecommend" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/listuser"
-            android:id="@+id/button6" />
+            android:id="@+id/btnlistuser" />
     </LinearLayout>
 </RelativeLayout>
