@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -72,21 +73,66 @@ public class MainActivity extends AppCompatActivity {
 
     }//Main Method
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        objLocationManager.removeUpdates(objLocationListener);
+        latADouble = 0;
+        lngADouble = 0;
+
+        Location networkLocation = requestLocation(LocationManager.NETWORK_PROVIDER, "no internet");
+        if (networkLocation != null) {
+
+            latADouble = networkLocation.getLatitude();
+            lngADouble = networkLocation.getLongitude();
+
+        }//if
+        Location GPSLocation = requestLocation(LocationManager.GPS_PROVIDER, "No GPS Card");
+        if (GPSLocation != null) {
+
+            latADouble = GPSLocation.getLatitude();
+            lngADouble = GPSLocation.getLongitude();
+
+
+        }//if
+
+        //show Log
+        Log.d("Tour", "Lat ==> " + latADouble);
+        Log.d("Tour", "Lng ==> " + lngADouble);
+
+
+    }//onresume มีการขยับ เปลี่ยนหน้า ให้กลับมาเหมือนเดิม
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GPSABoolean = objLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER); //ถ้ามือถือมี card gps อยู่ จะ true
+        if (!GPSABoolean) {
+
+            networkABoolearn = objLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (!networkABoolearn) {
+                Toast.makeText(MainActivity.this, "ไม่สามารถหาพิกัดได้", Toast.LENGTH_SHORT);
+
+            } //if
+
+        }//if
+
+    }//on start
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        objLocationManager.removeUpdates(objLocationListener);
+
+    }//onStop โหมดปิด
+
     public Location requestLocation(String strProvider, String strError) { //strProvider ส่งค่าพิกัดได้ String strError ส่งค่าพิกัดไม่ได้
 
         Location objLocation = null;
         if (objLocationManager.isProviderEnabled(strProvider)) {
 
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    Activity#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
-                return null;
-            }
             objLocationManager.requestLocationUpdates(strProvider, 1000, 10, objLocationListener); // 1000ถ้าตั้งเฉยๆ ทุกหนึ่งวินาที หาพิกัด  // เคลื่อนที่ทุก 10 เมตร
             objLocation = objLocationManager.getLastKnownLocation(strProvider);
 
@@ -110,7 +156,9 @@ public class MainActivity extends AppCompatActivity {
 
             latADouble = location.getLatitude();
             lngADouble = location.getLongitude();
-
+            //show Log
+            Log.d("Tour", "Lat ==> " + latADouble);
+            Log.d("Tour", "Lng ==> " + lngADouble);
 
         }
 
@@ -148,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         useString = userEditText.getText().toString().trim(); //trimตัดช่องว่างทิ้งทั้งหน้าหลัง
         passString = passwordEditText.getText().toString().trim();
 
-        //check speace มีช่องว่างไหม
+        //check space มีช่องว่างไหม
         if (useString.equals("")|| passString.equals("")) {
 
             //have space ว่างเปล่า
