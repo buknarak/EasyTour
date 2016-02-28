@@ -3,6 +3,7 @@ package com.kmutpnb.buk.easytour;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +24,10 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
 
         bindWidget();
+
+        //check section 4 ภาค
+        checkSection();
+
         //show name
         showName();
 
@@ -34,6 +39,18 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
         //Bind wicket ผูกตัวแปร
     }//main method
+
+    private void checkSection() {
+
+
+        String tag = "Section";
+        double myLat = getIntent().getDoubleExtra("Lat", 0);//ถ้ารับค่าไม่ได้ 0 default
+        double myLng = getIntent().getDoubleExtra("Lng", 0);//ถ้ารับค่าไม่ได้ 0 default
+
+        Log.d(tag, "myLat ==> " + myLat);
+        Log.d(tag, "myLng ==> " + myLng);
+
+    }
 
     private void showName() {
 
