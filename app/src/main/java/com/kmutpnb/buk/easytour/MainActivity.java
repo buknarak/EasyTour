@@ -268,17 +268,22 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (Integer.parseInt(strStatus))
                 {
-                    case 1:
-                            Intent adminIntent = new Intent(MainActivity.this, HubServiceActivity.class);
-                        adminIntent.putExtra("Name",strName);
-                        startActivity(adminIntent);
-                       break;
+
                     case 0:
                         Intent tourIntent = new Intent(MainActivity.this, HubTourActivity.class);
                         tourIntent.putExtra("Name", strName);
+                        tourIntent.putExtra("Lat", latADouble);
+                        tourIntent.putExtra("Lng", lngADouble);
                         startActivity(tourIntent);
-
                         break;
+                    case 1:
+                            Intent adminIntent = new Intent(MainActivity.this, HubServiceActivity.class);
+                        adminIntent.putExtra("Name",strName);
+                        adminIntent.putExtra("Lat",latADouble);
+                        adminIntent.putExtra("Lng",lngADouble);
+                        startActivity(adminIntent);
+                       break;
+
                 }
                 finish();
 
@@ -341,11 +346,12 @@ public class MainActivity extends AppCompatActivity {
 
         int intTable = 1; //amount of table
         String tag = "tour";
-        while (intTable <= 1) {
+        while (intTable <= 2) {
 
             //การซิงค์ 3กระบวนการ 1.Create input stream
             InputStream objInputStream = null;
             String strURLuser = "http://swiftcodingthai.com/puk/php_get_user_buk.php";
+            String strURLtour = "http://swiftcodingthai.com/puk/php_get_tour_buk.php";
             HttpPost objHttpPost = null;
             try {
 
@@ -354,6 +360,9 @@ public class MainActivity extends AppCompatActivity {
 
                     case 1:
                         objHttpPost = new HttpPost(strURLuser);
+                        break;
+                    case 2:
+                        objHttpPost = new HttpPost(strURLtour);
                         break;
                 }
 
@@ -406,6 +415,21 @@ public class MainActivity extends AppCompatActivity {
                             objMyManageTable.addUser(strUser, strPassword, strName, strStatus);
 
                             break;
+                        case 2 :
+
+                            //for tour table
+
+                            String strCategory = object.getString(MyManageTable.column_Category);
+                            String strNametour = object.getString(MyManageTable.column_name);
+                            String strDescription = object.getString(MyManageTable.column_Description);
+                            String strType = object.getString(MyManageTable.column_Type);
+                            String strTimeUse = object.getString(MyManageTable.column_TimeUse);
+                            String strLat = object.getString(MyManageTable.column_Lat);
+                            String strLng = object.getString(MyManageTable.column_Lng);
+
+                            objMyManageTable.addTour(strCategory, strNametour, strDescription, strType, strTimeUse, strLat, strLng);
+                            break;
+
 
                     }//switch
 
@@ -428,6 +452,8 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
         objSqLiteDatabase.delete(MyManageTable.table_user, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
+        objSqLiteDatabase.delete(MyManageTable.table_tour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
+
     }
 
     private void testAddValue() {

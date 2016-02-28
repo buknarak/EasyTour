@@ -21,6 +21,13 @@ public class MyManageTable {
     public static final String column_name = "Name";
     public static final String column_status = "Status";
 
+    public static final String table_tour = "tourTABLE";
+    public static final String column_Category = "Category";
+    public static final String column_Description = "Description";
+    public static final String column_Type = "Type";
+    public static final String column_TimeUse = "TimeUse";
+    public static final String column_Lat = "Lat";
+    public static final String column_Lng = "Lng";
 
 
     public MyManageTable(Context context) {
@@ -32,6 +39,26 @@ public class MyManageTable {
 
 
     }//contructor
+
+    public long addTour(String strCategory,
+                        String strName,
+                        String strDescription,
+                        String strType,
+                        String strTimeUse,
+                        String strLat,
+                        String strLng) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(column_Category, strCategory);
+        contentValues.put(column_name, strName);
+        contentValues.put(column_Description, strDescription);
+        contentValues.put(column_Type, strType);
+        contentValues.put(column_TimeUse, strTimeUse);
+        contentValues.put(column_Lat, strLat);
+        contentValues.put(column_Lng, strLng);
+
+        return writeSqLiteDatabase.insert(table_tour, null, contentValues);
+    }
 
     public String[] searchUser(String strUser) {
 
