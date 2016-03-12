@@ -1,5 +1,7 @@
 package com.kmutpnb.buk.easytour;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,26 +47,49 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
     private void showView() {
 
-        showCatTextView.setText(getResources().getString(R.string.listtour)+ " " + categoryString);
+        showCatTextView.setText(getResources().getString(R.string.listtour) + " " + categoryString);
+        //read or where
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE WHERE Category = " + "'" + categoryString + "'", null);
+        cursor.moveToFirst();
+
+
+        int intCount = cursor.getCount();
+
+        String[] nameStrings = new String[intCount];
+        String[] provinceStrings = new String[intCount];
+        String[] timeUseStrings = new String[intCount];
+
+
+        for (int i = 0; i < intCount; i++) {
+
+            nameStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
+            provinceStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Province));
+            timeUseStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
+
+            cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
+        }
+        cursor.close();
+        TourAdaptor tourAdaptor = new TourAdaptor(ShowProgramTourActivity.this,
+                nameStrings, provinceStrings, timeUseStrings);
+        tourListViewListView.setAdapter(tourAdaptor);
+
     }
-
-
-
 
 
     private void receiveAndSep() {
 
 
-
-        userLatADouble = getIntent().getDoubleExtra("Lat", HubServiceActivity.centerLat );//10power -6 ขยับจากจุดศูนย์กลางนิดนึง
-        userLngAdouble = getIntent().getDoubleExtra("Lng", HubServiceActivity.centerLng );
+        userLatADouble = getIntent().getDoubleExtra("Lat", HubServiceActivity.centerLat);//10power -6 ขยับจากจุดศูนย์กลางนิดนึง
+        userLngAdouble = getIntent().getDoubleExtra("Lng", HubServiceActivity.centerLng);
 
         //find w or e
         if (userLatADouble > HubServiceActivity.centerLat) {
 
-            if (userLatADouble>HubServiceActivity.centerLng) {
+            if (userLatADouble > HubServiceActivity.centerLng) {
 
-                    categoryString = "NE";
+                categoryString = "NE";
             } else {
 
                 categoryString = "NW";
@@ -72,7 +97,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
         } else {
             //eath
-            if (userLngAdouble>HubServiceActivity.centerLng) {
+            if (userLngAdouble > HubServiceActivity.centerLng) {
                 //SE
                 categoryString = "SE";
             } else {
