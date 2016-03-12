@@ -421,13 +421,14 @@ public class MainActivity extends AppCompatActivity {
 
                             String strCategory = object.getString(MyManageTable.column_Category);
                             String strNametour = object.getString(MyManageTable.column_name);
+                            String strProvince = object.getString(MyManageTable.column_Province);
                             String strDescription = object.getString(MyManageTable.column_Description);
                             String strType = object.getString(MyManageTable.column_Type);
                             String strTimeUse = object.getString(MyManageTable.column_TimeUse);
                             String strLat = object.getString(MyManageTable.column_Lat);
                             String strLng = object.getString(MyManageTable.column_Lng);
 
-                            objMyManageTable.addTour(strCategory, strNametour, strDescription, strType, strTimeUse, strLat, strLng);
+                            objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription, strType, strTimeUse, strLat, strLng);
                             break;
 
 

@@ -23,6 +23,7 @@ public class MyManageTable {
 
     public static final String table_tour = "tourTABLE";
     public static final String column_Category = "Category";
+    public static final String column_Province = "Province";
     public static final String column_Description = "Description";
     public static final String column_Type = "Type";
     public static final String column_TimeUse = "TimeUse";
@@ -42,6 +43,7 @@ public class MyManageTable {
 
     public long addTour(String strCategory,
                         String strName,
+                        String strProvince,
                         String strDescription,
                         String strType,
                         String strTimeUse,
@@ -51,6 +53,7 @@ public class MyManageTable {
         ContentValues contentValues = new ContentValues();
         contentValues.put(column_Category, strCategory);
         contentValues.put(column_name, strName);
+        contentValues.put(column_Province, strProvince);
         contentValues.put(column_Description, strDescription);
         contentValues.put(column_Type, strType);
         contentValues.put(column_TimeUse, strTimeUse);

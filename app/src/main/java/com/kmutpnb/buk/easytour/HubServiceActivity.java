@@ -15,8 +15,9 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
     private TextView showNameTextview;
     private Button authenButton, listtourButton, warningButton, trackingButton, recommendButton, listuserButton ;
     private String nameString;
-    private static final double centerLat = 14.47723421;
-    private static final double centerLng = 100.64575195;
+    public static final double centerLat = 14.47723421;
+    public static final double centerLng = 100.64575195;
+    private double myLat, myLng;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,8 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
 
         String tag = "Section";
-        double myLat = getIntent().getDoubleExtra("Lat", 0);//ถ้ารับค่าไม่ได้ 0 default
-        double myLng = getIntent().getDoubleExtra("Lng", 0);//ถ้ารับค่าไม่ได้ 0 default
+        myLat = getIntent().getDoubleExtra("Lat", 0);//ถ้ารับค่าไม่ได้ 0 default
+         myLng = getIntent().getDoubleExtra("Lng", 0);//ถ้ารับค่าไม่ได้ 0 default
 
         Log.d(tag, "myLat ==> " + myLat);
         Log.d(tag, "myLng ==> " + myLng);
@@ -94,6 +95,11 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
                 break;
             case R.id.btnlisttour:
+                //โปรแกรมทัวร์
+                Intent intent = new Intent(HubServiceActivity.this, ShowProgramTourActivity.class);
+                intent.putExtra("Lat", myLat);
+                intent.putExtra("Lng", myLng);
+                startActivity(intent);//sent value
                 break;
             case R.id.btnwarning:
                 break;

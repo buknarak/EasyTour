@@ -23,6 +23,7 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             "_id integer primary key, " +
             "Category text, " +
             "Name text, " +
+            "Province text, " +
             "Description text, " +
             "Type text, " +
             "TimeUse text, " +

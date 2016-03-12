@@ -5,10 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="com.google.android.provider.gsf.permission.READ_GSERVICES"/> // ใช้พิกัดจากเสามือถือ
-
-
-
+    <uses-permission android:name="com.google.android.provider.gsf.permission.READ_GSERVICES" />
+    // ใช้พิกัดจากเสามือถือ
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,7 +22,8 @@
         </activity>
         <activity android:name=".HubServiceActivity" />
         <activity android:name=".HubTourActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ShowProgramTourActivity"></activity>
     </application>
 
 </manifest>
