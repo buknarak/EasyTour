@@ -2,6 +2,7 @@ package com.kmutpnb.buk.easytour;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,7 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class showDetailTourActivity extends AppCompatActivity {
+public class showDetailTourActivity extends AppCompatActivity implements View.OnClickListener {
 
 
     private TextView dateTextView, nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView;
@@ -31,8 +32,18 @@ public class showDetailTourActivity extends AppCompatActivity {
         //show textview
         showTextView();
 
+        //Button Controller
+        buttonController();
+
 
     }//main method
+
+    private void buttonController() {
+
+            setTimeButton.setOnClickListener(this);
+            addMyProgramButton.setOnClickListener(this);
+            cancelButton.setOnClickListener(this);
+    }
 
     private void showTextView() {
 
@@ -73,6 +84,33 @@ public class showDetailTourActivity extends AppCompatActivity {
              descripTextView = (TextView) findViewById(R.id.tvdescrip);
              setTimeButton = (Button) findViewById(R.id.btnaddmyprograme);
              cancelButton = (Button) findViewById(R.id.btncancel);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+
+            case R.id.button9:
+                //set time
+
+
+                break;
+            case R.id.btnaddmyprograme:
+
+
+                break;
+            case R.id.btncancel:
+
+
+                finish();
+                break;
+
+
+
+        }//switch
+
 
     }
 }//main class
