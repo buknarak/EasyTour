@@ -1,11 +1,14 @@
 package com.kmutpnb.buk.easytour;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -57,16 +60,19 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
         int intCount = cursor.getCount();
 
-        String[] nameStrings = new String[intCount];
-        String[] provinceStrings = new String[intCount];
-        String[] timeUseStrings = new String[intCount];
-
+        final String[] nameStrings = new String[intCount];
+        final String[] provinceStrings = new String[intCount];
+        final String[] typeStrings = new String[intCount];
+        final String[] descripStrings = new String[intCount];
+        final String[] timeUseStrings = new String[intCount];
 
         for (int i = 0; i < intCount; i++) {
 
             nameStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
             provinceStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Province));
             timeUseStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
+            typeStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Type));
+            descripStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Description));
 
             cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
         }
@@ -74,6 +80,20 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         TourAdaptor tourAdaptor = new TourAdaptor(ShowProgramTourActivity.this,
                 nameStrings, provinceStrings, timeUseStrings);
         tourListViewListView.setAdapter(tourAdaptor);
+        tourListViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(ShowProgramTourActivity.this, showDetailTourActivity.class );//โยนค่าไปหน้าใหม่
+                intent.putExtra("Name", nameStrings[i]);
+                intent.putExtra("Province", provinceStrings[i]);
+                intent.putExtra("Type", typeStrings[i]);
+                intent.putExtra("TimeUse", timeUseStrings[i]);
+                intent.putExtra("Descrip", descripStrings[i]);
+                startActivity(intent);
+
+            }//on item
+        });
 
     }
 
@@ -101,8 +121,14 @@ public class ShowProgramTourActivity extends AppCompatActivity {
                 //SE
                 categoryString = "SE";
             } else {
-                //SW
-                categoryString = "SW";
+                if (userLatADouble < 10.978161) {
+
+                    categoryString = "SS";
+                } else {
+                    //SW
+                    categoryString = "SW";
+                }
+
             }
 
 
