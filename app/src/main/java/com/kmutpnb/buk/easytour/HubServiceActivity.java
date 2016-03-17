@@ -108,10 +108,15 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnrecommend:
                 break;
             case R.id.btnlistuser:
+
+                Intent userIntent = new Intent(HubServiceActivity.this, ShowUserActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                startActivity(userIntent);
+
                 break;
 
         }//switch
 
 
     }//on click
+
 }//main class

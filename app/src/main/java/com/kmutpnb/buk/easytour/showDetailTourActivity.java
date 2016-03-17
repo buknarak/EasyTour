@@ -33,16 +33,16 @@ public class showDetailTourActivity extends AppCompatActivity implements View.On
         showTextView();
 
         //Button Controller
-        buttonController();
+       // buttonController();
 
 
     }//main method
 
     private void buttonController() {
 
-            setTimeButton.setOnClickListener(this);
-            addMyProgramButton.setOnClickListener(this);
-            cancelButton.setOnClickListener(this);
+        setTimeButton.setOnClickListener(this);
+        addMyProgramButton.setOnClickListener(this);
+        cancelButton.setOnClickListener(this);
     }
 
     private void showTextView() {
@@ -70,20 +70,20 @@ public class showDetailTourActivity extends AppCompatActivity implements View.On
     }//get time
 
     private void showDate(String showDate) {
-            dateTextView.setText(showDate);
+        dateTextView.setText(showDate);
 
     }//showdate
 
     private void bindWidget() {
 
-             dateTextView = (TextView) findViewById(R.id.tvdate);
-             nameTextView = (TextView) findViewById(R.id.tvnamet);
-             provinceTextView = (TextView) findViewById(R.id.tvprovince);
-             typeTextView = (TextView) findViewById(R.id.tvtype);
-             timeuseTextView = (TextView) findViewById(R.id.tvtimeuse);
-             descripTextView = (TextView) findViewById(R.id.tvdescrip);
-             setTimeButton = (Button) findViewById(R.id.btnaddmyprograme);
-             cancelButton = (Button) findViewById(R.id.btncancel);
+        dateTextView = (TextView) findViewById(R.id.tvdate);
+        nameTextView = (TextView) findViewById(R.id.tvnamet);
+        provinceTextView = (TextView) findViewById(R.id.tvprovince);
+        typeTextView = (TextView) findViewById(R.id.tvtype);
+        timeuseTextView = (TextView) findViewById(R.id.tvtimeuse);
+        descripTextView = (TextView) findViewById(R.id.tvdescrip);
+        addMyProgramButton = (Button) findViewById(R.id.btnaddmyprograme);
+        cancelButton = (Button) findViewById(R.id.btncancel);
 
     }
 

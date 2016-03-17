@@ -34,7 +34,7 @@
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="Select Date"
                 android:id="@+id/button9"
                 android:layout_weight="1" />
 

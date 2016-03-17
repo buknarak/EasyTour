@@ -57,7 +57,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         cursor.moveToFirst();
 
 
-        int intCount = cursor.getCount();
+        final int intCount = cursor.getCount();
 
         final String[] nameStrings = new String[intCount];
         final String[] provinceStrings = new String[intCount];
@@ -76,10 +76,13 @@ public class ShowProgramTourActivity extends AppCompatActivity {
             cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
         }
         cursor.close();
-        TourAdaptor tourAdaptor = new TourAdaptor(ShowProgramTourActivity.this,
+
+             TourAdaptor tourAdapter = new TourAdaptor(ShowProgramTourActivity.this,
                 nameStrings, provinceStrings, timeUseStrings);
-        tourListViewListView.setAdapter(tourAdaptor);
+        tourListViewListView.setAdapter(tourAdapter);
+
         tourListViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 

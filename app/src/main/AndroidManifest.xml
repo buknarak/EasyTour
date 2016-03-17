@@ -24,7 +24,9 @@
         <activity android:name=".HubTourActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ShowProgramTourActivity" />
-        <activity android:name=".showDetailTourActivity"></activity>
+        <activity android:name=".showDetailTourActivity" />
+        <activity android:name=".ShowUserActivity" />
+        <activity android:name=".ShowDetaiUserActivity"></activity>
     </application>
 
 </manifest>
