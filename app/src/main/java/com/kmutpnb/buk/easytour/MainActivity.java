@@ -346,12 +346,13 @@ public class MainActivity extends AppCompatActivity {
 
         int intTable = 1; //amount of table
         String tag = "tour";
-        while (intTable <= 2) {
+        while (intTable <= 3) {
 
             //การซิงค์ 3กระบวนการ 1.Create input stream
             InputStream objInputStream = null;
             String strURLuser = "http://swiftcodingthai.com/puk/php_get_user_buk.php";
             String strURLtour = "http://swiftcodingthai.com/puk/php_get_tour_buk.php";
+            String strURLmytour = "http://swiftcodingthai.com/puk/php_add_mytour_buk";
             HttpPost objHttpPost = null;
             try {
 
@@ -363,6 +364,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         objHttpPost = new HttpPost(strURLtour);
+                        break;
+                    case 3:
+                        objHttpPost = new HttpPost(strURLmytour);
                         break;
                 }
 
@@ -430,7 +434,18 @@ public class MainActivity extends AppCompatActivity {
 
                             objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription, strType, strTimeUse, strLat, strLng);
                             break;
+                        case 3 :
 
+                            //for tour mytable
+
+                            String strMyTourName = object.getString(MyManageTable.column_name);
+                            String strMyTimeUse = object.getString(MyManageTable.column_TimeUse);
+                            String strDateStart = object.getString(MyManageTable.column_DateStart);
+                            String strHrStart = object.getString(MyManageTable.column_HrStart);
+                            String strHrEnd = object.getString(MyManageTable.column_HrEnd);
+
+                            objMyManageTable.addMyTour(strMyTourName, strMyTimeUse, strDateStart, strHrStart, strHrEnd);
+                            break;
 
                     }//switch
 

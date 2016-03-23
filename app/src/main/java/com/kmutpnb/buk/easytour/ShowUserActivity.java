@@ -58,17 +58,20 @@ public class ShowUserActivity extends AppCompatActivity {
             nameString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
             userStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_user));
            positionString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
-//            if (positionString[i] "1") {
-//
-//
-//                positionString[i] = "admin";
-//
-//            }else {
-//                positionString[i] = "USER";
-//            }
+
+            int intStatus = Integer.parseInt(positionString[i]);
+             positionString[i]= null;
+            switch (intStatus) {
+                case 0:
+                    positionString[i] = "นักท่องเที่ยว";
+                    break;
+                case 1:
+                    positionString[i] = "มัคคุเทศน์";
+                    break;
+
+            }
 
             passString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_password));
-
 
 
             cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
