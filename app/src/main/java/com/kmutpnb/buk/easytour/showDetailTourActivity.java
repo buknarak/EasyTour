@@ -179,27 +179,10 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
             case R.id.btnaddmyprograme:
 
-                AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
-                objBuilder.setTitle("ต้องการเพิ่มรายการทัวร์นี้ใช่หรือไม่");
-                objBuilder.setMessage("สถานที่ท่องเที่ยว = " + nameString);
-                objBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        //update to mysql
-                        updateToMySQL();
-                        dialogInterface.dismiss(); //ทำให้ pop up หายไป
-                    }
-                });
-                objBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                        dialogInterface.dismiss();
-                    }
-                });
+                //listMyTour();
 
-                objBuilder.show();
                 break;
 
             case R.id.btncancel:
@@ -211,6 +194,90 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
 
         }
+
+    private void listMyTour() {
+
+
+        final String[] nameStrings;
+
+        final String[] tourDateString;
+        final String[] HrStart;
+        final String[] HrEnd;
+
+        int intCount = Integer.parseInt(timeuseString);
+        while (intCount < 7) {
+
+           // nameStrings[] = getString(nameStrings);
+
+
+            intCount =  intCount + intCount;
+
+
+
+
+//            AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
+//            objBuilder.setTitle("ต้องการเพิ่มรายการทัวร์นี้ใช่หรือไม่");
+//            objBuilder.setMessage("สถานที่ท่องเที่ยว = " + nameString);
+//            objBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    //update to mysql
+//                    updateToMySQL();
+//                    dialogInterface.dismiss(); //ทำให้ pop up หายไป
+//                }
+//            });
+//            objBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    dialogInterface.dismiss();
+//                }
+//            });
+//
+//            objBuilder.show();
+        }
+//        final int intCount = cursor.getCount();
+//            nameString
+//            timeuseString
+//
+//        final String[] nameStrings = new String[intCount];
+//        final String[] provinceStrings = new String[intCount];
+//
+//        for (int i = 0; i < intCount; i++) {
+//
+//            nameStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
+//            provinceStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Province));
+//            timeUseStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
+//            typeStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Type));
+//            descripStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Description));
+//
+//            cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
+//        }
+//        cursor.close();
+//
+//        TourAdaptor tourAdapter = new TourAdaptor(ShowProgramTourActivity.this,
+//                nameStrings, provinceStrings, timeUseStrings);
+//        tourListViewListView.setAdapter(tourAdapter);
+//
+//        tourListViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                Intent intent = new Intent(ShowProgramTourActivity.this, showDetailTourActivity.class );//โยนค่าไปหน้าใหม่
+//                intent.putExtra("Name", nameStrings[i]);
+//                intent.putExtra("Province", provinceStrings[i]);
+//                intent.putExtra("Type", typeStrings[i]);
+//                intent.putExtra("TimeUse", timeUseStrings[i]);
+//                intent.putExtra("Descrip", descripStrings[i]);
+//                startActivity(intent);
+//
+//            }//on item
+//        });
+
+
+    }
 
     private void updateToMySQL() {
 

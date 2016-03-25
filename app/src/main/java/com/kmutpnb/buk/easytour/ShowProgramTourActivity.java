@@ -30,7 +30,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
         //bindWindget;
         bindwidget();
-
+     //   tabHost = getTabHost();
 
         receiveAndSep();
 
@@ -40,6 +40,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
     }//main method
 
     private void bindwidget() {
+
 
         showCatTextView = (TextView) findViewById(R.id.textView7);
         tourListViewListView = (ListView) findViewById(R.id.listView);
@@ -139,4 +140,6 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         Log.d("11/03/59", "category = " + categoryString);
 
     }//receiveandSep
+
+
 }//main class
