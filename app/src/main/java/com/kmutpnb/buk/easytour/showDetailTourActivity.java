@@ -186,7 +186,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                 break;
 
             case R.id.btncancel:
-                Intent intent = new Intent(this, ShowProgramTourActivity.class);
+                Intent intent = new Intent(this, MainProgramTourActivity.class);
                 this.startActivity(intent);
                 finish();
                 break;

@@ -26,7 +26,9 @@
         <activity android:name=".ShowProgramTourActivity" />
         <activity android:name=".showDetailTourActivity" />
         <activity android:name=".ShowUserActivity" />
-        <activity android:name=".ShowDetaiUserActivity"></activity>
+        <activity android:name=".ShowDetaiUserActivity" />
+        <activity android:name=".MainProgramTourActivity" />
+        <activity android:name=".ShowProgramTourAllActivity"></activity>
     </application>
 
 </manifest>

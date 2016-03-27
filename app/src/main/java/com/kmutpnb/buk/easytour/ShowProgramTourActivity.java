@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 public class ShowProgramTourActivity extends AppCompatActivity {
 
@@ -26,12 +29,15 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_program_tour);
 
-        //recive lat lng
+//        @Override
+//        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//            return inflater.inflate(R.layout.activity_show_program_tour, container, false);
+
 
         //bindWindget;
         bindwidget();
-     //   tabHost = getTabHost();
 
+        //recive lat lng
         receiveAndSep();
 
         //show view
