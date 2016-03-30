@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +34,13 @@ import java.util.Date;
 public class showDetailTourActivity extends AppCompatActivity implements OnClickListener {
 
 
-    private TextView dateTextView, nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView;
-    private Button setTimeButton, addMyProgramButton, cancelButton;
+    private TextView dateTextView, nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView, rateTextView;
+    private Button setTimeButton, addMyProgramButton, cancelButton, submitButton;
     private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString;
     private DatePicker changedateDatePicker;
     private int year, month, day;
     static final int DATE_DIALOG_ID = 999;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +108,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
        // setTimeButton.setOnClickListener(this);
        addMyProgramButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+        submitButton.setOnClickListener(this);
     }
 
     private void showTextView() {
@@ -150,6 +153,10 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         changedateDatePicker = (DatePicker) findViewById(R.id.dpChange);
         setTimeButton = (Button) findViewById(R.id.button9);
 
+        submitButton = (Button) findViewById(R.id.btnRating);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        rateTextView = (TextView) findViewById(R.id.tvRateview);
+
     }
 
     private DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
@@ -190,10 +197,51 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                 this.startActivity(intent);
                 finish();
                 break;
+
+
+            case R.id.btnRating:
+                ShowDialogRating();
+                break;
         }
 
 
         }
+
+    private void ShowDialogRating() {
+
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        final RatingBar rating = new RatingBar(this);
+        //rating.setMax(5);
+        rating.setMax(5);
+        rating.setNumStars(5);
+//        rating.setStepSize(0.1f);
+
+        popDialog.setIcon(android.R.drawable.btn_star_big_on);
+        popDialog.setTitle("Vote!! ");
+        popDialog.setView(rating);
+              // popDialog.setView(rating.setMax(5));
+
+        // Button OK
+
+        popDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+                ratingBar.setRating(rating.getRating());
+
+               rateTextView.setText(String.valueOf(rating.getProgress()));
+                            dialog.dismiss();
+          }
+                })
+
+        // Button Cancel
+             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog, int id) {
+                     dialog.cancel();
+                 }
+             });
+        popDialog.create();
+        popDialog.show();
+    }
 
     private void listMyTour() {
 

@@ -115,6 +115,7 @@
                 android:id="@+id/tvtype"
                 android:textSize="@dimen/H2"
                 android:layout_weight="2" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -137,7 +138,45 @@
                 android:id="@+id/tvtimeuse"
                 android:textSize="@dimen/H2"
                 android:layout_weight="2" />
+
         </LinearLayout>
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating :"
+                android:id="@+id/tvRating"
+                android:textSize="@dimen/H2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test"
+                android:layout_toRightOf="@+id/tvRating"
+                android:id="@+id/tvRateview"
+                android:textSize="@dimen/H2" />
+            <RatingBar
+                android:id="@+id/ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:isIndicator="true"
+                android:stepSize="1.0"
+                android:numStars="5"
+                android:max="5"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnRating"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/ratingBar"
+                android:text="Vote"
+               />
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -161,6 +200,10 @@
                 android:id="@+id/tvdescrip"
                 android:textSize="@dimen/H2" />
         </ScrollView>
+
+
+
+
     </LinearLayout>
 
     <LinearLayout
