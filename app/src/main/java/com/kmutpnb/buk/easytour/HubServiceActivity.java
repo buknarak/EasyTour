@@ -69,6 +69,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
         recommendButton.setOnClickListener(this);
         listtourButton.setOnClickListener(this);
 
+
     }
 
     private void bindWidget() {
@@ -109,6 +110,11 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
                 break;
             case R.id.btnwarning:
+                Intent intent1 = new Intent(HubServiceActivity.this, MyTagActivity.class);
+                intent1.putExtra("Lat", myLat);
+                intent1.putExtra("Lng", myLng);
+                startActivity(intent1);//sent value
+
                 break;
             case R.id.btntracking:
                 break;

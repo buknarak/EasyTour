@@ -13,5 +13,6 @@
     <string name="name">ชื่อผู้ใช้</string>
     <string name="tour">ลูกทัวร์</string>
     <string name="admin">มัคคุเทศน์</string>
+    <string name="title_activity_my_tag">Map</string>
 
 </resources>
