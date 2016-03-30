@@ -14,7 +14,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
         //Explicit
     private TextView showNameTextview;
     private Button authenButton, listtourButton, warningButton, trackingButton, recommendButton, listuserButton ;
-    private String nameString;
+    private String nameString, meIDString;
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
     private double myLat, myLng;
@@ -48,8 +48,12 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
         myLat = getIntent().getDoubleExtra("Lat", 0);//ถ้ารับค่าไม่ได้ 0 default
          myLng = getIntent().getDoubleExtra("Lng", 0);//ถ้ารับค่าไม่ได้ 0 default
 
+        meIDString = getIntent().getStringExtra("meID");
+
         Log.d(tag, "myLat ==> " + myLat);
         Log.d(tag, "myLng ==> " + myLng);
+
+
 
     }
 
@@ -113,6 +117,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 Intent intent1 = new Intent(HubServiceActivity.this, MyTagActivity.class);
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
+                intent1.putExtra("meID", meIDString);
                 startActivity(intent1);//sent value
 
                 break;

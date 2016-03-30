@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +20,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
+import java.util.ArrayList;
+
 public class MyTagActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -29,6 +39,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     private Criteria objCriteria;
     private Boolean GPSABoolean, networkABoolearn;
     private double latADouble, lngADouble;
+    private String meIDString;
 
 
     @Override
@@ -58,7 +69,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onResume() {
         super.onResume();
 
-        objLocationManager.removeUpdates(objLocationListener);
+        objLocationManager.removeUpdates(objLocationListener1);
         latADouble = 0;
         lngADouble = 0;
 
@@ -105,7 +116,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     @Override
     protected void onStop() {
         super.onStop();
-        objLocationManager.removeUpdates(objLocationListener);
+        objLocationManager.removeUpdates(objLocationListener1);
 
     }//onStop โหมดปิด
 
@@ -114,7 +125,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         Location objLocation = null;
         if (objLocationManager.isProviderEnabled(strProvider)) {
 
-            objLocationManager.requestLocationUpdates(strProvider, 1000, 10, objLocationListener); // 1000ถ้าตั้งเฉยๆ ทุกหนึ่งวินาที หาพิกัด  // เคลื่อนที่ทุก 10 เมตร
+            objLocationManager.requestLocationUpdates(strProvider, 1000, 10, objLocationListener1); // 1000ถ้าตั้งเฉยๆ ทุกหนึ่งวินาที หาพิกัด  // เคลื่อนที่ทุก 10 เมตร
             objLocation = objLocationManager.getLastKnownLocation(strProvider);
 
 
@@ -127,7 +138,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
     //create class ทำหน้าที่โชว์ ละ ลอง เมื่อีการเปลี่ยนแปลง
-    public final LocationListener objLocationListener =new LocationListener() {
+    public final LocationListener objLocationListener1 =new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
 
@@ -176,6 +187,8 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
         meLatADouble = getIntent().getDoubleExtra("Lat", 14.47723421);
         meLngADouble = getIntent().getDoubleExtra("Lng", 100.64575195);
+
+        meIDString = getIntent().getStringExtra("meID");
     }
 
 
@@ -196,6 +209,13 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private void myLoopCreateMarker() {
 
+        Log.d("31", "meID ==> " + meIDString);
+        Log.d("31", "meID ==> " + latADouble);
+        Log.d("31", "meID ==> " + lngADouble);
+
+        updateToMySQL(meIDString, Double.toString(latADouble), Double.toString(lngADouble));//ส่งค่าไปเลยทีเดียว
+        //แปลง double to string ด้วย
+
         meLatLng = new LatLng(latADouble, lngADouble);
         mMap.clear();
         createMakerMe();
@@ -206,9 +226,40 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             public void run() {
                 myLoopCreateMarker();
             }
-        },3000); //3 วินาที
+        }, 3000); //3 วินาที
 
     }//myLoopCreateMarker
+
+    private void updateToMySQL(String meIDString, String strLat, String strLng) {
+
+
+        //connect
+        StrictMode.ThreadPolicy threadPolicy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
+        try {
+            ArrayList<NameValuePair> valuePairs = new ArrayList<NameValuePair>();
+            valuePairs.add(new BasicNameValuePair("isAdd", "true"));
+            valuePairs.add(new BasicNameValuePair("_id", meIDString));
+            valuePairs.add(new BasicNameValuePair("Lat", strLat));
+            valuePairs.add(new BasicNameValuePair("Lng", strLng));
+
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://swiftcodingthai.com/puk/php_edit_location.php");
+            httpPost.setEntity(new UrlEncodedFormEntity(valuePairs, "UTF-8"));
+            httpClient.execute(httpPost);
+
+        }catch (Exception e){
+
+
+            Log.d("31", "ERROR Update ==> " +e.toString());
+        }
+
+
+    }// update
+
 
     private void createMakerMe() {
 
