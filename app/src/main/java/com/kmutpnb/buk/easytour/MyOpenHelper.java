@@ -17,7 +17,9 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             "User text, " +
             "Password text, " +
             "Name text, " +
-            "Status text);";
+            "Status text, " +
+            "Lat text," +
+            "Lng text);";
 
     private static final String create_tour_table = "create table tourTABLE (" +
             "_id integer primary key, " +

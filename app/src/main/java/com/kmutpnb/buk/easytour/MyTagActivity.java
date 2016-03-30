@@ -1,6 +1,7 @@
 package com.kmutpnb.buk.easytour;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,13 +21,20 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MyTagActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -209,6 +217,11 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private void myLoopCreateMarker() {
 
+
+        synUserTable();
+
+        //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์
+
         Log.d("31", "meID ==> " + meIDString);
         Log.d("31", "meID ==> " + latADouble);
         Log.d("31", "meID ==> " + lngADouble);
@@ -229,6 +242,77 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         }, 3000); //3 วินาที
 
     }//myLoopCreateMarker
+
+    private void synUserTable() {
+
+        //delete UserTable
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        sqLiteDatabase.delete(MyManageTable.table_user, null,null);
+
+        //Connect Protocal
+        StrictMode.ThreadPolicy threadPolicy  =  new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
+        InputStream inputStream =null;
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://swiftcodingthai.com/puk/php_get_user_buk.php");
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+
+
+        }catch (Exception e){
+
+            Log.d("31", "Input ==> " +e.toString());
+
+        }
+
+        String strJson = null;
+        try {
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String strLine = null;
+
+            while ((strLine = bufferedReader.readLine())!= null) {
+
+                stringBuilder.append(strLine);
+            }
+            inputStream.close();
+            strJson = stringBuilder.toString();
+
+        }catch (Exception e){
+            Log.d("31", "Input ==> " + e.toString());
+        }
+
+        try {
+            JSONArray jsonArray =new JSONArray(strJson);
+
+            for (int i=0; i<jsonArray.length();i++ ){
+
+
+                JSONObject jsonobject = jsonArray.getJSONObject(i);
+
+                String strUser = jsonobject.getString(MyManageTable.column_user);
+                String strPassword = jsonobject.getString(MyManageTable.column_password);
+                String strName = jsonobject.getString(MyManageTable.column_name);
+                String strStatus = jsonobject.getString(MyManageTable.column_status);
+                String strLat = jsonobject.getString(MyManageTable.column_Lat);
+                String strLng = jsonobject.getString(MyManageTable.column_Lng);
+
+                MyManageTable myManageTable = new MyManageTable(this);
+                myManageTable.addUser(strUser,strPassword,strName,strStatus,strLat,strLng);
+            }
+
+        } catch (Exception e) {
+            Log.d("31", "Update ==> " + e.toString());
+        }
+
+    }//synUserTAble
 
     private void updateToMySQL(String meIDString, String strLat, String strLng) {
 

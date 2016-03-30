@@ -124,13 +124,17 @@ public class MyManageTable {
     public long addUser(String strUser,
                         String strPassword,
                         String strName,
-                        String strStatus) {
+                        String strStatus,
+                        String strLat,
+                        String strLng) {
 
         ContentValues objContentValues = new ContentValues();
         objContentValues.put(column_user, strUser);
         objContentValues.put(column_password, strPassword);
         objContentValues.put(column_name, strName);
         objContentValues.put(column_status, strStatus);
+        objContentValues.put(column_Lat, strLat);
+        objContentValues.put(column_Lng, strLng);
 
         return writeSqLiteDatabase.insert(table_user, null, objContentValues); //แปลง string to long int
     }
