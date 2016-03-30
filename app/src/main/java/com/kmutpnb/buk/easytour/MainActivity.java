@@ -11,6 +11,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Criteria objCriteria;
     private Boolean GPSABoolean, networkABoolearn;
     private double latADouble, lngADouble;
-
+    private String meIDString = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,11 @@ public class MainActivity extends AppCompatActivity {
         getLocation();
 
 
+
+
     }//Main Method
+
+
 
     @Override
     protected void onResume() {
@@ -221,6 +226,9 @@ public class MainActivity extends AppCompatActivity {
 
             String[] myResultStrings = objMyManageTable.searchUser(useString);
 
+
+            meIDString = myResultStrings[0];
+
             Log.d("Tour", "Pass =" + myResultStrings[2]);
             //check password
             checkPassword(myResultStrings[2], myResultStrings[3], myResultStrings[4]); //โยน อากิวเม้น 3 ตัว แสดงชื่อ ตำแหน่ง
@@ -257,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void welcome(final String strName, final String strStatus) {
 
+
         AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
         objBuilder.setIcon(R.drawable.icon_myaccount);
         objBuilder.setTitle("Welcome");
@@ -265,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
         objBuilder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {//เมื่อมีการกด ตกลง
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
 
                 switch (Integer.parseInt(strStatus))
                 {
