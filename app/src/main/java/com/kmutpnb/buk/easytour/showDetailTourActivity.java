@@ -36,9 +36,9 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     private TextView dateTextView, nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView, rateTextView;
     private Button setTimeButton, addMyProgramButton, cancelButton, submitButton;
-    private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString;
+    private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString,hrStart,hrStop;
     private DatePicker changedateDatePicker;
-    private int year, month, day;
+    private int year, month, day, timeTour=6;
     static final int DATE_DIALOG_ID = 999;
     private RatingBar ratingBar;
 
@@ -59,7 +59,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
         //Button Controller
         buttonController();
-        //setCurrentDateView();
+        setCurrentDateView();
 
 
 
@@ -186,14 +186,14 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
             case R.id.btnaddmyprograme:
 
-
-
-                //listMyTour();
+                tourDateString = dateTextView.getText().toString();
+                listMyTour();
+                upToSQLite();
 
                 break;
 
             case R.id.btncancel:
-                Intent intent = new Intent(this, MainProgramTourActivity.class);
+                Intent intent = new Intent(this, ShowProgramTourActivity.class);
                 this.startActivity(intent);
                 finish();
                 break;
@@ -207,6 +207,12 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
         }
 
+    private void upToSQLite() {
+
+        MyManageTable objMyManageTable = new MyManageTable(this);
+        objMyManageTable.addMyTour(nameString,timeuseString,tourDateString,hrStart,hrStop);
+    }
+
     private void ShowDialogRating() {
 
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
@@ -214,22 +220,17 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         //rating.setMax(5);
         rating.setMax(5);
         rating.setNumStars(5);
-//        rating.setStepSize(0.1f);
 
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
         popDialog.setTitle("Vote!! ");
         popDialog.setView(rating);
-              // popDialog.setView(rating.setMax(5));
 
         // Button OK
-
         popDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-
                 ratingBar.setRating(rating.getRating());
-
                rateTextView.setText(String.valueOf(rating.getProgress()));
-                            dialog.dismiss();
+                           dialog.dismiss();
           }
                 })
 
@@ -245,23 +246,26 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     private void listMyTour() {
 
+//        int timeuseint = Integer.parseInt(timeuseString);
 
-        final String[] nameStrings;
-
-        final String[] tourDateString;
-        final String[] HrStart;
-        final String[] HrEnd;
-
-        int intCount = Integer.parseInt(timeuseString);
-        while (intCount < 7) {
-
-           // nameStrings[] = getString(nameStrings);
-
-
-            intCount =  intCount + intCount;
+//        final String[] nameArray;
+//        final String[] tourDateString;
+//        final String[] HrStart;
+//        final String[] HrEnd;
 
 
 
+        Intent objIntent = new Intent(showDetailTourActivity.this, ConfirmMytourActivity.class);
+        objIntent.putExtra("date", tourDateString);
+        objIntent.putExtra("Name", nameString);
+        objIntent.putExtra("HrStart", hrStart);
+        objIntent.putExtra("HrStop", hrStop);
+        objIntent.putExtra("TimeUse", timeuseString);
+        startActivity(objIntent);
+
+
+
+//        while (timeTour < 6) {
 
 //            AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
 //            objBuilder.setTitle("ต้องการเพิ่มรายการทัวร์นี้ใช่หรือไม่");
@@ -284,47 +288,6 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 //            });
 //
 //            objBuilder.show();
-        }
-//        final int intCount = cursor.getCount();
-//            nameString
-//            timeuseString
-//
-//        final String[] nameStrings = new String[intCount];
-//        final String[] provinceStrings = new String[intCount];
-//
-//        for (int i = 0; i < intCount; i++) {
-//
-//            nameStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
-//            provinceStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Province));
-//            timeUseStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
-//            typeStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Type));
-//            descripStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Description));
-//
-//            cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
-//        }
-//        cursor.close();
-//
-//        TourAdaptor tourAdapter = new TourAdaptor(ShowProgramTourActivity.this,
-//                nameStrings, provinceStrings, timeUseStrings);
-//        tourListViewListView.setAdapter(tourAdapter);
-//
-//        tourListViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//
-//                Intent intent = new Intent(ShowProgramTourActivity.this, showDetailTourActivity.class );//โยนค่าไปหน้าใหม่
-//                intent.putExtra("Name", nameStrings[i]);
-//                intent.putExtra("Province", provinceStrings[i]);
-//                intent.putExtra("Type", typeStrings[i]);
-//                intent.putExtra("TimeUse", timeUseStrings[i]);
-//                intent.putExtra("Descrip", descripStrings[i]);
-//                startActivity(intent);
-//
-//            }//on item
-//        });
-
-
     }
 
     private void updateToMySQL() {
@@ -344,7 +307,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
            // objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, positionString));
 
             HttpClient objHttpClient = new DefaultHttpClient();
-            HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_mytour_buk");
+            HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_mytour_buk.php");
             objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
             objHttpClient.execute(objHttpPost);
 
@@ -357,8 +320,6 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                     Toast.LENGTH_SHORT).show();//short = 4 วิ
 
         }
-
-
 
     }
 

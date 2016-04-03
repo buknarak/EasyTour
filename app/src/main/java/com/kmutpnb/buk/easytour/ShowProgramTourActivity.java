@@ -20,7 +20,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
     //explicite
     private double userLatADouble, userLngAdouble;
-    private String categoryString;
+    private String categoryString, category;
     private TextView showCatTextView;
     private ListView tourListViewListView;
 
@@ -56,7 +56,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
     private void showView() {
 
-        showCatTextView.setText(getResources().getString(R.string.listtour) + " " + categoryString);
+        showCatTextView.setText(getResources().getString(R.string.listtour) + " " + category);
         //read or where
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
@@ -119,9 +119,11 @@ public class ShowProgramTourActivity extends AppCompatActivity {
             if (userLatADouble > HubServiceActivity.centerLng) {
 
                 categoryString = "NE";
+                category = "ภาคตะวันออกเฉียงเหนือ";
             } else {
 
                 categoryString = "NW";
+                category = "ภาคเหนือ";
             }
 
         } else {
@@ -129,13 +131,16 @@ public class ShowProgramTourActivity extends AppCompatActivity {
             if (userLngAdouble > HubServiceActivity.centerLng) {
                 //SE
                 categoryString = "SE";
+                category = "ภาคตะวันออก";
             } else {
                 if (userLatADouble < 10.978161) {
 
                     categoryString = "SS";
+                    category = "ภาคใต้";
                 } else {
                     //SW
                     categoryString = "SW";
+                    category = "ภาคกลาง";
                 }
 
             }

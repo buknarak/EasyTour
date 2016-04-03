@@ -101,16 +101,16 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnlisttour:
                 //โปรแกรมทัวร์
-//                Intent intent = new Intent(HubServiceActivity.this, ShowProgramTourActivity.class);
-//                intent.putExtra("Lat", myLat);
-//                intent.putExtra("Lng", myLng);
-//                startActivity(intent);//sent value
-
-                Intent intent = new Intent(HubServiceActivity.this, MainProgramTourActivity.class);
-               // this.startActivity(intent);
+                Intent intent = new Intent(HubServiceActivity.this, ShowProgramTourActivity.class);
                 intent.putExtra("Lat", myLat);
                 intent.putExtra("Lng", myLng);
                 startActivity(intent);//sent value
+
+//                Intent intent = new Intent(HubServiceActivity.this, MainProgramTourActivity.class);
+//               // this.startActivity(intent);
+//                intent.putExtra("Lat", myLat);
+//                intent.putExtra("Lng", myLng);
+//                startActivity(intent);//sent value
 
                 break;
             case R.id.btnwarning:

@@ -30,7 +30,7 @@ public class MyManageTable {
     public static final String column_Lat = "Lat";
     public static final String column_Lng = "Lng";
 
-    public static final String table_mytour = "myTourTABLE";
+    public static final String table_mytour = "mytourTABLE";
     public static final String column_DateStart = "DateStart";
     public static final String column_HrStart = "HrStart";
     public static final String column_HrEnd = "HrEnd";
@@ -60,6 +60,30 @@ public class MyManageTable {
 
         return writeSqLiteDatabase.insert(table_mytour, null, contentValues);
     }//string to integer
+
+    public String[] readAllMyTour (int intChoose){
+
+        String[] strReadAll = null;
+        Cursor objCursor = readSqLiteDatabase.query(table_mytour,
+                new String[]{column_id, column_name, column_TimeUse},
+                null, null, null, null, null);
+
+        if (objCursor != null) {
+            objCursor.moveToFirst();
+            strReadAll = new String[objCursor.getCount()];
+            for (int i = 0; i < objCursor.getCount(); i++) {
+                if (intChoose == 1) {
+                    strReadAll[i] = objCursor.getString(objCursor.getColumnIndex(column_name));
+                } else {
+                    strReadAll[i] = objCursor.getString(objCursor.getColumnIndex(column_TimeUse));
+                }
+                objCursor.moveToNext();
+            }
+        }
+        objCursor.close();
+        return strReadAll;
+
+    }
 
     public long addTour(String strCategory,
                         String strName,

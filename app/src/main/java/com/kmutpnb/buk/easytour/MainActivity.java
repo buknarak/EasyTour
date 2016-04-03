@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
         objMyManageTable = new MyManageTable(this);
 
         //test add value
-        testAddValue();
-        //deleteAllSQlite
+        //testAddValue();
 
+        //deleteAllSQlite
         deleteAllSQlite();
 
         //synchronize โหลดแค่ข้อมูล json to sqlite
@@ -358,13 +358,13 @@ public class MainActivity extends AppCompatActivity {
 
         int intTable = 1; //amount of table
         String tag = "tour";
-        while (intTable <= 3) {
+        while (intTable <= 2) {
 
             //การซิงค์ 3กระบวนการ 1.Create input stream
             InputStream objInputStream = null;
             String strURLuser = "http://swiftcodingthai.com/puk/php_get_user_buk.php";
             String strURLtour = "http://swiftcodingthai.com/puk/php_get_tour_buk.php";
-            String strURLmytour = "http://swiftcodingthai.com/puk/php_add_mytour_buk";
+            //String strURLmytour = "http://swiftcodingthai.com/puk/php_add_mytour_buk.php";
             HttpPost objHttpPost = null;
             try {
 
@@ -377,9 +377,9 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         objHttpPost = new HttpPost(strURLtour);
                         break;
-                    case 3:
-                        objHttpPost = new HttpPost(strURLmytour);
-                        break;
+//                    case 3:
+//                        objHttpPost = new HttpPost(strURLmytour);
+//                        break;
                 }
 
                 HttpResponse objHttpResponse = objHttpClient.execute(objHttpPost);
@@ -448,18 +448,18 @@ public class MainActivity extends AppCompatActivity {
 
                             objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription, strType, strTimeUse, strLat, strLng);
                             break;
-                        case 3 :
-
-                            //for tour mytable
-
-                            String strMyTourName = object.getString(MyManageTable.column_name);
-                            String strMyTimeUse = object.getString(MyManageTable.column_TimeUse);
-                            String strDateStart = object.getString(MyManageTable.column_DateStart);
-                            String strHrStart = object.getString(MyManageTable.column_HrStart);
-                            String strHrEnd = object.getString(MyManageTable.column_HrEnd);
-
-                            objMyManageTable.addMyTour(strMyTourName, strMyTimeUse, strDateStart, strHrStart, strHrEnd);
-                            break;
+//                        case 3 :
+//
+//                            //for tour mytable
+//
+//                            String strMyTourName = object.getString(MyManageTable.column_name);
+//                            String strMyTimeUse = object.getString(MyManageTable.column_TimeUse);
+//                            String strDateStart = object.getString(MyManageTable.column_DateStart);
+//                            String strHrStart = object.getString(MyManageTable.column_HrStart);
+//                            String strHrEnd = object.getString(MyManageTable.column_HrEnd);
+//
+//                            objMyManageTable.addMyTour(strMyTourName, strMyTimeUse, strDateStart, strHrStart, strHrEnd);
+//                            break;
 
                     }//switch
 
@@ -483,12 +483,14 @@ public class MainActivity extends AppCompatActivity {
                 MODE_PRIVATE, null);
         objSqLiteDatabase.delete(MyManageTable.table_user, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
         objSqLiteDatabase.delete(MyManageTable.table_tour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
+     //   objSqLiteDatabase.delete(MyManageTable.table_mytour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
 
     }
 
     private void testAddValue() {
 
         objMyManageTable.addUser("testUser", "testPass", "testName", "testStatus", "Lat", "Lng");
+        objMyManageTable.addMyTour("test", "test", "test", "test", "test");
 
     }//void คือ ไม่ต้องรีเทริืค่า
 }//MainClass

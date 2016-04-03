@@ -7,12 +7,50 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.kmutpnb.buk.easytour.HubTourActivity">
+    tools:context="com.kmutpnb.buk.easytour.HubTourActivity"
+    android:background="@drawable/bg01">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tour"
-        android:id="@+id/textView3"
-        android:textSize="30sp" />
+        android:text="New Text"
+        android:id="@+id/textView2"
+        android:textSize="@dimen/H1" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="@dimen/mybutton"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/listtour"
+            android:id="@+id/btnlisttour" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/warning"
+            android:id="@+id/btnwarning" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tracking"
+            android:id="@+id/btntracking" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/recommend"
+            android:id="@+id/btnrecommend" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/listuser"
+            android:id="@+id/btnlistuser" />
+    </LinearLayout>
 </RelativeLayout>
