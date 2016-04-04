@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,12 +30,16 @@ public class ConfirmMytourActivity extends AppCompatActivity {
     private TextView dateTextView, nameTextView;
     private String dateString, nameString, timeuseString, hrStartString, hrStopString;
     private ListView confirmmytourListView;
+    private int timeuseint;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_mytour);
+
+        //timeuseint = Integer.parseInt(timeuseString);
 
         bindwidget();
         showmytour();
@@ -60,8 +65,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, strName[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_TimeUse, strTimeUse[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_DateStart, dateString));
-                //objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, hrStart));
-                // objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, hrStop));
+               // objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, dateString));
+               // objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, dateString));
 
                 HttpClient objHttpClient = new DefaultHttpClient();
                 HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_mytour_buk.php");
@@ -84,15 +89,20 @@ public class ConfirmMytourActivity extends AppCompatActivity {
         Toast.makeText(ConfirmMytourActivity.this, "Program Finish", Toast.LENGTH_SHORT).show();
         Intent objIntent = new Intent(ConfirmMytourActivity.this, ShowProgramTourActivity.class);
         startActivity(objIntent);
+        finish();
     }
 
     private void createlistview() {
 
-        MyManageTable objMyManageTable = new MyManageTable(this);
-        String[] strName = objMyManageTable.readAllMyTour(1);
-        String[] strTimeUse = objMyManageTable.readAllMyTour(2);
-        ConfirmMyTourAdapter objConfirmMyTourAdapter = new ConfirmMyTourAdapter(ConfirmMytourActivity.this, strName, strTimeUse);
-        confirmmytourListView.setAdapter(objConfirmMyTourAdapter);
+
+
+            MyManageTable objMyManageTable = new MyManageTable(this);
+            String[] strName = objMyManageTable.readAllMyTour(1);
+            String[] strTimeUse = objMyManageTable.readAllMyTour(2);
+            ConfirmMyTourAdapter objConfirmMyTourAdapter = new ConfirmMyTourAdapter(ConfirmMytourActivity.this, strName, strTimeUse);
+            confirmmytourListView.setAdapter(objConfirmMyTourAdapter);
+
+       // timeuseint = timeuseint + timeuseint;
         confirmmytourListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -133,6 +143,12 @@ public class ConfirmMytourActivity extends AppCompatActivity {
         hrStopString = getIntent().getStringExtra("HrStop");
         timeuseString = getIntent().getStringExtra("TimeUse");
         dateTextView.setText(dateString);
+
+         timeuseint = Integer.parseInt(timeuseString);
+
+
+
+        Log.d("time", timeuseString);
 
 
     }

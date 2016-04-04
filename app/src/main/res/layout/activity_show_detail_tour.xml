@@ -159,6 +159,8 @@
                 android:id="@+id/tvRateview"
                 android:textSize="@dimen/H2" />
             <RatingBar
+
+                style="?android:attr/ratingBarStyle"
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
