@@ -74,6 +74,29 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }//Main Method
 
+
+    //นี่คือ เมทอด ที่หาระยะ ระหว่างจุด
+    private static double distance(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515 * 1.609344*1000;//*1000 = แปลงเป็นเมตร
+
+
+        return (dist);
+    }
+
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -237,22 +260,31 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             createMakerUser(strName, strLat, strLng);
 
 
+            //check distance
+            double doulat2 = Double.parseDouble(strLat);
+            double doulng2 = Double.parseDouble(strLng);
+
+            double douDistance = distance(latADouble,lngADouble, doulat2, doulng2);
+
+            Log.d("99", "distance [" + strName +" ] " + douDistance );
+
+
+
+
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
         }//for
 
-
-
-
-
         //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์
-
+        //เอาพิกัด admin ไปเก็บที่ server
         updateToMySQL(meIDString, Double.toString(latADouble), Double.toString(lngADouble));//ส่งค่าไปเลยทีเดียว
         //แปลง double to string ด้วย
 
+        //กำหนด maker ใหม่ให้กับ admin
         meLatLng = new LatLng(latADouble, lngADouble);
 
         createMakerMe();
 
+        //หน่วงเวลา และลุปไม่จบ
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
