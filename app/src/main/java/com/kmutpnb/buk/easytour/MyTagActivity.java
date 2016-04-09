@@ -1,5 +1,7 @@
 package com.kmutpnb.buk.easytour;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,10 +9,13 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -269,7 +274,13 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             Log.d("99", "distance [" + strName +" ] " + douDistance );
 
 
+            //check
+            if (douDistance > 400) {
 
+                myNotification(strName);
+
+
+            } //if
 
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
         }//for
@@ -294,6 +305,30 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         }, 3000); //3 วินาที
 
     }//myLoopCreateMarker
+
+    private void myNotification(String strName) {
+
+      // Log.d("99", strName);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.drawable.danger);
+        builder.setTicker("Easy Tour");
+        builder.setWhen(System.currentTimeMillis());
+        builder.setContentTitle("ระยะเกิน");
+        builder.setContentText("กลับมาได้แล้ว " +strName + "ไปไกลเกินไปแล้ว");
+        builder.setAutoCancel(false);
+
+
+        Uri soundUri = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);
+        builder.setSound(soundUri);
+
+        android.app.Notification notification = builder.build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(1000, notification);
+
+
+
+    }//Noti
 
     private void createMakerUser(String strName, String strLat, String strLng) {
 
