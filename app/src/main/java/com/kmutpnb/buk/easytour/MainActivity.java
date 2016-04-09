@@ -52,18 +52,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Blind winget ผูก widget
-
         blidWidget();
-
 
         //request db
         objMyManageTable = new MyManageTable(this);
 
-        //test add value
-        //testAddValue();
-
         //deleteAllSQlite
         deleteAllSQlite();
+
+        //test add value
+       // testAddValue();
 
         //synchronize โหลดแค่ข้อมูล json to sqlite
         synJsontoSQlite();
@@ -71,11 +69,7 @@ public class MainActivity extends AppCompatActivity {
         //Get location
         getLocation();
 
-
-
-
     }//Main Method
-
 
 
     @Override
@@ -99,9 +93,7 @@ public class MainActivity extends AppCompatActivity {
             latADouble = GPSLocation.getLatitude();
             lngADouble = GPSLocation.getLongitude();
 
-
         }//if
-
         //show Log
         Log.d("Tour", "Lat ==> " + latADouble);
         Log.d("Tour", "Lng ==> " + lngADouble);
@@ -208,16 +200,10 @@ public class MainActivity extends AppCompatActivity {
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
             objMyAlertDialog.myDialog(MainActivity.this, "มีช่องว่าง", "กรุณากรอกข้อมูลให้ครบทุกช่องค่ะ");
 
-
         } else {
-
             //no space
             checkUser();
-
         }//if
-
-
-
     }// clicklogin
 
     private void checkUser() {
@@ -226,14 +212,11 @@ public class MainActivity extends AppCompatActivity {
 
             String[] myResultStrings = objMyManageTable.searchUser(useString);
 
-
             meIDString = myResultStrings[0];
 
             Log.d("Tour", "Pass =" + myResultStrings[2]);
             //check password
             checkPassword(myResultStrings[2], myResultStrings[3], myResultStrings[4]); //โยน อากิวเม้น 3 ตัว แสดงชื่อ ตำแหน่ง
-
-
 
         }
         catch (Exception e) {
@@ -358,13 +341,13 @@ public class MainActivity extends AppCompatActivity {
 
         int intTable = 1; //amount of table
         String tag = "tour";
-        while (intTable <= 2) {
+        while (intTable <= 3) {
 
             //การซิงค์ 3กระบวนการ 1.Create input stream
             InputStream objInputStream = null;
             String strURLuser = "http://swiftcodingthai.com/puk/php_get_user_buk.php";
             String strURLtour = "http://swiftcodingthai.com/puk/php_get_tour_buk.php";
-            //String strURLmytour = "http://swiftcodingthai.com/puk/php_add_mytour_buk.php";
+            String strURLmyTour = "http://swiftcodingthai.com/puk/php_get_mytour_buk.php";
             HttpPost objHttpPost = null;
             try {
 
@@ -377,9 +360,9 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         objHttpPost = new HttpPost(strURLtour);
                         break;
-//                    case 3:
-//                        objHttpPost = new HttpPost(strURLmytour);
-//                        break;
+                    case 3:
+                        objHttpPost = new HttpPost(strURLmyTour);
+                        break;
                 }
 
                 HttpResponse objHttpResponse = objHttpClient.execute(objHttpPost);
@@ -403,7 +386,6 @@ public class MainActivity extends AppCompatActivity {
 
                     objStringBuilder.append(strLine);
 
-
                 }//while
                 objInputStream.close();
                 strJson = objStringBuilder.toString();
@@ -413,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            //3.chenge json string to sqllite
+            //3.change json string to sqllite
             try {
 
                 JSONArray obJsonArray = new JSONArray(strJson);
@@ -433,10 +415,9 @@ public class MainActivity extends AppCompatActivity {
                             objMyManageTable.addUser(strUser, strPassword, strName, strStatus, strLat1,  strLng1);
 
                             break;
-                        case 2 :
+                        case 2:
 
                             //for tour table
-
                             String strCategory = object.getString(MyManageTable.column_Category);
                             String strNametour = object.getString(MyManageTable.column_name);
                             String strProvince = object.getString(MyManageTable.column_Province);
@@ -445,36 +426,38 @@ public class MainActivity extends AppCompatActivity {
                             String strTimeUse = object.getString(MyManageTable.column_TimeUse);
                             String strLat = object.getString(MyManageTable.column_Lat);
                             String strLng = object.getString(MyManageTable.column_Lng);
+                            String strTotalScore = object.getString(MyManageTable.column_TotalScore);
 
-                            objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription, strType, strTimeUse, strLat, strLng);
+                            objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription, strType, strTimeUse, strLat, strLng, strTotalScore);
+                           Log.d("Dooo", strCategory);
                             break;
-//                        case 3 :
-//
-//                            //for tour mytable
-//
-//                            String strMyTourName = object.getString(MyManageTable.column_name);
-//                            String strMyTimeUse = object.getString(MyManageTable.column_TimeUse);
-//                            String strDateStart = object.getString(MyManageTable.column_DateStart);
-//                            String strHrStart = object.getString(MyManageTable.column_HrStart);
-//                            String strHrEnd = object.getString(MyManageTable.column_HrEnd);
-//
-//                            objMyManageTable.addMyTour(strMyTourName, strMyTimeUse, strDateStart, strHrStart, strHrEnd);
-//                            break;
+
+                        case 3:
+                            //for mytour table
+                            String strMyTourName = object.getString(MyManageTable.column_name);
+                            String strMyTimeUse = object.getString(MyManageTable.column_TimeUse);
+                            String strDateStart = object.getString(MyManageTable.column_DateStart);
+                            String strHrStart = object.getString(MyManageTable.column_HrStart);
+                            String strHrEnd = object.getString(MyManageTable.column_HrEnd);
+
+                            objMyManageTable.addMyTour(strMyTourName, strMyTimeUse, strDateStart, strHrStart, strHrEnd);
+                            Log.d("Dooo", strMyTourName);////////////////////////////////////////////////////////////////////
+                            break;
 
                     }//switch
 
 
                 }//for
 
-
             } catch (Exception e) {
                 Log.d(tag, "update ==> " + e.toString());
             }
 
-
             intTable += 1;
         }//while
 
+
+        Log.d("Dooo", Integer.toString(intTable));
     }//synJsontosqllite
 
     private void deleteAllSQlite() {
@@ -483,13 +466,14 @@ public class MainActivity extends AppCompatActivity {
                 MODE_PRIVATE, null);
         objSqLiteDatabase.delete(MyManageTable.table_user, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
         objSqLiteDatabase.delete(MyManageTable.table_tour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
-     //   objSqLiteDatabase.delete(MyManageTable.table_mytour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
+        objSqLiteDatabase.delete(MyManageTable.table_mytour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
+       // objSqLiteDatabase.delete(MyManageTable.table_rating, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
 
     }
 
     private void testAddValue() {
 
-        objMyManageTable.addUser("testUser", "testPass", "testName", "testStatus", "Lat", "Lng");
+       objMyManageTable.addUser("testUser", "testPass", "testName", "testStatus", "Lat", "Lng");
         objMyManageTable.addMyTour("test", "test", "test", "test", "test");
 
     }//void คือ ไม่ต้องรีเทริืค่า

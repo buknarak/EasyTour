@@ -1,6 +1,7 @@
 package com.kmutpnb.buk.easytour;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
@@ -217,20 +218,39 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private void myLoopCreateMarker() {
 
-
+        mMap.clear();
         synUserTable();
 
-        //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์
+        //เอา ละ ลอง ทั้งหมดมาแสดง (เฉพาะ Status 0 (ทัวร์))
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE Status = 0", null);
+        cursor.moveToFirst();
+        int intcount = cursor.getCount();
 
-        Log.d("31", "meID ==> " + meIDString);
-        Log.d("31", "meID ==> " + latADouble);
-        Log.d("31", "meID ==> " + lngADouble);
+        for (int i=0 ; i <intcount;i++) {
+
+            String strName = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
+            String strLat = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lat));
+            String strLng = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lng));
+
+            createMakerUser(strName, strLat, strLng);
+
+
+            cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
+        }//for
+
+
+
+
+
+        //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์
 
         updateToMySQL(meIDString, Double.toString(latADouble), Double.toString(lngADouble));//ส่งค่าไปเลยทีเดียว
         //แปลง double to string ด้วย
 
         meLatLng = new LatLng(latADouble, lngADouble);
-        mMap.clear();
+
         createMakerMe();
 
         Handler handler = new Handler();
@@ -242,6 +262,20 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         }, 3000); //3 วินาที
 
     }//myLoopCreateMarker
+
+    private void createMakerUser(String strName, String strLat, String strLng) {
+
+
+        Double douLat = Double.parseDouble(strLat);
+        Double douLng = Double.parseDouble(strLng);
+
+
+        LatLng latLng = new LatLng(douLat,douLng);
+        mMap.addMarker(new MarkerOptions()
+        .position(latLng)
+        .title(strName));
+
+    }//CreateMakerUser
 
     private void synUserTable() {
 
@@ -263,7 +297,6 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             HttpResponse httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             inputStream = httpEntity.getContent();
-
 
         }catch (Exception e){
 

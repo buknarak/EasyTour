@@ -142,6 +142,7 @@
         </LinearLayout>
         <RelativeLayout
             android:orientation="vertical"
+            android:id="@+id/rlRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
@@ -160,15 +161,15 @@
                 android:textSize="@dimen/H2" />
             <RatingBar
 
-                style="?android:attr/ratingBarStyle"
                 android:id="@+id/ratingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:isIndicator="true"
                 android:stepSize="1.0"
-                android:numStars="5"
-                android:max="5"/>
+                style = "?android:attr/ratingBarStyleIndicator"
+                android:numStars="7"
+                android:max="7"/>
 
             <Button
                 android:layout_width="wrap_content"

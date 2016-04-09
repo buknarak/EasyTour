@@ -124,6 +124,8 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
             case R.id.btntracking:
                 break;
             case R.id.btnrecommend:
+                Intent mytourIntent = new Intent(HubServiceActivity.this, ShowMyTourActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                startActivity(mytourIntent);
                 break;
             case R.id.btnlistuser:
 

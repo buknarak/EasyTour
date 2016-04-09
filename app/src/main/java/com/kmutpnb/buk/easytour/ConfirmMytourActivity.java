@@ -94,8 +94,6 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
     private void createlistview() {
 
-
-
             MyManageTable objMyManageTable = new MyManageTable(this);
             String[] strName = objMyManageTable.readAllMyTour(1);
             String[] strTimeUse = objMyManageTable.readAllMyTour(2);
@@ -123,6 +121,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
                 deleteprogram(intPosition);
                 createlistview();
                 dialogInterface.dismiss();
+
             }
         });
         objBuilder.show();
@@ -144,7 +143,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
         timeuseString = getIntent().getStringExtra("TimeUse");
         dateTextView.setText(dateString);
 
-         timeuseint = Integer.parseInt(timeuseString);
+        // timeuseint = getIntent().getIntExtra("timetour", -1);
 
 
 

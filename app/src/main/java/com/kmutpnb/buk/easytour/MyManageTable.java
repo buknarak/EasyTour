@@ -29,11 +29,17 @@ public class MyManageTable {
     public static final String column_TimeUse = "TimeUse";
     public static final String column_Lat = "Lat";
     public static final String column_Lng = "Lng";
+    public static final String column_TotalScore = "TotalScore";
+
 
     public static final String table_mytour = "mytourTABLE";
     public static final String column_DateStart = "DateStart";
     public static final String column_HrStart = "HrStart";
     public static final String column_HrEnd = "HrEnd";
+
+    public static final String table_rating = "ratingTABLE";
+    public static final String column_Score = "Score";
+
 
 
     public MyManageTable(Context context) {
@@ -43,22 +49,21 @@ public class MyManageTable {
         writeSqLiteDatabase = objMyOpenHelper.getWritableDatabase();
         readSqLiteDatabase = objMyOpenHelper.getReadableDatabase();
 
-
     }//contructor
 
-    public long addMyTour(String strName,
-                          String strTimeUse,
+    public long addMyTour(String strMyTourName,
+                          String strMyTimeUse,
                           String strDateStart,
                           String strHrStart,
                           String strHrEnd){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(column_name, strName);
-        contentValues.put(column_TimeUse, strTimeUse);
-        contentValues.put(column_DateStart, strDateStart);
-        contentValues.put(column_HrStart, strHrStart);
-        contentValues.put(column_HrEnd, strHrEnd);
+        ContentValues contentValuesMytour = new ContentValues();
+        contentValuesMytour.put(column_name, strMyTourName);
+        contentValuesMytour.put(column_TimeUse, strMyTimeUse);
+        contentValuesMytour.put(column_DateStart, strDateStart);
+        contentValuesMytour.put(column_HrStart, strHrStart);
+        contentValuesMytour.put(column_HrEnd, strHrEnd);
 
-        return writeSqLiteDatabase.insert(table_mytour, null, contentValues);
+        return writeSqLiteDatabase.insert(table_mytour, null, contentValuesMytour);
     }//string to integer
 
     public String[] readAllMyTour (int intChoose){
@@ -92,19 +97,22 @@ public class MyManageTable {
                         String strType,
                         String strTimeUse,
                         String strLat,
-                        String strLng) {
+                        String strLng,
+                        String strTotalScore) {
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(column_Category, strCategory);
-        contentValues.put(column_name, strName);
-        contentValues.put(column_Province, strProvince);
-        contentValues.put(column_Description, strDescription);
-        contentValues.put(column_Type, strType);
-        contentValues.put(column_TimeUse, strTimeUse);
-        contentValues.put(column_Lat, strLat);
-        contentValues.put(column_Lng, strLng);
+        ContentValues ContentValues = new ContentValues();
+        ContentValues.put(column_Category, strCategory);
+        ContentValues.put(column_name, strName);
+        ContentValues.put(column_Province, strProvince);
+        ContentValues.put(column_Description, strDescription);
+        ContentValues.put(column_Type, strType);
+        ContentValues.put(column_TimeUse, strTimeUse);
+        ContentValues.put(column_Lat, strLat);
+        ContentValues.put(column_Lng, strLng);
+        ContentValues.put(column_TotalScore, strTotalScore);
 
-        return writeSqLiteDatabase.insert(table_tour, null, contentValues);
+
+        return writeSqLiteDatabase.insert(table_tour, null, ContentValues);
     }
 
     public String[] searchUser(String strUser) {
@@ -126,7 +134,6 @@ public class MyManageTable {
                     for (int i=0;i<5;i++) {
 
                         resultStrings[i] = objCursor.getString(i);
-
 
                     } //for
 
@@ -161,6 +168,18 @@ public class MyManageTable {
         objContentValues.put(column_Lng, strLng);
 
         return writeSqLiteDatabase.insert(table_user, null, objContentValues); //แปลง string to long int
+    }
+
+    public long addRating(String strUSName,
+                        String strPLName,
+                        String strScore) {
+
+        ContentValues objContentValues = new ContentValues();
+        objContentValues.put(column_user, strUSName);
+        objContentValues.put(column_name, strPLName);
+        objContentValues.put(column_Score, strScore);
+
+        return writeSqLiteDatabase.insert(table_rating, null, objContentValues); //แปลง string to long int
     }
 
 }//main class

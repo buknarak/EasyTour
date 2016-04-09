@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +29,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,9 +42,10 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
     private Button setTimeButton, addMyProgramButton, cancelButton, submitButton;
     private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString,hrStart,hrStop;
     private DatePicker changedateDatePicker;
-    private int year, month, day, timeTour=6;
+    private int year, month, day, timeTour, timetourall = 6;
     static final int DATE_DIALOG_ID = 999;
     private RatingBar ratingBar;
+    private RelativeLayout rateRelativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +66,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         buttonController();
         setCurrentDateView();
 
-
+        timeTour = Integer.parseInt(timeuseString.trim());
 
     }//main method
 
@@ -187,8 +192,19 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
             case R.id.btnaddmyprograme:
 
                 tourDateString = dateTextView.getText().toString();
-                listMyTour();
-                upToSQLite();
+
+               Log.d("xx", timeuseString);
+                Log.d("ADebugTag", "Value: " + Integer.toString(timeTour));
+
+                timeTour = timetourall - timeTour;
+                if (timeTour <= 6) {
+                    listMyTour();
+                    upToSQLite();
+
+                    Log.d("ADebugTag", "Value: " + Integer.toString(timeTour));
+                } else {
+                    Toast.makeText(showDetailTourActivity.this, "Program Limit", Toast.LENGTH_SHORT).show();
+                }
 
                 break;
 
@@ -210,17 +226,20 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
     private void upToSQLite() {
 
         MyManageTable objMyManageTable = new MyManageTable(this);
-        objMyManageTable.addMyTour(nameString,timeuseString,tourDateString,hrStart,hrStop);
+        objMyManageTable.addMyTour(nameString, timeuseString, tourDateString, hrStart, hrStop);
     }
 
     private void ShowDialogRating() {
 
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
         final RatingBar rating = new RatingBar(this);
-        //rating.setMax(5);
-        rating.setMax(5);
-        rating.setNumStars(5);
 
+        rating.setLayoutParams(new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT));
+
+        rating.setMax(7);
+        rating.setNumStars(7);
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
         popDialog.setTitle("Vote!! ");
         popDialog.setView(rating);
@@ -233,7 +252,6 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                            dialog.dismiss();
           }
                 })
-
         // Button Cancel
              .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                  public void onClick(DialogInterface dialog, int id) {
@@ -248,13 +266,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
 //        int timeuseint = Integer.parseInt(timeuseString);
 
-//        final String[] nameArray;
-//        final String[] tourDateString;
-//        final String[] HrStart;
-//        final String[] HrEnd;
-
-
-
+      //  timeTour = Integer.parseInt(timeuseString);
 
         Intent objIntent = new Intent(showDetailTourActivity.this, ConfirmMytourActivity.class);
         objIntent.putExtra("date", tourDateString);
@@ -262,9 +274,8 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         objIntent.putExtra("HrStart", hrStart);
         objIntent.putExtra("HrStop", hrStop);
         objIntent.putExtra("TimeUse", timeuseString);
+        objIntent.putExtra("timetour", timeTour);
         startActivity(objIntent);
-
-
 
 //        while (timeTour < 6) {
 
@@ -291,37 +302,5 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 //            objBuilder.show();
     }
 
-    private void updateToMySQL() {
-
-        //change policy
-        StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy
-                .Builder().permitAll().build(); //ปลด policy ให้สามารถอัพเดทได้
-        StrictMode.setThreadPolicy(myPolicy);//สามารถเชื่อมต่อ potocal http
-        try {
-
-            ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
-            objNameValuePairs.add(new BasicNameValuePair("isAdd", "true")); //isAdd ตัวแปร php ในการแอดข้อมูล
-            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, nameString));
-            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_TimeUse, timeuseString));
-            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_DateStart, tourDateString ));
-            //objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, positionString));
-           // objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, positionString));
-
-            HttpClient objHttpClient = new DefaultHttpClient();
-            HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_mytour_buk.php");
-            objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
-            objHttpClient.execute(objHttpPost);
-
-            Toast.makeText(showDetailTourActivity.this, "อัพเดทข้อมูลเรียบร้อยแล้ว",
-                    Toast.LENGTH_SHORT).show();  //Toast คือคำสั่งข้อความที่ขึ้นมาแล้วหายไป
-            finish();
-
-        } catch (Exception e) {
-            Toast.makeText(showDetailTourActivity.this, "ไม่สามารถเชื่อมต่อ server ได้",
-                    Toast.LENGTH_SHORT).show();//short = 4 วิ
-
-        }
-
-    }
 
 }//main class

@@ -27,11 +27,7 @@ public class ShowUserActivity extends AppCompatActivity {
 
         //bindWindget;
 
-
-
-
        //bindwidget();
-
        showView();
 
     }
