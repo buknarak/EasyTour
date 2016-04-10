@@ -3,6 +3,7 @@ package com.kmutpnb.buk.easytour;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -48,7 +49,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
     public void clickConfirm(View view) {
 
-        MyManageTable objMyManageTable = new MyManageTable(this);
+            MyManageTable objMyManageTable = new MyManageTable(this);
         String[] strName = objMyManageTable.readAllMyTour(1);
         String[] strTimeUse = objMyManageTable.readAllMyTour(2);
         for (int i = 0; i < strName.length; i++) {
@@ -100,7 +101,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
             ConfirmMyTourAdapter objConfirmMyTourAdapter = new ConfirmMyTourAdapter(ConfirmMytourActivity.this, strName, strTimeUse);
             confirmmytourListView.setAdapter(objConfirmMyTourAdapter);
 
-       // timeuseint = timeuseint + timeuseint;
+
         confirmmytourListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

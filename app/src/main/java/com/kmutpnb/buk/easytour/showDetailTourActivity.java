@@ -6,6 +6,8 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,7 +42,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     private TextView dateTextView, nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView, rateTextView;
     private Button setTimeButton, addMyProgramButton, cancelButton, submitButton;
-    private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString,hrStart,hrStop;
+    private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString,hrStart,hrStop, Uname, raingString;
     private DatePicker changedateDatePicker;
     private int year, month, day, timeTour, timetourall = 6;
     static final int DATE_DIALOG_ID = 999;
@@ -162,6 +164,8 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         rateTextView = (TextView) findViewById(R.id.tvRateview);
 
+        Uname = getIntent().getStringExtra("Uname");
+
     }
 
     private DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
@@ -193,18 +197,34 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
                 tourDateString = dateTextView.getText().toString();
 
-               Log.d("xx", timeuseString);
-                Log.d("ADebugTag", "Value: " + Integer.toString(timeTour));
+//               Log.d("xx", timeuseString);
+//                Log.d("ADebugTag", "Value: " + Integer.toString(timeTour));
 
-                timeTour = timetourall - timeTour;
-                if (timeTour <= 6) {
-                    listMyTour();
-                    upToSQLite();
+                int timetotal,time,timetotal1;
+                SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                        MODE_PRIVATE, null);
+                Cursor cursor = sqLiteDatabase.rawQuery("SELECT TimeUse FROM mytourTABLE", null);
+                cursor.moveToFirst();
+                int intcount = cursor.getCount();
 
-                    Log.d("ADebugTag", "Value: " + Integer.toString(timeTour));
-                } else {
-                    Toast.makeText(showDetailTourActivity.this, "Program Limit", Toast.LENGTH_SHORT).show();
-                }
+                for (int i=0 ; i <intcount;i++) {
+
+
+                    String strtimeuse = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
+
+                    time = Integer.parseInt(strtimeuse.trim());
+                    timetotal = time + 0;
+                    if (i == 1) {
+                        timetotal1 = time + timetotal;
+                        Log.d("test", "timetal " + timetotal1);
+                    }
+                }//for
+
+
+
+
+                listMyTour();
+                upToSQLite();
 
                 break;
 
@@ -249,6 +269,9 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
             public void onClick(DialogInterface dialog, int which) {
                 ratingBar.setRating(rating.getRating());
                rateTextView.setText(String.valueOf(rating.getProgress()));
+                raingString = rateTextView.getText().toString();
+             //   updateToSQLiteRating();
+                updateToDB();
                            dialog.dismiss();
           }
                 })
@@ -262,11 +285,45 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         popDialog.show();
     }
 
+    private void updateToDB() {
+
+            try {
+                //change policy
+                StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy
+                        .Builder().permitAll().build(); //ปลด policy ให้สามารถอัพเดทได้
+                StrictMode.setThreadPolicy(myPolicy);//สามารถเชื่อมต่อ potocal http
+
+                ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
+                objNameValuePairs.add(new BasicNameValuePair("isAdd", "true")); //isAdd ตัวแปร php ในการแอดข้อมูล
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_user, Uname));
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, nameString));
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_Score, raingString));
+
+                HttpClient objHttpClient = new DefaultHttpClient();
+                HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_rating_buk.php");
+                objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
+                objHttpClient.execute(objHttpPost);
+
+            } catch (Exception e) {
+                Toast.makeText(showDetailTourActivity.this, "ไม่สามารถเชื่อมต่อ server ได้",
+                        Toast.LENGTH_SHORT).show();//short = 4 วิ
+            }
+        }
+
+    private void updateToSQLiteRating() {
+
+        MyManageTable objMyManageTable = new MyManageTable(this);
+        objMyManageTable.addRating(Uname, nameString, raingString);
+
+    }
+
     private void listMyTour() {
 
 //        int timeuseint = Integer.parseInt(timeuseString);
 
       //  timeTour = Integer.parseInt(timeuseString);
+
+
 
         Intent objIntent = new Intent(showDetailTourActivity.this, ConfirmMytourActivity.class);
         objIntent.putExtra("date", tourDateString);

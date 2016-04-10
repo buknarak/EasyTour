@@ -43,8 +43,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 
     private static final String create_rating_table = "create table ratingTABLE (" +
             "_id integer primary key, " +
-            "id_User text, " +
-            "id_Place text, " +
+            "User text, " +
+            "Name text, " +
             "Score text);";
 
 

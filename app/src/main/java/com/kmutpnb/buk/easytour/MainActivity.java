@@ -268,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
                         tourIntent.putExtra("Lat", latADouble);
                         tourIntent.putExtra("Lng", lngADouble);
                         tourIntent.putExtra("meID",meIDString);
+                        tourIntent.putExtra("Uname",useString);
                         startActivity(tourIntent);
                         break;
                     case 1:
@@ -276,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
                         adminIntent.putExtra("Lat",latADouble);
                         adminIntent.putExtra("Lng",lngADouble);
                         adminIntent.putExtra("meID",meIDString);
+                        adminIntent.putExtra("Uname",useString);
                         startActivity(adminIntent);
                        break;
 
@@ -341,30 +343,20 @@ public class MainActivity extends AppCompatActivity {
 
         int intTable = 1; //amount of table
         String tag = "tour";
+
+
+        String[] urlStrings = {"0",
+                "http://swiftcodingthai.com/puk/php_get_user_buk.php",
+                "http://swiftcodingthai.com/puk/php_get_tour_buk.php",
+                "http://swiftcodingthai.com/puk/php_get_mytour_buk.php"};
         while (intTable <= 3) {
 
             //การซิงค์ 3กระบวนการ 1.Create input stream
             InputStream objInputStream = null;
-            String strURLuser = "http://swiftcodingthai.com/puk/php_get_user_buk.php";
-            String strURLtour = "http://swiftcodingthai.com/puk/php_get_tour_buk.php";
-            String strURLmyTour = "http://swiftcodingthai.com/puk/php_get_mytour_buk.php";
-            HttpPost objHttpPost = null;
-            try {
+           try {
 
                 HttpClient objHttpClient = new DefaultHttpClient();
-                switch (intTable) {
-
-                    case 1:
-                        objHttpPost = new HttpPost(strURLuser);
-                        break;
-                    case 2:
-                        objHttpPost = new HttpPost(strURLtour);
-                        break;
-                    case 3:
-                        objHttpPost = new HttpPost(strURLmyTour);
-                        break;
-                }
-
+                HttpPost objHttpPost = new HttpPost(urlStrings[intTable]);
                 HttpResponse objHttpResponse = objHttpClient.execute(objHttpPost);
                 HttpEntity objHttpEntity = objHttpResponse.getEntity();
                 objInputStream = objHttpEntity.getContent();
@@ -428,7 +420,8 @@ public class MainActivity extends AppCompatActivity {
                             String strLng = object.getString(MyManageTable.column_Lng);
                             String strTotalScore = object.getString(MyManageTable.column_TotalScore);
 
-                            objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription, strType, strTimeUse, strLat, strLng, strTotalScore);
+                            objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription,
+                                    strType, strTimeUse, strLat, strLng, strTotalScore);
                            Log.d("Dooo", strCategory);
                             break;
 
@@ -445,17 +438,13 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                     }//switch
-
-
                 }//for
 
             } catch (Exception e) {
                 Log.d(tag, "update ==> " + e.toString());
             }
-
             intTable += 1;
         }//while
-
 
         Log.d("Dooo", Integer.toString(intTable));
     }//synJsontosqllite
