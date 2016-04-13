@@ -43,7 +43,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
     private TextView dateTextView, nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView, rateTextView;
     private Button setTimeButton, addMyProgramButton, cancelButton, submitButton;
     private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString,hrStart,hrStop, Uname, raingString;
-    private DatePicker changedateDatePicker;
+  //  private DatePicker changedateDatePicker;
     private int year, month, day, timeTour, timetourall = 6;
     static final int DATE_DIALOG_ID = 999;
     private RatingBar ratingBar;
@@ -57,7 +57,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         //bindwidget
         bindWidget();
 
-        //get current time andd show
+        //get current time and show
         getTimeShow();
 
 
@@ -66,48 +66,96 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
         //Button Controller
         buttonController();
-        setCurrentDateView();
+       // setCurrentDateView();
 
+        //select Rating
+       showRating();
         timeTour = Integer.parseInt(timeuseString.trim());
+
+        Log.d("aaa",Uname);
 
     }//main method
 
-    private void setCurrentDateView() {
+    private void showRating() {
 
+        //int id = intPosition + 1;
+//        int id = getIntent().getIntExtra("ID",0);
+//       int positionint = id + 1;
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+      // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ratingTABLE", "_id" + "=" + positionint, null);
+      //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE,ratingTABLE WHERE Name = " + "'" + nameString + "'", null);
+       // Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM ratingTABLE WHERE Name = " + "'" + nameString + "'", null);
+//        Cursor cursor = sqLiteDatabase.rawQuery("SELECT tourTABLE.TotalScore, " +
+//                "ratingTABLE.Name ,ratingTABLE.Score FROM tourTABLE JOIN ratingTABLE ON tourTABLE.Name = ratingTABLE.Name " +
+//                "WHERE ratingTABLE.Name = " + "'" + nameString + "'", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT ratingTABLE.Name ,count(Score)AS countscore , avg(Score)AS avgscore " +
+                "FROM ratingTABLE " +
+                "WHERE ratingTABLE.Name = " + "'" + nameString + "'", null);
+        cursor.moveToFirst();
 
-        setTimeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog(DATE_DIALOG_ID);
+        float avgScore = cursor.getInt(cursor.getColumnIndex("avgscore"));
+        int totalCount = cursor.getInt(cursor.getColumnIndex("countscore"));
+        int intcount = cursor.getCount();
+
+        if (totalCount == 0) {
+            Log.d("abc", "แถว " +totalCount);
+        } else {
+            for (int i=0 ; i <intcount;i++) {
+                String strName = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
+                //String strScore = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Score));
+                Log.d("abc", strName);
+                // Log.d("abc", strScore);
+                Log.d("abc", "จำนวนคะแนน " +avgScore);
+                Log.d("abc", "แถว " +totalCount);
+                ratingBar.setRating(avgScore);
+                String strAvg=Float.toString(avgScore);
+                rateTextView.setText(strAvg);
             }
-        });
+        }
 
-        final Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
+//        for (int i=0 ; i <intcount1;i++) {
+//            String strScore = cursor1.getString(cursor.getColumnIndex(MyManageTable.column_Score));
+//            Log.d("abc", strScore);
+//        }
+    }
 
-        //set current view
-
-        dateTextView.setText(new StringBuilder()
-                //month base is 0 just +1
-                .append(day).append("-").append(month + 1).append("-")
-                .append(year).append(" "));
+//    private void setCurrentDateView() {
+//
+//
+//        setTimeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showDialog(DATE_DIALOG_ID);
+//            }
+//        });
+//
+//        final Calendar c = Calendar.getInstance();
+//        year = c.get(Calendar.YEAR);
+//        month = c.get(Calendar.MONTH);
+//        day = c.get(Calendar.DAY_OF_MONTH);
+//
+//        //set current view
+//
+//        dateTextView.setText(new StringBuilder()
+//                //month base is 0 just +1
+//                .append(day).append("-").append(month + 1).append("-")
+//                .append(year).append(" "));
 
         //set curent date into datepicker
         //dpChange.init(year, month, day, null);
-    }
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case DATE_DIALOG_ID:
-                //set date picker as current date
-
-                return new DatePickerDialog(this, dataPickerListener,
-                        year, month, day);
-        }
-        return null;
-    }
+//    }
+//    @Override
+//    protected Dialog onCreateDialog(int id) {
+//        switch (id) {
+//            case DATE_DIALOG_ID:
+//                //set date picker as current date
+//
+//                return new DatePickerDialog(this, dataPickerListener,
+//                        year, month, day);
+//        }
+//        return null;
+//    }
 
 
     private void buttonController() {
@@ -138,14 +186,15 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         DateFormat dateFormat  = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         tourDateString = dateFormat.format(date);
-        showDate(tourDateString);
+        tourDateString = getIntent().getStringExtra("Date");
+        dateTextView.setText(tourDateString);
 
     }//get time
 
-    private void showDate(String showDate) {
-        dateTextView.setText(showDate);
-
-    }//showdate
+//    private void showDate(String tourDateString) {
+//        dateTextView.setText(tourDateString);
+//
+//    }//showdate
 
     private void bindWidget() {
 
@@ -157,8 +206,8 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         descripTextView = (TextView) findViewById(R.id.tvdescrip);
         addMyProgramButton = (Button) findViewById(R.id.btnaddmyprograme);
         cancelButton = (Button) findViewById(R.id.btncancel);
-        changedateDatePicker = (DatePicker) findViewById(R.id.dpChange);
-        setTimeButton = (Button) findViewById(R.id.button9);
+       // changedateDatePicker = (DatePicker) findViewById(R.id.dpChange);
+      //  setTimeButton = (Button) findViewById(R.id.button9);
 
         submitButton = (Button) findViewById(R.id.btnRating);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -168,24 +217,24 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     }
 
-    private DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
-
-        public void onDateSet(DatePicker view, int selectedYear,
-                              int selectedMonth, int selectedDay) {
-            year = selectedYear;
-            month = selectedMonth;
-            day = selectedDay;
-
-            //set selected date into textview
-            dateTextView.setText(new StringBuilder().append(day)
-                    .append("-").append(month + 1).append("-").append(year)
-                    .append(" "));
-//        // set selected date into datepicker
-            // dpChange.init(year, month, day, null);
-
-        }
-
-    };
+//    private DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
+//
+//        public void onDateSet(DatePicker view, int selectedYear,
+//                              int selectedMonth, int selectedDay) {
+//            year = selectedYear;
+//            month = selectedMonth;
+//            day = selectedDay;
+//
+//            //set selected date into textview
+//            dateTextView.setText(new StringBuilder().append(day)
+//                    .append("-").append(month + 1).append("-").append(year)
+//                    .append(" "));
+////        // set selected date into datepicker
+//            // dpChange.init(year, month, day, null);
+//
+//        }
+//
+//    };
 
     @Override
     public void onClick(View view) {
@@ -271,6 +320,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                rateTextView.setText(String.valueOf(rating.getProgress()));
                 raingString = rateTextView.getText().toString();
              //   updateToSQLiteRating();
+             //   Log.d("aaa", raingString);
                 updateToDB();
                            dialog.dismiss();
           }
@@ -287,11 +337,11 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     private void updateToDB() {
 
+        StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy
+                .Builder().permitAll().build(); //ปลด policy ให้สามารถอัพเดทได้
+        StrictMode.setThreadPolicy(myPolicy);//สามารถเชื่อมต่อ potocal http
+
             try {
-                //change policy
-                StrictMode.ThreadPolicy myPolicy = new StrictMode.ThreadPolicy
-                        .Builder().permitAll().build(); //ปลด policy ให้สามารถอัพเดทได้
-                StrictMode.setThreadPolicy(myPolicy);//สามารถเชื่อมต่อ potocal http
 
                 ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
                 objNameValuePairs.add(new BasicNameValuePair("isAdd", "true")); //isAdd ตัวแปร php ในการแอดข้อมูล
@@ -303,6 +353,9 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                 HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_rating_buk.php");
                 objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
                 objHttpClient.execute(objHttpPost);
+
+                Toast.makeText(showDetailTourActivity.this, "Finish",
+                        Toast.LENGTH_SHORT).show();//short = 4 วิ
 
             } catch (Exception e) {
                 Toast.makeText(showDetailTourActivity.this, "ไม่สามารถเชื่อมต่อ server ได้",

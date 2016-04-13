@@ -29,7 +29,7 @@ public class MyManageTable {
     public static final String column_TimeUse = "TimeUse";
     public static final String column_Lat = "Lat";
     public static final String column_Lng = "Lng";
-    public static final String column_TotalScore = "TotalScore";
+   // public static final String column_TotalScore = "TotalScore";
 
 
     public static final String table_mytour = "mytourTABLE";
@@ -39,7 +39,6 @@ public class MyManageTable {
 
     public static final String table_rating = "ratingTABLE";
     public static final String column_Score = "Score";
-
 
 
     public MyManageTable(Context context) {
@@ -97,8 +96,7 @@ public class MyManageTable {
                         String strType,
                         String strTimeUse,
                         String strLat,
-                        String strLng,
-                        String strTotalScore) {
+                        String strLng) {
 
         ContentValues ContentValues = new ContentValues();
         ContentValues.put(column_Category, strCategory);
@@ -109,7 +107,7 @@ public class MyManageTable {
         ContentValues.put(column_TimeUse, strTimeUse);
         ContentValues.put(column_Lat, strLat);
         ContentValues.put(column_Lng, strLng);
-        ContentValues.put(column_TotalScore, strTotalScore);
+
 
 
         return writeSqLiteDatabase.insert(table_tour, null, ContentValues);

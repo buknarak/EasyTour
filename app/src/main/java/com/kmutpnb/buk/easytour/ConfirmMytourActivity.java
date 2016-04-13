@@ -66,8 +66,9 @@ public class ConfirmMytourActivity extends AppCompatActivity {
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, strName[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_TimeUse, strTimeUse[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_DateStart, dateString));
-               // objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, dateString));
-               // objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, dateString));
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, dateString));
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, dateString));
+
 
                 HttpClient objHttpClient = new DefaultHttpClient();
                 HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_mytour_buk.php");

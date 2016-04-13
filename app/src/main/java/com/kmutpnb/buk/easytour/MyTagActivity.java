@@ -316,7 +316,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         builder.setWhen(System.currentTimeMillis());
         builder.setContentTitle("ระยะเกิน");
         builder.setContentText("กลับมาได้แล้ว " +strName + "ไปไกลเกินไปแล้ว");
-        builder.setAutoCancel(false);
+        builder.setAutoCancel(true);
 
 
         Uri soundUri = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);

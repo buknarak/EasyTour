@@ -348,8 +348,10 @@ public class MainActivity extends AppCompatActivity {
         String[] urlStrings = {"0",
                 "http://swiftcodingthai.com/puk/php_get_user_buk.php",
                 "http://swiftcodingthai.com/puk/php_get_tour_buk.php",
-                "http://swiftcodingthai.com/puk/php_get_mytour_buk.php"};
-        while (intTable <= 3) {
+                "http://swiftcodingthai.com/puk/php_get_mytour_buk.php",
+                "http://swiftcodingthai.com/puk/php_get_rating_buk.php"};
+
+        while (intTable <= 4) {
 
             //การซิงค์ 3กระบวนการ 1.Create input stream
             InputStream objInputStream = null;
@@ -418,11 +420,10 @@ public class MainActivity extends AppCompatActivity {
                             String strTimeUse = object.getString(MyManageTable.column_TimeUse);
                             String strLat = object.getString(MyManageTable.column_Lat);
                             String strLng = object.getString(MyManageTable.column_Lng);
-                            String strTotalScore = object.getString(MyManageTable.column_TotalScore);
 
-                            objMyManageTable.addTour(strCategory, strNametour, strProvince,strDescription,
-                                    strType, strTimeUse, strLat, strLng, strTotalScore);
-                           Log.d("Dooo", strCategory);
+                            objMyManageTable.addTour(strCategory, strNametour, strProvince, strDescription,
+                                    strType, strTimeUse, strLat, strLng);
+
                             break;
 
                         case 3:
@@ -434,7 +435,17 @@ public class MainActivity extends AppCompatActivity {
                             String strHrEnd = object.getString(MyManageTable.column_HrEnd);
 
                             objMyManageTable.addMyTour(strMyTourName, strMyTimeUse, strDateStart, strHrStart, strHrEnd);
-                            Log.d("Dooo", strMyTourName);////////////////////////////////////////////////////////////////////
+
+                            break;
+
+                        case 4:
+                            //for mytour table
+                            String strUserName = object.getString(MyManageTable.column_user);
+                            String strNameTour = object.getString(MyManageTable.column_name);
+                            String strScore = object.getString(MyManageTable.column_Score);
+
+                            objMyManageTable.addRating(strUserName, strNameTour, strScore);
+                           // Log.d("Dooo", strMyTourName);////////////////////////////////////////////////////////////////////
                             break;
 
                     }//switch
@@ -456,7 +467,7 @@ public class MainActivity extends AppCompatActivity {
         objSqLiteDatabase.delete(MyManageTable.table_user, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
         objSqLiteDatabase.delete(MyManageTable.table_tour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
         objSqLiteDatabase.delete(MyManageTable.table_mytour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
-       // objSqLiteDatabase.delete(MyManageTable.table_rating, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
+        objSqLiteDatabase.delete(MyManageTable.table_rating, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
 
     }
 

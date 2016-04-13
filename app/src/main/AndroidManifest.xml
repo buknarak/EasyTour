@@ -45,7 +45,8 @@
             android:name=".MyTagActivity"
             android:label="@string/title_activity_my_tag" />
         <activity android:name=".ConfirmMytourActivity" />
-        <activity android:name=".ShowMyTourActivity"></activity>
+        <activity android:name=".ShowMyTourActivity" />
+        <activity android:name=".ChooseDateTripActivity"></activity>
     </application>
 
 </manifest>

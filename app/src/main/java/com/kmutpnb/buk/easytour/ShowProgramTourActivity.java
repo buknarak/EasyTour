@@ -20,7 +20,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
     //explicite
     private double userLatADouble, userLngAdouble;
-    private String categoryString, category, uname;
+    private String categoryString, category, uname, choosedateString;
     private TextView showCatTextView;
     private ListView tourListViewListView;
 
@@ -29,10 +29,8 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_program_tour);
 
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//            return inflater.inflate(R.layout.activity_show_program_tour, container, false);
 
+        choosedateString = getIntent().getStringExtra("chooseDate");
 
         //bindWindget;
         bindwidget();
@@ -51,7 +49,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         showCatTextView = (TextView) findViewById(R.id.textView7);
         tourListViewListView = (ListView) findViewById(R.id.listView);
 
-        uname = getIntent().getStringExtra("Uname");
+       uname = getIntent().getStringExtra("Uname");
 
 
     }
@@ -101,7 +99,9 @@ public class ShowProgramTourActivity extends AppCompatActivity {
                 intent.putExtra("Type", typeStrings[i]);
                 intent.putExtra("TimeUse", timeUseStrings[i]);
                 intent.putExtra("Descrip", descripStrings[i]);
+                intent.putExtra("Date",choosedateString);
                 intent.putExtra("Uname",uname);
+                intent.putExtra("ID", i);
                 startActivity(intent);
 
             }//on item
