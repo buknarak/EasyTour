@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         //deleteAllSQlite
         deleteAllSQlite();
+        clearConfirmMytour();
 
         //test add value
        // testAddValue();
@@ -69,7 +70,17 @@ public class MainActivity extends AppCompatActivity {
         //Get location
         getLocation();
 
+
+
     }//Main Method
+
+    private void clearConfirmMytour() {
+
+
+        SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase("easyTour.db", MODE_PRIVATE, null);
+        objSqLiteDatabase.delete("mytourTABLE", null, null);
+
+    }
 
 
     @Override
@@ -439,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case 4:
-                            //for mytour table
+                            //for rating table
                             String strUserName = object.getString(MyManageTable.column_user);
                             String strNameTour = object.getString(MyManageTable.column_name);
                             String strScore = object.getString(MyManageTable.column_Score);

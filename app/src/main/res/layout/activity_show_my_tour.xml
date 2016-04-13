@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.kmutpnb.buk.easytour.ShowMyTourActivity">
+    tools:context="com.kmutpnb.buk.easytour.ShowMyTourActivity"
+    android:background="@drawable/bg01">
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,6 +23,6 @@
         android:layout_weight="1"
         android:id="@+id/lvMytour"
         android:layout_below="@+id/textView7"
-        android:background="#82ffffff" />
+        android:background="#82ffffff"   />
 
 </RelativeLayout>

@@ -15,15 +15,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="เวลา"
-            android:id="@+id/dateMytour"
-            android:layout_below="@+id/timeProgram"
+            android:id="@+id/tvtimeProgram"
+            android:layout_below="@+id/tvdateMytour"
             android:textSize="25sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="วันที่"
-            android:id="@+id/timeProgram"
+            android:id="@+id/tvdateMytour"
             android:textSize="25sp" />
 
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="สถานที่ท่องเที่ยว"
-            android:id="@+id/NameProgram"
+            android:id="@+id/tvNameProgram"
             android:textSize="25sp" />
     </RelativeLayout>
 

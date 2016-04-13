@@ -15,18 +15,23 @@ public class MytourAdaptor extends BaseAdapter {
     //explicit
 
     private Context context;
-    private String[] tourNameStrings, hrStartStrings, dateStartStrings;
+    private String[] dateStrings, nameString, hrStartString;
 
-    public MytourAdaptor(Context context, String[] DateStartStrings, String[] HrStartStrings, String[] MyTourNameStrings) {
-        this.context = context;
-        this.dateStartStrings = DateStartStrings;
-        this.hrStartStrings = HrStartStrings;
-        this.tourNameStrings = MyTourNameStrings;
-    }//contrutor
+
+public MytourAdaptor(Context context,  String[] dateStrings, String[] hrStartString, String[] nameString) {
+    this.context = context;
+    this.dateStrings = dateStrings;
+    this.hrStartString = hrStartString;
+    this.nameString = nameString;
+
+
+
+}//contrutor
+
 
     @Override
     public int getCount() {
-        return tourNameStrings.length;
+        return nameString.length;
     }
 
     @Override
@@ -43,16 +48,14 @@ public class MytourAdaptor extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         LayoutInflater Inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view3 = Inflater.inflate(R.layout.mytour_program, viewGroup, false);//false no security
 
-        TextView dateUseTextView = (TextView) view3.findViewById(R.id.dateMytour);
-        dateUseTextView.setText(dateStartStrings[i]);
-
-        TextView timeUseTextView = (TextView) view3.findViewById(R.id.timeProgram);
-        timeUseTextView.setText(hrStartStrings[i]);
-
-        TextView nameTextView = (TextView) view3.findViewById(R.id.NameProgram);
-        nameTextView.setText(tourNameStrings[i]);
+        View view3 = Inflater.inflate(R.layout.mytour_program, viewGroup, false);
+        TextView dateUseTextView = (TextView) view3.findViewById(R.id.tvdateMytour);
+        dateUseTextView.setText(dateStrings[i]);
+        TextView timeUseTextView = (TextView) view3.findViewById(R.id.tvtimeProgram);
+        timeUseTextView.setText(hrStartString[i]);
+        TextView nameTextView = (TextView) view3.findViewById(R.id.tvNameProgram);
+        nameTextView.setText(nameString[i]);
 
         return view3;
     }

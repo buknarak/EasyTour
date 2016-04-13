@@ -70,7 +70,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
         //select Rating
        showRating();
-        timeTour = Integer.parseInt(timeuseString.trim());
+      //  timeTour = Integer.parseInt(timeuseString.trim());
 
         Log.d("aaa",Uname);
 
@@ -182,12 +182,18 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
     }
 
     private void getTimeShow() {
-
-        DateFormat dateFormat  = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = new Date();
-        tourDateString = dateFormat.format(date);
         tourDateString = getIntent().getStringExtra("Date");
-        dateTextView.setText(tourDateString);
+
+        if (tourDateString == null) {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            tourDateString = dateFormat.format(date);
+
+            Log.d("ades", tourDateString);
+            dateTextView.setText(tourDateString);
+        } else {
+            dateTextView.setText(tourDateString);
+        }
 
     }//get time
 
@@ -246,34 +252,45 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
                 tourDateString = dateTextView.getText().toString();
 
+                Intent objintent = new Intent(showDetailTourActivity.this, ChooseTimeActivity.class );//โยนค่าไปหน้าใหม่
+                objintent.putExtra("date", tourDateString);
+                objintent.putExtra("Name", nameString);
+//                intent.putExtra("HrStart", hrStart);
+//                intent.putExtra("HrStop", hrStop);
+                objintent.putExtra("TimeUse", timeuseString);
+               // objintent.putExtra("timetour", timeTour);
+                startActivity(objintent);
+
+
+
 //               Log.d("xx", timeuseString);
 //                Log.d("ADebugTag", "Value: " + Integer.toString(timeTour));
 
-                int timetotal,time,timetotal1;
-                SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
-                        MODE_PRIVATE, null);
-                Cursor cursor = sqLiteDatabase.rawQuery("SELECT TimeUse FROM mytourTABLE", null);
-                cursor.moveToFirst();
-                int intcount = cursor.getCount();
-
-                for (int i=0 ; i <intcount;i++) {
-
-
-                    String strtimeuse = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
-
-                    time = Integer.parseInt(strtimeuse.trim());
-                    timetotal = time + 0;
-                    if (i == 1) {
-                        timetotal1 = time + timetotal;
-                        Log.d("test", "timetal " + timetotal1);
-                    }
-                }//for
-
-
+//                int timetotal,time,timetotal1;
+//                SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+//                        MODE_PRIVATE, null);
+//                Cursor cursor = sqLiteDatabase.rawQuery("SELECT TimeUse FROM mytourTABLE", null);
+//                cursor.moveToFirst();
+//                int intcount = cursor.getCount();
+//
+//                for (int i=0 ; i <intcount;i++) {
+//
+//
+//                    String strtimeuse = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
+//
+//                    time = Integer.parseInt(strtimeuse.trim());
+//                    timetotal = time + 0;
+//                    if (i == 1) {
+//                        timetotal1 = time + timetotal;
+//                        Log.d("test", "timetal " + timetotal1);
+//                    }
+//                }//for
 
 
-                listMyTour();
-                upToSQLite();
+
+
+//                listMyTour();
+//                upToSQLite();
 
                 break;
 

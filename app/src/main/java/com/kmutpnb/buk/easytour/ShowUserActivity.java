@@ -55,6 +55,8 @@ public class ShowUserActivity extends AppCompatActivity {
             userStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_user));
            positionString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
+            Log.d("asd", userStrings[i]);
+
             int intStatus = Integer.parseInt(positionString[i]);
              positionString[i]= null;
             switch (intStatus) {

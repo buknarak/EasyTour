@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.internal.LocationRequestUpdateData;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,6 +26,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.sql.SQLData;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ConfirmMytourActivity extends AppCompatActivity {
@@ -41,6 +44,9 @@ public class ConfirmMytourActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_mytour);
 
         //timeuseint = Integer.parseInt(timeuseString);
+
+
+
 
         bindwidget();
         showmytour();
@@ -66,8 +72,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, strName[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_TimeUse, strTimeUse[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_DateStart, dateString));
-                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, dateString));
-                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, dateString));
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, hrStartString));
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, hrStopString));
 
 
                 HttpClient objHttpClient = new DefaultHttpClient();
