@@ -8,55 +8,201 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kmutpnb.buk.easytour.HubServiceActivity"
-    android:background="@drawable/bg01">
+    android:background="@drawable/bg02">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/textView2"
-        android:textSize="@dimen/H1" />
+        android:textSize="@dimen/H1"
+        android:textColor="#49c1f9"/>
+
+    <!--<LinearLayout-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_width="@dimen/mybutton"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true">-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/authen"-->
+            <!--android:id="@+id/btnauthen" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/listtour"-->
+            <!--android:id="@+id/btnlisttour" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/warning"-->
+            <!--android:id="@+id/btnwarning" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/tracking"-->
+            <!--android:id="@+id/btntracking" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/recommend"-->
+            <!--android:id="@+id/btnrecommend" />-->
+
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/listuser"-->
+            <!--android:id="@+id/btnlistuser" />-->
+    <!--</LinearLayout>-->
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Set time to take medicine"
+        android:visibility="gone"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+<!--start here-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnSprogram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/ic_list" />
+
+        <TextView
+            android:id="@+id/tvSprogram"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:text="โปรแกรมทัวร์"
+            android:textColor="#ffffff" />
+    </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="@dimen/mybutton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:orientation="vertical">
 
-        <Button
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/btnSaddprogram"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/authen"
-            android:id="@+id/btnauthen" />
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/ic_addprogram" />
 
-        <Button
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvSaddprogram"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/listtour"
-            android:id="@+id/btnlisttour" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/warning"
-            android:id="@+id/btnwarning" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tracking"
-            android:id="@+id/btntracking" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/recommend"
-            android:id="@+id/btnrecommend" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/listuser"
-            android:id="@+id/btnlistuser" />
+            android:layout_marginLeft="210dp"
+            android:text="สร้างโปรแกรมทัวร์"
+            android:textColor="#ffffff" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnSadduser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/ic_adduser" />
+
+        <TextView
+            android:id="@+id/tvSadduser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:text="กำหนดสิทธิ์ผู้ใช้"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnSulist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="200dp"
+            android:background="@drawable/ic_listuser" />
+               <TextView
+            android:id="@+id/tvSulist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:text="รายชื่อทัวร์"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnSplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="300dp"
+            android:background="@drawable/ic_place" />
+
+        <TextView
+            android:id="@+id/tvSplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:text="สถานที่ท่องเที่ยว"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnStracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="300dp"
+            android:background="@drawable/ic_tracking" />
+        <TextView
+            android:id="@+id/tvStracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:text="การติดตาม"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
 </RelativeLayout>

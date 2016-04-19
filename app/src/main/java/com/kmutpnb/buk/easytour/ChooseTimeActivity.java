@@ -68,29 +68,29 @@ public class ChooseTimeActivity extends AppCompatActivity {
     private void addListITEM() {
 
         ArrayList<String> startList = new ArrayList<String>();
-        startList.add("8.00");
-        startList.add("9.00");
-        startList.add("10.00");
-        startList.add("11.00");
-        startList.add("12.00");
-        startList.add("13.00");
-        startList.add("14.00");
-        startList.add("15.00");
+        startList.add("8:00");
+        startList.add("9:00");
+        startList.add("10:00");
+        startList.add("11:00");
+        startList.add("12:00");
+        startList.add("13:00");
+        startList.add("14:00");
+        startList.add("15:00");
         ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, startList);
        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         HrStartSpinner.setAdapter(myAdapter);
 
         ArrayList<String> endList = new ArrayList<String>();
-        endList.add("9.00");
-        endList.add("10.00");
-        endList.add("11.00");
-        endList.add("12.00");
-        endList.add("13.00");
-        endList.add("14.00");
-        endList.add("15.00");
-        endList.add("16.00");
-        endList.add("17.00");
+        endList.add("9:00");
+        endList.add("10:00");
+        endList.add("11:00");
+        endList.add("12:00");
+        endList.add("13:00");
+        endList.add("14:00");
+        endList.add("15:00");
+        endList.add("16:00");
+        endList.add("17:00");
         ArrayAdapter<String> myAdapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, endList);
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);

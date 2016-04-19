@@ -1,30 +1,61 @@
 package com.kmutpnb.buk.easytour;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.app.PendingIntent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class HubServiceActivity extends AppCompatActivity implements View.OnClickListener {
 
 
         //Explicit
     private TextView showNameTextview;
-    private Button authenButton, listtourButton, warningButton, trackingButton, recommendButton, listuserButton ;
-    private String nameString, meIDString, Uname;
+    private ImageButton authenButton, listtourButton, addProgramtourButton, trackingButton, recommendButton, listuserButton ;
+    private String nameString, meIDString, Uname, datestartString;
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
     private double myLat, myLng;
+
+    //timer
+    TimePicker myTimePicker;
+    Button buttonstartSetDialog;
+    private ListView listAlarm;
+    public static ArrayList<String> listValue;
+    private TextView textView2;
+
+    TimePickerDialog timePickerDialog;
+
+    final static int RQS_1 = 1;
+    //timer
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hub_service);
 
 
+        listAlarm = (ListView)findViewById(R.id.listView1);
+        listValue = new ArrayList<String>();
+
         bindWidget();
+       //Bind wicket ผูกตัวแปร
 
         //check section 4 ภาค
         checkSection();
@@ -34,12 +65,102 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
 
         //button controller
-
         buttonController();
 
+        alarmTimer();
 
-        //Bind wicket ผูกตัวแปร
     }//main method
+
+    private void alarmTimer() {
+
+        //int callCount=0;
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+
+       Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
+        //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
+
+
+        cursor.moveToFirst();
+
+        while (!cursor.isAfterLast()) { // Loop until all vales have been seen
+
+            String name = cursor.getString(1);
+
+            Log.d("tree", "name tour " + name);
+           // Log.d("aess", "66 " + datestartString);
+
+                String time = cursor.getString(4);
+                String[] parts = time.split(":"); //Split  String Value stored in db
+                String part1 = parts[0]; // hour
+                String part2 = parts[1]; // minute
+                int hr = Integer.parseInt(part1);
+                int min = Integer.parseInt(part2);
+
+                Log.d("tree", "hour " + hr);
+                Log.d("tree", "MINUTE " + min);
+////                if (callCount == 0) {
+                    // Do something with the time chosen by the user
+                    Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, hr);
+                cal.set(Calendar.MINUTE, min);
+//                    int a = 10;
+//                    int b = 00;
+//                    cal.set(Calendar.HOUR_OF_DAY, a);
+//                    cal.set(Calendar.MINUTE, b);
+
+                      setAlarm(cal);
+                   // Log.d("aess", "set  " + cal);
+               // }//if
+               // callCount++;
+//
+//            final int _id=(int)System.currentTimeMillis();
+//
+//            Intent alarmIntent = new Intent(Meds2.this, AlarmReceiver.class); //set up alarm
+//            pendingIntent = PendingIntent.getBroadcast(Meds2.this, _id, alarmIntent, 0);
+//
+//            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(System.currentTimeMillis());
+//            calendar.set(Calendar.HOUR_OF_DAY, hr);
+//            calendar.set(Calendar.MINUTE, min); //set cal time based of db value
+//
+//                    /* Repeating on every 24 hours interval */
+//            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+//                    AlarmManager.INTERVAL_DAY, pendingIntent); // run every date.time() in millisec
+//
+//            Log.e(TAG, "DATE VALUE TIME IS " + part1 +"--" +part2); //log part one and two to make sure time is right
+//
+            cursor.moveToNext();
+        }///while
+       cursor.close();
+    }//method
+
+    private void setAlarm(Calendar targetCal){
+
+        listValue.add(targetCal.getTime()+"");
+        Log.d("aess", "k "+ listValue);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
+        listAlarm.setAdapter(adapter);
+
+        final int _id = (int) System.currentTimeMillis();
+
+        Intent intent = new Intent(getBaseContext(), AlarmReceiverT.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), _id, intent, 0);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
+        listAlarm.setAdapter(adapter);
+    }
 
     private void checkSection() {
 
@@ -68,7 +189,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
         authenButton.setOnClickListener(this);
         listuserButton.setOnClickListener(this);
-        warningButton.setOnClickListener(this);
+       addProgramtourButton.setOnClickListener(this);
         trackingButton.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
         listtourButton.setOnClickListener(this);
@@ -79,14 +200,17 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
     private void bindWidget() {
 
         showNameTextview = (TextView) findViewById(R.id.textView2);
-        authenButton = (Button) findViewById(R.id.btnauthen);
-        listtourButton = (Button) findViewById(R.id.btnlisttour);
-        warningButton = (Button) findViewById(R.id.btnwarning);
-        trackingButton = (Button) findViewById(R.id.btntracking);
-        recommendButton = (Button) findViewById(R.id.btnrecommend);
-        listuserButton = (Button) findViewById(R.id.btnlistuser);
+        authenButton = (ImageButton) findViewById(R.id.btnSadduser);
+        listtourButton = (ImageButton) findViewById(R.id.btnSprogram);
+        addProgramtourButton = (ImageButton) findViewById(R.id.btnSaddprogram);
+        trackingButton = (ImageButton) findViewById(R.id.btnStracking);
+        recommendButton = (ImageButton) findViewById(R.id.btnSplace);
+        listuserButton = (ImageButton) findViewById(R.id.btnSulist);
 
         Uname = getIntent().getStringExtra("Uname");
+
+       // datestartString = getIntent().getStringExtra("setdate");
+       // Log.d("tree", datestartString);
 
     }//bind wicket
 
@@ -95,14 +219,14 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
         switch (view.getId()) {
 
-            case R.id.btnauthen:
-
+            case R.id.btnSadduser:
+                ///add user
                 Intent authenIntent = new Intent(HubServiceActivity.this, RegisterActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
                 startActivity(authenIntent);
 
                 break;
-            case R.id.btnlisttour:
-
+            case R.id.btnSaddprogram:
+                // add program tour
 
                 Intent intent = new Intent(HubServiceActivity.this, ChooseDateTripActivity.class);
                 intent.putExtra("Lat", myLat);
@@ -116,10 +240,15 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 //                intent.putExtra("Lng", myLng);
 //                intent.putExtra("Uname", Uname);
 //                startActivity(intent);//sent value
-
+                break;
+            case R.id.btnSprogram:
+                //list my program tour
+                Intent mytourIntent = new Intent(HubServiceActivity.this, ShowMyTourActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                startActivity(mytourIntent);
 
                 break;
-            case R.id.btnwarning:
+            case R.id.btnStracking:
+                // การติดตาม
                 Intent intent1 = new Intent(HubServiceActivity.this, MyTagActivity.class);
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
@@ -127,14 +256,12 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 startActivity(intent1);//sent value
 
                 break;
-            case R.id.btntracking:
-                break;
-            case R.id.btnrecommend:
-                Intent mytourIntent = new Intent(HubServiceActivity.this, ShowMyTourActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
-                startActivity(mytourIntent);
-                break;
-            case R.id.btnlistuser:
+            case R.id.btnSplace:
+                //สถานที่ท่องเที่ยว
 
+                break;
+            case R.id.btnSulist:
+                // list user
                 Intent userIntent = new Intent(HubServiceActivity.this, ShowUserActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
                 startActivity(userIntent);
 

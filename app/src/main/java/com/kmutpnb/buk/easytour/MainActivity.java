@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
 import android.location.Location;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -32,6 +34,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
     //explicate
     private MyManageTable objMyManageTable;
     private EditText userEditText, passwordEditText;
-    private String useString, passString;
+    private TextView setdateTextView;
+    private String useString, passString, setdateString;
     private LocationManager objLocationManager;
     private Criteria objCriteria;
     private Boolean GPSABoolean, networkABoolearn;
@@ -70,9 +74,29 @@ public class MainActivity extends AppCompatActivity {
         //Get location
         getLocation();
 
+      //  setdate();
+
 
 
     }//Main Method
+
+    private void setdate() {
+
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // calendar.set(day,month,year);
+
+        setdateTextView.setText(new StringBuilder()
+                //month base is 0 just +1
+                .append(day).append("/").append(month + 1).append("/")
+                .append(year).append(" "));
+
+        setdateString = setdateTextView.getText().toString();
+        Log.d("tree", setdateString);
+    }
 
     private void clearConfirmMytour() {
 
@@ -289,6 +313,7 @@ public class MainActivity extends AppCompatActivity {
                         adminIntent.putExtra("Lng",lngADouble);
                         adminIntent.putExtra("meID",meIDString);
                         adminIntent.putExtra("Uname",useString);
+                       // adminIntent.putExtra("setdate", setdateString);
                         startActivity(adminIntent);
                        break;
 
@@ -342,6 +367,8 @@ public class MainActivity extends AppCompatActivity {
 
         userEditText = (EditText) findViewById(R.id.editTextUser);
         passwordEditText = (EditText) findViewById(R.id.editTextPass);
+
+        setdateTextView = (TextView) findViewById(R.id.tvsetdate);
 
     }
 

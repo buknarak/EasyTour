@@ -8,6 +8,8 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ChooseDateTripActivity extends AppCompatActivity {
 
@@ -26,11 +28,13 @@ public class ChooseDateTripActivity extends AppCompatActivity {
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(CalendarView calendarView, int i, int i1, int i2) {
+            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
 
-                dateChooseString = Integer.toString(i2) +
-                        "/" + Integer.toString(i1+1) +
-                        "/" + Integer.toString(i);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                String selectedDate = sdf.format(new Date(calendarView.getDate()));
+                dateChooseString = Integer.toString(year) +
+                        "-" + Integer.toString(month+1) +
+                        "-" + Integer.toString(day);
 
             }
         });

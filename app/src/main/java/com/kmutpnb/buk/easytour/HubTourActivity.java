@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class HubTourActivity extends AppCompatActivity implements View.OnClickListener {
@@ -13,7 +14,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
     //Explicit
     private TextView showNameTextview;
-    private Button listtourButton, warningButton, trackingButton, recommendButton, listuserButton ;
+    private ImageButton listtourButton, warningButton, trackingButton, recommendButton, listuserButton ;
     private String nameString, meIDString;
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
@@ -68,7 +69,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
 
         listuserButton.setOnClickListener(this);
-        warningButton.setOnClickListener(this);
+       // warningButton.setOnClickListener(this);
         trackingButton.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
         listtourButton.setOnClickListener(this);
@@ -80,11 +81,16 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
         showNameTextview = (TextView) findViewById(R.id.textView2);
 
-        listtourButton = (Button) findViewById(R.id.btnlisttour);
-        warningButton = (Button) findViewById(R.id.btnwarning);
-        trackingButton = (Button) findViewById(R.id.btntracking);
-        recommendButton = (Button) findViewById(R.id.btnrecommend);
-        listuserButton = (Button) findViewById(R.id.btnlistuser);
+//        listtourButton = (Button) findViewById(R.id.btnHulist);
+//        warningButton = (Button) findViewById(R.id.btnwarning);
+//        trackingButton = (Button) findViewById(R.id.btntracking);
+//        recommendButton = (Button) findViewById(R.id.btnrecommend);
+//        listuserButton = (Button) findViewById(R.id.btnlistuser);
+
+        listtourButton = (ImageButton) findViewById(R.id.btnHulist);
+        trackingButton = (ImageButton) findViewById(R.id.btnHtracking);
+        recommendButton = (ImageButton) findViewById(R.id.btnHplace);
+        listuserButton = (ImageButton) findViewById(R.id.btnHulist);
 
     }//bind wicket
 
@@ -93,19 +99,24 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (view.getId()) {
 
-            case R.id.btnwarning:
+//            case R.id.btnwarning:
+//                Intent intent1 = new Intent(HubTourActivity.this, MyTagActivity.class);
+//                intent1.putExtra("Lat", myLat);
+//                intent1.putExtra("Lng", myLng);
+//                intent1.putExtra("meID", meIDString);
+//                startActivity(intent1);//sent value
+
+//                break;
+            case R.id.btnHtracking:
                 Intent intent1 = new Intent(HubTourActivity.this, MyTagActivity.class);
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
                 intent1.putExtra("meID", meIDString);
                 startActivity(intent1);//sent value
-
                 break;
-            case R.id.btntracking:
+            case R.id.btnHplace:
                 break;
-            case R.id.btnrecommend:
-                break;
-            case R.id.btnlistuser:
+            case R.id.btnHulist:
 
                 Intent userIntent = new Intent(HubTourActivity.this, ShowUserActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
                 startActivity(userIntent);

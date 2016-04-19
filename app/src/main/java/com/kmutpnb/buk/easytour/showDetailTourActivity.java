@@ -94,7 +94,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                 "WHERE ratingTABLE.Name = " + "'" + nameString + "'", null);
         cursor.moveToFirst();
 
-        float avgScore = cursor.getInt(cursor.getColumnIndex("avgscore"));
+        float avgScore = cursor.getFloat(cursor.getColumnIndex("avgscore"));
         int totalCount = cursor.getInt(cursor.getColumnIndex("countscore"));
         int intcount = cursor.getCount();
 
@@ -185,7 +185,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         tourDateString = getIntent().getStringExtra("Date");
 
         if (tourDateString == null) {
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            DateFormat dateFormat = new SimpleDateFormat("dd/M/yyyy");
             Date date = new Date();
             tourDateString = dateFormat.format(date);
 

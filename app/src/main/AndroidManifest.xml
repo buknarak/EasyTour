@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kmutpnb.buk.easytour">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -13,12 +15,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ShowEvent"
+            android:theme="@android:style/Theme.Dialog">
+            <receiver android:name=".AlarmReceiverT" android:process=":remote" />
         </activity>
         <activity android:name=".HubServiceActivity" />
         <activity android:name=".HubTourActivity" />
@@ -29,6 +37,8 @@
         <activity android:name=".ShowDetaiUserActivity" />
         <activity android:name=".MainProgramTourActivity" />
         <activity android:name=".ShowProgramTourAllActivity" />
+
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

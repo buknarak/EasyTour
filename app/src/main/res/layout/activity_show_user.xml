@@ -8,21 +8,22 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kmutpnb.buk.easytour.ShowProgramTourActivity"
-    android:background="@drawable/bg01">
+    android:background="@drawable/bg02">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="รายชื่อผู้ใช้ในระบบ"
+        android:textColor="#49c1f9"
         android:id="@+id/tvListUser"
         android:layout_centerHorizontal="true"
-        android:textSize="30sp" />
+        android:textSize="20sp" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewListUser"
         android:layout_below="@+id/tvListUser"
-        android:background="#82ffffff" />
+         />
 </RelativeLayout>
 

@@ -3,54 +3,149 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg02"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.kmutpnb.buk.easytour.HubTourActivity"
-    android:background="@drawable/bg01">
+    tools:context="com.kmutpnb.buk.easytour.HubTourActivity">
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Text"
-        android:id="@+id/textView2"
-        android:textSize="@dimen/H1" />
+        android:textSize="@dimen/H1"
+        android:textColor="#49c1f9" />
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/linearLayout2"-->
+        <!--android:layout_width="@dimen/mybutton"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnlisttour"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/listtour"-->
+            <!--android:textColor="#fdfdfd" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnwarning"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/warning"-->
+            <!--android:textColor="#fdfdfd" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btntracking"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/tracking"-->
+            <!--android:textColor="#fdfdfd" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnrecommend"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/recommend"-->
+            <!--android:textColor="#fdfdfd" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/btnlistuser"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/listuser"-->
+            <!--android:textColor="#fdfdfd" />-->
+    <!--</LinearLayout>-->
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="@dimen/mybutton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:orientation="vertical">
 
-        <Button
-            android:layout_width="match_parent"
+        <ImageButton
+            android:id="@+id/btnHprogram"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/listtour"
-            android:id="@+id/btnlisttour" />
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/ic_list" />
 
-        <Button
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvHprogram"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/warning"
-            android:id="@+id/btnwarning" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tracking"
-            android:id="@+id/btntracking" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/recommend"
-            android:id="@+id/btnrecommend" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/listuser"
-            android:id="@+id/btnlistuser" />
+            android:layout_marginLeft="65dp"
+            android:text="โปรแกรมทัวร์"
+            android:textColor="#ffffff" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnHtracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="150dp"
+            android:background="@drawable/ic_tracking" />
+
+        <TextView
+            android:id="@+id/tvHtracking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:text="การติดตาม"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnHplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="280dp"
+            android:background="@drawable/ic_place" />
+
+        <TextView
+            android:id="@+id/tvHplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:text="สถานที่ท่องเที่ยว"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnHulist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:layout_marginTop="280dp"
+            android:background="@drawable/ic_listuser" />
+
+        <TextView
+            android:id="@+id/tvHulist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="210dp"
+            android:text="รายชื่อทัวร์"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
 </RelativeLayout>

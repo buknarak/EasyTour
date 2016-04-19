@@ -8,15 +8,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.kmutpnb.buk.easytour.RegisterActivity"
-    android:background="@drawable/bg01">
+    android:background="@drawable/bg02">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:layout_marginTop="50dp"
-        android:background="#82ffffff">
+        android:layout_marginTop="50dp">
+        <!--android:background="#82ffffff">-->
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,6 +24,7 @@
             android:text="@string/authen"
             android:id="@+id/tvauthen"
             android:layout_gravity="center_horizontal"
+            android:textColor="#49c1f9"
             android:textSize="@dimen/H1" />
 
         <LinearLayout
@@ -38,6 +39,7 @@
                 android:text="@string/user"
                 android:id="@+id/tvuser"
                 android:textSize="@dimen/H2"
+                android:textColor="#ffffff"
                 android:layout_weight="1" />
 
             <EditText
@@ -59,6 +61,7 @@
                 android:text="@string/pass"
                 android:id="@+id/tvpass"
                 android:textSize="@dimen/H2"
+                android:textColor="#ffffff"
                 android:layout_weight="1" />
 
             <EditText
@@ -78,6 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
+                android:textColor="#ffffff"
                 android:id="@+id/tvname"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1" />
@@ -101,6 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/tour"
+                android:textColor="#ffffff"
                 android:id="@+id/ragtour"
                 android:layout_weight="1"
                 android:checked="true" />
@@ -109,6 +114,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/admin"
+                android:textColor="#ffffff"
                 android:id="@+id/ragadmin"
                 android:layout_weight="1" />
         </RadioGroup>

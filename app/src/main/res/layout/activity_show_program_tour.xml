@@ -16,15 +16,15 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/textView7"
+            android:textColor="#49c1f9"
             android:layout_centerHorizontal="true"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/listView"
-            android:layout_below="@+id/textView7"
-            android:background="#82ffffff" />
+            android:layout_below="@+id/textView7" />
 
 
       </RelativeLayout>

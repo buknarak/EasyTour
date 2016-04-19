@@ -22,8 +22,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
+            android:textColor="#49c1f9"
             android:id="@+id/textView"
             android:textSize="@dimen/H1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvsetdate"
+            android:visibility="gone" />
 
         <EditText
             android:layout_width="match_parent"
