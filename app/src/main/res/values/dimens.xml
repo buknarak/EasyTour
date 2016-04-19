@@ -5,6 +5,8 @@
 
     <dimen name="H1">30sp</dimen>
     <dimen name="H2">20sp</dimen>
+    <dimen name="T15">15sp</dimen>
+    <dimen name="T10">10sp</dimen>
     <dimen name="my_margin">20dp</dimen>
 
     <dimen name="mybutton">250dp</dimen>

@@ -51,8 +51,8 @@ public class TourAdaptor extends BaseAdapter{
         TextView provinceView = (TextView) view1.findViewById(R.id.textView6);
         provinceView.setText(provinceStrings[i]);
 
-        TextView timeUseTextView = (TextView) view1.findViewById(R.id.textView4);
-        timeUseTextView.setText(timeuseStrings[i]);
+//        TextView timeUseTextView = (TextView) view1.findViewById(R.id.textView4);
+//        timeUseTextView.setText(timeuseStrings[i]);
 
 
         return view1;

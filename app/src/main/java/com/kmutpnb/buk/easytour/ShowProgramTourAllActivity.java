@@ -29,7 +29,7 @@ public class ShowProgramTourAllActivity extends AppCompatActivity {
 
     private void showView() {
 
-        showCatTextView.setText(getResources().getString(R.string.listtour));
+        showCatTextView.setText("แหล่งท่องเที่ยวทั้งหมด");
         //read or where
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);

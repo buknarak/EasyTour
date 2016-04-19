@@ -50,12 +50,12 @@ public class UserAdaptor extends BaseAdapter {
 
         View view1 = Inflater.inflate(R.layout.user_program_list, viewGroup, false);
 
-        TextView nameView = (TextView) view1.findViewById(R.id.tvNameUser);
-        nameView.setText(nameString[i]);
+//        TextView nameView = (TextView) view1.findViewById(R.id.tvNameUser);
+//        nameView.setText(nameString[i]);
         TextView idView = (TextView) view1.findViewById(R.id.tvIdUser);
         idView.setText(userStrings[i]);
-        TextView passwordView = (TextView) view1.findViewById(R.id.tvPassUser);
-        passwordView.setText(passString[i]);
+//        TextView passwordView = (TextView) view1.findViewById(R.id.tvPassUser);
+//        passwordView.setText(passString[i]);
         TextView positionView = (TextView) view1.findViewById(R.id.tvPosition);
         positionView.setText(positionString[i]);
 //        int y = Integer.valueOf(positionString[i]);

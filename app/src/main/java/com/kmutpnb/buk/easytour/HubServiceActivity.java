@@ -258,7 +258,12 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnSplace:
                 //สถานที่ท่องเที่ยว
-
+                //โปรแกรมทัวร์ เดิม
+                Intent intent3 = new Intent(HubServiceActivity.this, MainProgramTourActivity.class);
+                intent3.putExtra("Lat", myLat);
+                intent3.putExtra("Lng", myLng);
+                intent3.putExtra("Uname", Uname);
+                startActivity(intent3);//sent value
                 break;
             case R.id.btnSulist:
                 // list user

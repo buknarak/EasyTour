@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.kmutpnb.buk.easytour.ShowProgramTourActivity"
+    tools:context="com.kmutpnb.buk.easytour.ShowUserActivity"
     android:background="@drawable/bg02">
 
     <TextView

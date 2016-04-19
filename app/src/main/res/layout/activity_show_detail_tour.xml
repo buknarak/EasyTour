@@ -8,20 +8,25 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".showDetailTourActivity"
-    android:background="@drawable/bg01"
+    android:background="@drawable/bg02"
     android:padding="10dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linBottonShoedetail"
-        android:background="#82ffffff">
+        android:layout_above="@+id/linBottonShoedetail">
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="วันที่เลือกโปรแกรม : "
+                android:textSize="@dimen/H2"
+                android:layout_weight="2" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -47,7 +52,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Name : "
+                android:text="ชื่อสถานที่ : "
                 android:id="@+id/textview"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1"
@@ -72,7 +77,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Province : "
+                android:text="จังหวัด : "
                 android:id="@+id/textView16"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1" />
@@ -94,7 +99,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Type :"
+                android:text="หมวด :"
                 android:id="@+id/textView18"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1" />
@@ -117,7 +122,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TimeUse :"
+                android:text="เวลาเที่ยว :"
                 android:id="@+id/textView20"
                 android:textSize="@dimen/H2"
                 android:layout_weight="1" />
@@ -140,7 +145,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rating :"
+                android:text="ระดับความนิยม :"
                 android:id="@+id/tvRating"
                 android:textSize="@dimen/H2" />
             <TextView
@@ -174,7 +179,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:text="รายละเอียด"
             android:id="@+id/textView8"
             android:textSize="@dimen/H2"
             android:layout_marginTop="10dp" />
@@ -193,8 +198,6 @@
                 android:id="@+id/tvdescrip"
                 android:textSize="@dimen/H2" />
         </ScrollView>
-
-
 
 
     </LinearLayout>

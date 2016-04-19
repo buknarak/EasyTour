@@ -101,7 +101,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
             // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
             //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = " + "'" + dateString + "'", null);
             //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE Name = "หาดสิชล" " , null);
-            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = " + "'" + dateString + "'", null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
             cursor.moveToFirst();
 
 

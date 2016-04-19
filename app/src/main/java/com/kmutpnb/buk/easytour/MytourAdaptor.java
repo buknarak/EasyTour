@@ -18,15 +18,15 @@ public class MytourAdaptor extends BaseAdapter {
     private String[] dateStrings, nameString, hrStartString;
 
 
-public MytourAdaptor(Context context,  String[] dateStrings, String[] hrStartString, String[] nameString) {
-    this.context = context;
-    this.dateStrings = dateStrings;
-    this.hrStartString = hrStartString;
-    this.nameString = nameString;
+    public MytourAdaptor(Context context,  String[] dateStrings, String[] hrStartString, String[] nameString) {
+        this.context = context;
+        this.dateStrings = dateStrings;
+        this.hrStartString = hrStartString;
+        this.nameString = nameString;
 
 
 
-}//contrutor
+    }//contrutor
 
 
     @Override
