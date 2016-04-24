@@ -20,7 +20,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
     //explicite
     private double userLatADouble, userLngAdouble;
-    private String categoryString, category, uname, choosedateString;
+    private String categoryString, category, uname, choosedateString, statusString;
     private TextView showCatTextView;
     private ListView tourListViewListView;
 
@@ -31,6 +31,8 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
 
         choosedateString = getIntent().getStringExtra("chooseDate");
+        statusString = getIntent().getStringExtra("status");
+
 
         //bindWindget;
         bindwidget();
@@ -48,6 +50,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
 
         showCatTextView = (TextView) findViewById(R.id.textView7);
         tourListViewListView = (ListView) findViewById(R.id.listView);
+
 
        uname = getIntent().getStringExtra("Uname");
 
@@ -101,6 +104,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
                 intent.putExtra("Descrip", descripStrings[i]);
                 intent.putExtra("Date",choosedateString);
                 intent.putExtra("Uname",uname);
+                intent.putExtra("status", statusString);
                 intent.putExtra("ID", i);
                 startActivity(intent);
 

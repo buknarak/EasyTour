@@ -15,7 +15,7 @@ public class ShowDetaiUserActivity extends AppCompatActivity implements View.OnC
 
     private String userString, passString, nameString, positionString;
     private RadioGroup positionRadioGroup;
-    private TextView userTextView, passTextView, nameTextView;
+    private TextView userTextView, passTextView, nameTextView, posTextView;
 
 
     @Override
@@ -48,13 +48,15 @@ public class ShowDetaiUserActivity extends AppCompatActivity implements View.OnC
         userTextView.setText(userString);
         passTextView.setText(passString);
 
-        if (positionString == "นักท่องเที่ยว") {
 
-            Log.d("Status", positionString);
-            positionRadioGroup.check(R.id.rdTour);
+        if (positionString == "นักท่องเที่ยว") {
+                posTextView.setText("นักท่องเที่ยว");
+
+//            positionRadioGroup.check(R.id.rdTour);
         } else {
-            Log.d("Status", positionString );
-            positionRadioGroup.check(R.id.rdAdmin);
+            posTextView.setText("มัคคุเทศก์");
+//            Log.d("Status", positionString );
+//            positionRadioGroup.check(R.id.rdAdmin);
         }
 
     }
@@ -64,7 +66,8 @@ public class ShowDetaiUserActivity extends AppCompatActivity implements View.OnC
         nameTextView = (TextView) findViewById(R.id.tvNamee);
         userTextView = (TextView) findViewById(R.id.tvUserr);
         passTextView = (TextView) findViewById(R.id.tvPasss);
-        positionRadioGroup = (RadioGroup) findViewById(R.id.ragPosition);
+        posTextView = (TextView) findViewById(R.id.tvpos);
+       // positionRadioGroup = (RadioGroup) findViewById(R.id.ragPosition);
 
 
     }

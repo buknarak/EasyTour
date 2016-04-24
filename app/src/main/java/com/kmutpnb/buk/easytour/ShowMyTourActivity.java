@@ -26,7 +26,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private int year, month, day;
     private TextView textViewPro;
-    private String dateString,nameString;
+    private String dateString,nameString, curdateString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,8 @@ public class ShowMyTourActivity extends AppCompatActivity {
 
         bindwicket();
         setdateshow();
+        showView();
+
 
     }
 
@@ -143,7 +145,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
        // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
      //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = " + "'" + dateString + "'", null);
         //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE Name = "หาดสิชล" " , null);
-         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE Name = " + "'" + nameString + "'", null);
+         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
         cursor.moveToFirst();
 
 
@@ -164,13 +166,15 @@ public class ShowMyTourActivity extends AppCompatActivity {
 
             Log.d("tree", "int = " + i);
 
-
+           curdateString = dateStrings[i];
         }
         cursor.close();
 
         MytourAdaptor mytourAdapter = new MytourAdaptor(ShowMyTourActivity.this,
                dateStrings,hrStartString, nameString);
         mytourListViewListView.setAdapter(mytourAdapter);
+        textViewPro.setText(getResources().getString(R.string.listtourdate) + " " + curdateString);
+
 
     }
 

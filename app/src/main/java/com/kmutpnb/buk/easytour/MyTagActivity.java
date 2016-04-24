@@ -3,6 +3,7 @@ package com.kmutpnb.buk.easytour;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Criteria;
@@ -17,6 +18,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,8 +55,8 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     private Criteria objCriteria;
     private Boolean GPSABoolean, networkABoolearn;
     private double latADouble, lngADouble;
-    private String meIDString;
-
+    private String meIDString,statusString, unameString,strNameme;
+    MyService myservice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,9 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-        //get Value from Intent
+        stopService(new Intent(MyTagActivity.this, MyService.class));
+        stopService(new Intent(MyTagActivity.this, MyServiceUser.class));
+//get Value from Intent
         getLatLngForIntent();
 
 
@@ -77,10 +80,18 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         //Get location
         getLocation();
 
+        //getLocationMe();
+
+
     }//Main Method
 
+//    private void getLocationMe() {
+//
+//
+//    }
 
-    //นี่คือ เมทอด ที่หาระยะ ระหว่างจุด
+
+    ////นี่คือ เมทอด ที่หาระยะ ระหว่างจุด
     private static double distance(double lat1, double lon1, double lat2, double lon2) {
         double theta = lon1 - lon2;
         double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
@@ -99,7 +110,13 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     private static double rad2deg(double rad) {
         return (rad * 180 / Math.PI);
     }
-
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Intent intent = new Intent(this, MyService.class);
+//        startService(intent);
+//        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+//    }
 
 
     @Override
@@ -221,11 +238,18 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
     private void getLatLngForIntent() {
-
-        meLatADouble = getIntent().getDoubleExtra("Lat", 14.47723421);
-        meLngADouble = getIntent().getDoubleExtra("Lng", 100.64575195);
+      //  meLatADouble = getIntent().getDoubleExtra("Lat", 14.47723421);
+      // meLngADouble = getIntent().getDoubleExtra("Lng", 100.64575195);
+        meLatADouble = getIntent().getDoubleExtra("Lat", 0);
+        meLngADouble = getIntent().getDoubleExtra("Lng", 0);
 
         meIDString = getIntent().getStringExtra("meID");
+        unameString = getIntent().getStringExtra("Uname");
+        strNameme = getIntent().getStringExtra("name");
+
+       statusString = getIntent().getStringExtra("status");
+
+      //  Log.d("value" , strNameme);
     }
 
 
@@ -238,21 +262,35 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
 
         createMakerMe();
+        int i = Integer.parseInt(statusString.trim());
 
-        myLoopCreateMarker();
+        if (i == 0) {
+            ///  0 "สถานะ : นักท่องเที่ยว"
+            Log.d("99", " สถานะ "+ i);
+            myLoopCreateMarkerforuser();
+        } else {
+            Log.d("99", " สถานะ "+ i);
+            myLoopCreateMarker();
+
+        }
+        Log.d("99", statusString);
+
 
 
     }//Maps Method
 
-    private void myLoopCreateMarker() {
+    private void myLoopCreateMarkerforuser() {
 
         mMap.clear();
         synUserTable();
 
-        //เอา ละ ลอง ทั้งหมดมาแสดง (เฉพาะ Status 0 (ทัวร์))
+
+        //เอา ละ ลอง ทั้งหมดมาแสดง (เฉพาะ Status 1 (มัคคุเทศฏ์์))
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE Status = 0", null);
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE Status = 1", null);
+        /// Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
         cursor.moveToFirst();
         int intcount = cursor.getCount();
 
@@ -261,11 +299,80 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             String strName = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
             String strLat = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lat));
             String strLng = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lng));
+            String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
-            createMakerUser(strName, strLat, strLng);
+
+            createMakerUser(strName, strLat, strLng, strStatus);
 
 
-            //check distance
+            //  check distance
+            double doulat2 = Double.parseDouble(strLat);
+            double doulng2 = Double.parseDouble(strLng);
+
+            //double douDistance = distance(latADouble,lngADouble, doulat2, doulng2);
+            double douDistance = distance(doulat2,doulng2, latADouble, lngADouble);
+
+            Log.d("99", "distance [" + strName +" ] " + douDistance );
+
+
+            //  check
+            if (douDistance > 400) {
+               //myNotification(strName);
+
+                myNotificationuser();
+
+                Log.d("99", strNameme);
+            } //if
+            cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
+        }//for
+
+        //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์
+        //เอาพิกัด admin ไปเก็บที่ server
+        updateToMySQL(meIDString, Double.toString(latADouble), Double.toString(lngADouble));//ส่งค่าไปเลยทีเดียว
+        // //แปลง double to string ด้วย
+
+        //กำหนด maker ใหม่ให้กับ admin
+        meLatLng = new LatLng(latADouble, lngADouble);
+
+        createMakerMe();
+
+        //หน่วงเวลา และลุปไม่จบ
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myLoopCreateMarkerforuser();
+            }
+        }, 3000); //3 วินาที
+    }
+
+     private void myLoopCreateMarker() {
+
+        mMap.clear();
+         synUserTable();
+
+
+        //เอา ละ ลอง ทั้งหมดมาแสดง (เฉพาะ Status 0 (ทัวร์))
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+
+       Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE Status = 0", null);
+       /// Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
+        cursor.moveToFirst();
+        int intcount = cursor.getCount();
+
+        for (int i=0 ; i <intcount;i++) {
+
+            String strName = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
+            String strLat = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lat));
+            String strLng = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lng));
+            String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
+
+
+                createMakerUser(strName, strLat, strLng, strStatus);
+
+
+          //  check distance
             double doulat2 = Double.parseDouble(strLat);
             double doulng2 = Double.parseDouble(strLng);
 
@@ -274,24 +381,21 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             Log.d("99", "distance [" + strName +" ] " + douDistance );
 
 
-            //check
+          //  check
             if (douDistance > 400) {
-
-                myNotification(strName);
-
-
+               myNotification(strName);
+               // myNotificationuser();
             } //if
-
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
         }//for
 
         //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์
         //เอาพิกัด admin ไปเก็บที่ server
         updateToMySQL(meIDString, Double.toString(latADouble), Double.toString(lngADouble));//ส่งค่าไปเลยทีเดียว
-        //แปลง double to string ด้วย
+       // //แปลง double to string ด้วย
 
         //กำหนด maker ใหม่ให้กับ admin
-        meLatLng = new LatLng(latADouble, lngADouble);
+       meLatLng = new LatLng(latADouble, lngADouble);
 
         createMakerMe();
 
@@ -304,7 +408,21 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             }
         }, 3000); //3 วินาที
 
-    }//myLoopCreateMarker
+   }//myLoopCreateMarker
+
+    private void createMakerAdmin(String strName, String strLat, String strLng) {
+
+        Double douLat = Double.parseDouble(strLat);
+        Double douLng = Double.parseDouble(strLng);
+
+
+//        LatLng latLng = new LatLng(douLat,douLng);
+//        mMap.addMarker(new MarkerOptions()
+//                .icon(BitmapDescriptorFactory.HUE_BLUE)
+//                .position(latLng)
+//                .title(strName));
+
+    }
 
     private void myNotification(String strName) {
 
@@ -315,7 +433,8 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         builder.setTicker("Easy Tour");
         builder.setWhen(System.currentTimeMillis());
         builder.setContentTitle("ระยะเกิน");
-        builder.setContentText("กลับมาได้แล้ว " +strName + "ไปไกลเกินไปแล้ว");
+       // builder.setContentText("กลับมาได้แล้ว " +strName + "ไปไกลเกินไปแล้ว");
+        builder.setContentText(strName + "ไปไกลเกินไปแล้ว");
         builder.setAutoCancel(true);
 
 
@@ -327,10 +446,30 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         notificationManager.notify(1000, notification);
 
 
-
     }//Noti
 
-    private void createMakerUser(String strName, String strLat, String strLng) {
+
+    private void myNotificationuser() {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.drawable.danger);
+        builder.setTicker("Easy Tour");
+        builder.setWhen(System.currentTimeMillis());
+        builder.setContentTitle("ระยะเกิน");
+        builder.setContentText(strNameme + "ไปไกลเกินไปแล้วนะครับ");
+        builder.setAutoCancel(true);
+
+
+        Uri soundUri = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);
+        builder.setSound(soundUri);
+
+        android.app.Notification notification = builder.build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(1000, notification);
+
+    }//Noti User
+
+    private void createMakerUser(String strName, String strLat, String strLng, String strStatus) {
 
 
         Double douLat = Double.parseDouble(strLat);
@@ -342,16 +481,17 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         .position(latLng)
         .title(strName));
 
+
     }//CreateMakerUser
 
     private void synUserTable() {
 
-        //delete UserTable
+////        delete UserTable
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
         sqLiteDatabase.delete(MyManageTable.table_user, null,null);
 
-        //Connect Protocal
+       //// Connect Protocal
         StrictMode.ThreadPolicy threadPolicy  =  new StrictMode.ThreadPolicy
                 .Builder().permitAll().build();
         StrictMode.setThreadPolicy(threadPolicy);
@@ -413,7 +553,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         }
 
     }//synUserTAble
-
+//
     private void updateToMySQL(String meIDString, String strLat, String strLng) {
 
 
@@ -447,6 +587,27 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private void createMakerMe() {
 
+
+        Log.d("99", meIDString);
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE _id = " + "'" + meIDString + "'", null);
+
+        cursor.moveToFirst();
+
+           // strNameme = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
+            String strLat = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lat));
+            String strLng = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lng));
+           // String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
+
+       double a = Double.parseDouble(strLat);
+        double b = Double.parseDouble(strLng);
+        Log.d("99", "melat " + a);
+        Log.d("99", "melng " + b);
+
+
+       // meLatLng = new LatLng(a, b); //เอาค่าไปใส่แผนที่
         mMap.addMarker(new MarkerOptions()
                 .position(meLatLng)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.friend)));

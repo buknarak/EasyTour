@@ -17,10 +17,13 @@ public class ShowProgramTourAllActivity extends AppCompatActivity {
 
     private TextView showCatTextView;
     private ListView tourListViewListView;
+    private String statusString;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_program_tour_all);
+
+        statusString = getIntent().getStringExtra("status");
 
         bindwidget();
 
@@ -72,6 +75,7 @@ public class ShowProgramTourAllActivity extends AppCompatActivity {
                 intent.putExtra("Type", typeStrings[i]);
                 intent.putExtra("TimeUse", timeUseStrings[i]);
                 intent.putExtra("Descrip", descripStrings[i]);
+                intent.putExtra("status", statusString);
                 startActivity(intent);
 
             }//on item

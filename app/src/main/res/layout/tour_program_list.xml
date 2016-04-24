@@ -25,14 +25,14 @@
             android:layout_height="wrap_content"
             android:text="จังหวัด"
             android:id="@+id/text345"
-            android:textColor="#ffffff"
+            android:textColor="#9a9696"
             android:layout_below="@+id/textView5"
             android:textSize="15sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
-            android:textColor="#ffffff"
+            android:textColor="#9a9696"
             android:layout_below="@+id/textView5"
             android:layout_toRightOf="@+id/text345"
             android:id="@+id/textView6"

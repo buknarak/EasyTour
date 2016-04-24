@@ -1,6 +1,7 @@
 package com.kmutpnb.buk.easytour;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -8,6 +9,9 @@ import android.content.Intent;
 import android.app.PendingIntent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +32,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
         //Explicit
     private TextView showNameTextview;
     private ImageButton authenButton, listtourButton, addProgramtourButton, trackingButton, recommendButton, listuserButton ;
-    private String nameString, meIDString, Uname, datestartString;
+    private String nameString, meIDString, Uname, datestartString, status;
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
     private double myLat, myLng;
@@ -69,6 +73,12 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
         alarmTimer();
 
+    //   startService(new Intent(HubServiceActivity.this, MyService.class));
+        Intent intent = new Intent(HubServiceActivity.this, MyService.class);
+        intent.putExtra("Name", nameString);
+        intent.putExtra("MeID", meIDString);
+        startService(intent);
+
     }//main method
 
     private void alarmTimer() {
@@ -84,7 +94,11 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
         cursor.moveToFirst();
 
+        //float count = cursor.getFloat(cursor.getColumnIndex("DateStart1"));
+      //  Log.d("tree" , "cout " + count);
+
         while (!cursor.isAfterLast()) { // Loop until all vales have been seen
+
 
             String name = cursor.getString(1);
 
@@ -102,16 +116,34 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 Log.d("tree", "MINUTE " + min);
 ////                if (callCount == 0) {
                     // Do something with the time chosen by the user
-                    Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.HOUR_OF_DAY, hr);
-                cal.set(Calendar.MINUTE, min);
+//                    Calendar cal = Calendar.getInstance();
+//                cal.set(Calendar.HOUR_OF_DAY, hr);
+//                cal.set(Calendar.MINUTE, min);
 //                    int a = 10;
 //                    int b = 00;
 //                    cal.set(Calendar.HOUR_OF_DAY, a);
 //                    cal.set(Calendar.MINUTE, b);
 
-                      setAlarm(cal);
-                   // Log.d("aess", "set  " + cal);
+            final int _id=(int)System.currentTimeMillis();
+
+            Intent alarmIntent = new Intent(HubServiceActivity.this, AlarmReceiverT.class); //set up alarm
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(HubServiceActivity.this, _id, alarmIntent, 0);
+
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hr);
+            calendar.set(Calendar.MINUTE, min); //set cal time based of db value
+
+                    /* Repeating on every 24 hours interval */
+            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent); // run every date.time() in millisec
+
+            Log.d("hh","DATE VALUE TIME IS " + part1 +"--" +part2); //log part one and two to make sure time is right
+
+
+                      //setAlarm(cal);
+          //  Log.d("tree", "set  " + cal);
                // }//if
                // callCount++;
 //
@@ -132,27 +164,54 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 //
 //            Log.e(TAG, "DATE VALUE TIME IS " + part1 +"--" +part2); //log part one and two to make sure time is right
 //
+
+
+//            Calendar targetcal = Calendar.getInstance(cal);
+//            targetcal.getTime() + "");
+//            sendNotification(name);
+
             cursor.moveToNext();
         }///while
        cursor.close();
     }//method
 
-    private void setAlarm(Calendar targetCal){
+//    private void setAlarm(Calendar targetCal) {
+//
+//        listValue.add(targetCal.getTime() + "");
+//        Log.d("tree", "list " + listValue);
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
+//        listAlarm.setAdapter(adapter);
+//
+//
+////        final int _id = (int) System.currentTimeMillis();
+////
+////        Intent intent = new Intent(getBaseContext(), AlarmReceiverT.class);
+////        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), _id, intent, 0);
+////        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+////        alarmManager.set(AlarmManager.RTC_WAKEUP, 5000, pendingIntent);
+//
+//
+//    }
 
-        listValue.add(targetCal.getTime()+"");
-        Log.d("aess", "k "+ listValue);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
-        listAlarm.setAdapter(adapter);
-
-        final int _id = (int) System.currentTimeMillis();
-
-        Intent intent = new Intent(getBaseContext(), AlarmReceiverT.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), _id, intent, 0);
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
-
-
+    private void sendNotification(String message) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("iFarm App")
+                .setContentText(message)
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        // TimerTaskSolenoidNotification timerTaskSolenoidNotification = new TimerTaskSolenoidNotification(getApplicationContext(),0,0,true);
     }
 
     @Override
@@ -208,6 +267,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
         listuserButton = (ImageButton) findViewById(R.id.btnSulist);
 
         Uname = getIntent().getStringExtra("Uname");
+         status = getIntent().getStringExtra("status");
 
        // datestartString = getIntent().getStringExtra("setdate");
        // Log.d("tree", datestartString);
@@ -232,6 +292,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra("Lat", myLat);
                 intent.putExtra("Lng", myLng);
                 intent.putExtra("Uname", Uname);
+                //intent.putExtra("Name", nameString);
                 startActivity(intent);//sent value
 
                 //โปรแกรมทัวร์ เดิม
@@ -253,7 +314,15 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
                 intent1.putExtra("meID", meIDString);
+                intent1.putExtra("name",nameString);
+                intent1.putExtra("Uname", Uname);
+                intent1.putExtra("status", status);
                 startActivity(intent1);//sent value
+
+//                Intent intents = new Intent(HubServiceActivity.this, MyService.class);
+//                intents.putExtra("Lat", myLat);
+//                intents.putExtra("Lng", myLng);
+//                intents.putExtra("meID", meIDString);
 
                 break;
             case R.id.btnSplace:
@@ -263,6 +332,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 intent3.putExtra("Lat", myLat);
                 intent3.putExtra("Lng", myLng);
                 intent3.putExtra("Uname", Uname);
+                intent3.putExtra("status", status);
                 startActivity(intent3);//sent value
                 break;
             case R.id.btnSulist:

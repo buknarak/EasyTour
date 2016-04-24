@@ -15,7 +15,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
     //Explicit
     private TextView showNameTextview;
     private ImageButton listtourButton, warningButton, trackingButton, recommendButton, listuserButton ;
-    private String nameString, meIDString;
+    private String nameString, meIDString, status;
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
     private double myLat, myLng;
@@ -38,7 +38,11 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
         buttonController();
 
-
+       //startService(new Intent(HubTourActivity.this, MyServiceUser.class));
+        Intent intent = new Intent(HubTourActivity.this, MyServiceUser.class);
+        intent.putExtra("Name", nameString);
+        intent.putExtra("MeID",meIDString);
+        startService(intent);
         //Bind wicket ผูกตัวแปร
     }//main method
 
@@ -92,6 +96,8 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
         recommendButton = (ImageButton) findViewById(R.id.btnHplace);
         listuserButton = (ImageButton) findViewById(R.id.btnHulist);
 
+        status = getIntent().getStringExtra("status");
+
     }//bind wicket
 
     @Override
@@ -112,9 +118,20 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
                 intent1.putExtra("meID", meIDString);
+                intent1.putExtra("name",nameString);
+                intent1.putExtra("status", status);
                 startActivity(intent1);//sent value
                 break;
             case R.id.btnHplace:
+                //สถานที่ท่องเที่ยว
+                //โปรแกรมทัวร์ เดิม
+
+                Intent intent3 = new Intent(HubTourActivity.this, MainProgramTourActivity.class);
+                intent3.putExtra("Lat", myLat);
+                intent3.putExtra("Lng", myLng);
+                intent3.putExtra("status", status);
+                startActivity(intent3);//sent value
+
                 break;
             case R.id.btnHulist:
 

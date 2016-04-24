@@ -2,7 +2,8 @@
     <string name="app_name">EasyTour</string>
 
     <string name="authen">กำหนดสิทธิ์ผู้ใช้</string>
-    <string name="listtour">โปรแกรมทัวร์</string>
+    <string name="listtour">แหล่งท่องเที่ยว</string>
+    <string name="listtourdate">โปรแกรมทัวร์ประจำวันที่</string>
     <string name="warning">การแจ้งเตือน</string>
     <string name="tracking">การติดตาม</string>
     <string name="recommend">แนะนำสถานที่ท่องเที่ยว</string>

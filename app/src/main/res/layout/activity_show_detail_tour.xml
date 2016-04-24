@@ -26,12 +26,14 @@
                 android:layout_height="wrap_content"
                 android:text="วันที่เลือกโปรแกรม : "
                 android:textSize="@dimen/H2"
+                android:textColor="#49c1f9"
                 android:layout_weight="2" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/tvdate"
+                android:textColor="#49c1f9"
                 android:textSize="@dimen/H2"
                 android:layout_weight="2" />
 
@@ -54,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:text="ชื่อสถานที่ : "
                 android:id="@+id/textview"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="1"
                 android:singleLine="false"
                 android:layout_marginTop="10dp" />
@@ -64,7 +67,8 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/tvnamet"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="2"
                 android:layout_marginTop="10dp" />
         </LinearLayout>
@@ -79,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:text="จังหวัด : "
                 android:id="@+id/textView16"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="1" />
 
             <TextView
@@ -87,7 +92,8 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/tvprovince"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="2" />
         </LinearLayout>
 
@@ -101,7 +107,8 @@
                 android:layout_height="wrap_content"
                 android:text="หมวด :"
                 android:id="@+id/textView18"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="1" />
 
             <TextView
@@ -109,7 +116,8 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/tvtype"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="2" />
 
         </LinearLayout>
@@ -124,7 +132,8 @@
                 android:layout_height="wrap_content"
                 android:text="เวลาเที่ยว :"
                 android:id="@+id/textView20"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="1" />
 
             <TextView
@@ -132,7 +141,8 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/tvtimeuse"
-                android:textSize="@dimen/H2"
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"
                 android:layout_weight="2" />
 
         </LinearLayout>
@@ -147,13 +157,15 @@
                 android:layout_height="wrap_content"
                 android:text="ระดับความนิยม :"
                 android:id="@+id/tvRating"
-                android:textSize="@dimen/H2" />
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tvRating"
                 android:id="@+id/tvRateview"
-                android:textSize="@dimen/H2" />
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff" />
             <RatingBar
 
                 android:id="@+id/ratingBar"
@@ -170,9 +182,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnRating"
+                android:background="#3682a6"
+                android:textColor="#e3e3e3"
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/ratingBar"
-                android:text="Vote"
+                android:text="Vote!"
                />
         </RelativeLayout>
 
@@ -182,6 +196,7 @@
             android:text="รายละเอียด"
             android:id="@+id/textView8"
             android:textSize="@dimen/H2"
+            android:textColor="#49c1f9"
             android:layout_marginTop="10dp" />
 
         <ScrollView
@@ -196,7 +211,8 @@
                 android:layout_height="wrap_content"
                 android:text="New Text"
                 android:id="@+id/tvdescrip"
-                android:textSize="@dimen/H2" />
+                android:textSize="@dimen/T15"
+                android:textColor="#ffffff"/>
         </ScrollView>
 
 
@@ -212,15 +228,23 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="AddMyProgram"
+            android:text="เพิ่มโปรแกรม"
+            android:textColor="#e3e3e3"
+            android:background="#057aac"
             android:id="@+id/btnaddmyprograme"
             android:layout_weight="1" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="ยกเลิก"
+            android:textColor="#e3e3e3"
+            android:background="#057aac"
+            android:visibility="gone"
             android:id="@+id/btncancel"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:singleLine="false"
+            android:focusableInTouchMode="false"
+            android:clickable="false" />
     </LinearLayout>
 </RelativeLayout>

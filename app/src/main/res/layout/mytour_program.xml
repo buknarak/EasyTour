@@ -26,6 +26,7 @@
             android:text="วันที่"
             android:textColor="#ffffff"
             android:id="@+id/tvdateMytour"
+            android:visibility="gone"
             android:textSize="20sp" />
 
 
@@ -36,7 +37,7 @@
         android:layout_height="match_parent"
         android:layout_weight="2"
         android:gravity="center_vertical"
-        android:paddingRight="15dp">
+        android:paddingRight="20dp">
 
 
         <TextView

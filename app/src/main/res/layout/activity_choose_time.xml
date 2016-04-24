@@ -10,44 +10,61 @@
     android:background="@drawable/bg02"
     tools:context="com.kmutpnb.buk.easytour.ChooseTimeActivity">
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="วันที่ท่องเที่ยวคือ : "
+        android:visibility="gone"
+        android:textColor="#49c1f9"
+        android:textSize="20dp"
+        android:id="@+id/tvdate11" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="#49c1f9"
+        android:textSize="20dp"
+        android:id="@+id/tvtourdatechoose"
+        android:layout_toRightOf="@+id/tvdate11"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:text="เปลี่ยนวัน"
+        android:id="@+id/btnchoosedate1"
+        android:layout_alignParentTop="true"
+        android:textColor="#ffff"
+        android:background="#057aac"
+        android:layout_alignRight="@+id/tvtourdatechoose"
+        android:layout_alignEnd="@+id/tvtourdatechoose" />
+
+     <DatePicker
+         android:layout_width="wrap_content"
+         android:visibility="gone"
+         android:id="@+id/dpchoosedate"
+         android:layout_height="wrap_content">
+
+     </DatePicker>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="กรุณาเลือกเวลาเริ่มต้น - เวลาสิ้นสุด"
-            android:textColor="#49c1f9"
-            android:textSize="20dp"
-            android:id="@+id/tvStartAndEnd" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbarSize="20dp"
-            android:id="@+id/spinnerStart"
-            android:textColor="#ffffff"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
 
 
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinnerEnd"
-            android:textColor="#ffffff"
-            android:scrollbarSize="20dp"
-            android:layout_below="@+id/linearLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="93dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -56,6 +73,39 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnChooseTime"
         android:text="ตกลง"
+        android:textColor="#ffff"
+        android:background="#057aac"
         android:layout_alignParentBottom="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="กรุณาเลือกเวลาเริ่มต้น - เวลาสิ้นสุด"
+        android:textColor="#49c1f9"
+        android:textSize="20dp"
+        android:id="@+id/tvStartAndEnd"
+        android:layout_below="@+id/btnchoosedate1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarSize="20dp"
+        android:id="@+id/spinnerStart"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/tvStartAndEnd"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinnerEnd"
+        android:textColor="#ffffff"
+        android:scrollbarSize="20dp"
+        android:layout_below="@+id/spinnerStart"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

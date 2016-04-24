@@ -61,9 +61,12 @@ public class MainActivity extends AppCompatActivity {
         //request db
         objMyManageTable = new MyManageTable(this);
 
+
+        clearConfirmMytour();
+
         //deleteAllSQlite
         deleteAllSQlite();
-        clearConfirmMytour();
+
 
         //test add value
        // testAddValue();
@@ -304,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
                         tourIntent.putExtra("Lng", lngADouble);
                         tourIntent.putExtra("meID",meIDString);
                         tourIntent.putExtra("Uname",useString);
+                        tourIntent.putExtra("status",strStatus);
                         startActivity(tourIntent);
                         break;
                     case 1:
@@ -313,6 +317,7 @@ public class MainActivity extends AppCompatActivity {
                         adminIntent.putExtra("Lng",lngADouble);
                         adminIntent.putExtra("meID",meIDString);
                         adminIntent.putExtra("Uname",useString);
+                        adminIntent.putExtra("status",strStatus);
                        // adminIntent.putExtra("setdate", setdateString);
                         startActivity(adminIntent);
                        break;

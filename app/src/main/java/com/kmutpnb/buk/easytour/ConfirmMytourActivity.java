@@ -94,8 +94,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase("easyTour.db", MODE_PRIVATE, null);
         objSqLiteDatabase.delete("mytourTABLE", null, null);
 
-        Toast.makeText(ConfirmMytourActivity.this, "Program Finish", Toast.LENGTH_SHORT).show();
-        Intent objIntent = new Intent(ConfirmMytourActivity.this, ShowProgramTourActivity.class);
+        Toast.makeText(ConfirmMytourActivity.this, "สร้างโปรแกรมทัวร์เรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+        Intent objIntent = new Intent(ConfirmMytourActivity.this, HubServiceActivity.class);
         startActivity(objIntent);
         finish();
     }
@@ -104,8 +104,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
             MyManageTable objMyManageTable = new MyManageTable(this);
             String[] strName = objMyManageTable.readAllMyTour(1);
-            String[] strTimeUse = objMyManageTable.readAllMyTour(2);
-            ConfirmMyTourAdapter objConfirmMyTourAdapter = new ConfirmMyTourAdapter(ConfirmMytourActivity.this, strName, strTimeUse);
+           String[] strTimeUse = objMyManageTable.readAllMyTour(2);
+            ConfirmMyTourAdapter objConfirmMyTourAdapter = new ConfirmMyTourAdapter(ConfirmMytourActivity.this, strName,strTimeUse);
             confirmmytourListView.setAdapter(objConfirmMyTourAdapter);
 
 
@@ -155,7 +155,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
 
 
-        Log.d("time", timeuseString);
+//        Log.d("time", timeuseString);
 
 
     }

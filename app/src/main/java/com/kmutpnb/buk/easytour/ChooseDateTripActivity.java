@@ -31,10 +31,23 @@ public class ChooseDateTripActivity extends AppCompatActivity {
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                String selectedDate = sdf.format(new Date(calendarView.getDate()));
+                month = month + 1;
+                String formattedDay = (String.valueOf(day));
+                String formattedMonth = (String.valueOf(month));
+
+                if(day < 10)
+                {
+                    formattedDay = "0" + day;
+                }
+
+                if(month< 10)
+                {
+                    formattedMonth = "0" + month;
+                }
+             //   String selectedDate = sdf.format(new Date(calendarView.getDate()));
                 dateChooseString = Integer.toString(year) +
-                        "-" + Integer.toString(month+1) +
-                        "-" + Integer.toString(day);
+                        "-" + (formattedMonth) +
+                        "-" + (formattedDay);
 
             }
         });
