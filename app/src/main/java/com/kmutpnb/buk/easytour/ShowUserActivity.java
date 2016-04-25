@@ -18,12 +18,15 @@ public class ShowUserActivity extends AppCompatActivity {
 
    // private TextView showUserTextView;
     private ListView userListView;
+    private String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_user);
 
+
+        status = getIntent().getStringExtra(status);
 
         //bindWindget;
 
@@ -82,16 +85,21 @@ public class ShowUserActivity extends AppCompatActivity {
 
         userListView = (ListView) findViewById(R.id.listViewListUser);
         userListView.setAdapter(userAdaptor);
-        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(ShowUserActivity.this, ShowDetaiUserActivity.class );//โยนค่าไปหน้าใหม่
-            intent.putExtra("Name", nameString[i]);
-            intent.putExtra("User", userStrings[i]);
-            intent.putExtra("Status", positionString[i]);
-            intent.putExtra("Pass", passString[i]);
-            startActivity(intent);
-            }
-        });
+
+
+
+            userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(ShowUserActivity.this, ShowDetaiUserActivity.class );//โยนค่าไปหน้าใหม่
+                    intent.putExtra("Name", nameString[i]);
+                    intent.putExtra("User", userStrings[i]);
+                    intent.putExtra("Status", positionString[i]);
+                    intent.putExtra("Pass", passString[i]);
+                    startActivity(intent);
+                }
+            });
+
+
     }
 //    TourAdaptor tourAdapter = new TourAdaptor(ShowProgramTourActivity.this,
 //            nameStrings, provinceStrings, timeUseStrings);

@@ -15,7 +15,7 @@ public class ChooseDateTripActivity extends AppCompatActivity {
 
 
     private CalendarView calendarView;
-    private String dateChooseString,Uname;
+    private String dateChooseString,Uname, nameString,meIDString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,8 @@ public class ChooseDateTripActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_date_trip);
 
 
+        nameString  = getIntent().getStringExtra("name");
+        meIDString = getIntent().getStringExtra("MeID");
 
         calendarView = (CalendarView) findViewById(R.id.calendarView);
 
@@ -65,6 +67,8 @@ public class ChooseDateTripActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChooseDateTripActivity.this, ShowProgramTourActivity.class);
                 intent.putExtra("Lat", myLat);
                 intent.putExtra("Lng", myLng);
+                intent.putExtra("name", nameString);
+                intent.putExtra("MeID", meIDString);
                 intent.putExtra("chooseDate", dateChooseString);
                intent.putExtra("Uname", Uname);
                 startActivity(intent);//sent value

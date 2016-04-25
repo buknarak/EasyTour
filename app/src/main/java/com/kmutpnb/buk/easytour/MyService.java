@@ -63,16 +63,16 @@ public class MyService extends Service {
 
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
-        super.onStartCommand(intent, flags, startId);
-        NameString = intent.getStringExtra("Name");
-        meIDString = intent.getStringExtra("MeID");
-        Log.d("999", NameString);
-        Log.d("999", meIDString);
-        return START_STICKY;
-    }
+//    @Override
+//    public int onStartCommand(Intent intent, int flags, int startId) {
+//
+//        super.onStartCommand(intent, flags, startId);
+//        NameString = intent.getStringExtra("name");
+//        meIDString = intent.getStringExtra("MeID");
+//        Log.d("999", NameString);
+//        Log.d("999", meIDString);
+//        return START_STICKY;
+//    }
 
     @Override
     public void onCreate()

@@ -37,41 +37,37 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class showDetailTourActivity extends AppCompatActivity implements OnClickListener {
+public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnClickListener {
 
 
-    private TextView dateTextView, nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView, rateTextView;
-    private Button setTimeButton, addMyProgramButton, cancelButton, submitButton;
-    private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString,hrStart,hrStop, Uname, raingString,statusString;
+    private TextView  nameTextView, provinceTextView, typeTextView, timeuseTextView, descripTextView, rateTextView;
+    private Button  submitButton;
+    private String  nameString, provinceString, typeString, timeuseString, descripString, Uname, raingString,statusString;
     private RatingBar ratingBar;
     private RelativeLayout rateRelativeLayout;
-    private String nameString1,meIDString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_detail_tour);
-
-        nameString1  = getIntent().getStringExtra("name");
-        meIDString = getIntent().getStringExtra("MeID");
+        setContentView(R.layout.activity_show_detail_place);
 
         //bindwidget
         bindWidget();
 
         //get current time and show
-        getTimeShow();
+      //  getTimeShow();
 
 
         //show textview
         showTextView();
 
         //Button Controller
-        buttonController();
-       // setCurrentDateView();
+         buttonController();
+        // setCurrentDateView();
 
         //select Rating
-       showRating();
-      //  timeTour = Integer.parseInt(timeuseString.trim());
+        showRating();
+        //  timeTour = Integer.parseInt(timeuseString.trim());
 
 //        Log.d("aaa",Uname);
 //        Log.d("status", statusString);
@@ -86,9 +82,9 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 //       int positionint = id + 1;
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
-      // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ratingTABLE", "_id" + "=" + positionint, null);
-      //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE,ratingTABLE WHERE Name = " + "'" + nameString + "'", null);
-       // Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM ratingTABLE WHERE Name = " + "'" + nameString + "'", null);
+        // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM ratingTABLE", "_id" + "=" + positionint, null);
+        //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE,ratingTABLE WHERE Name = " + "'" + nameString + "'", null);
+        // Cursor cursor1 = sqLiteDatabase.rawQuery("SELECT * FROM ratingTABLE WHERE Name = " + "'" + nameString + "'", null);
 //        Cursor cursor = sqLiteDatabase.rawQuery("SELECT tourTABLE.TotalScore, " +
 //                "ratingTABLE.Name ,ratingTABLE.Score FROM tourTABLE JOIN ratingTABLE ON tourTABLE.Name = ratingTABLE.Name " +
 //                "WHERE ratingTABLE.Name = " + "'" + nameString + "'", null);
@@ -120,9 +116,9 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     private void buttonController() {
 
-       // setTimeButton.setOnClickListener(this);
-       addMyProgramButton.setOnClickListener(this);
-        cancelButton.setOnClickListener(this);
+        // setTimeButton.setOnClickListener(this);
+//        addMyProgramButton.setOnClickListener(this);
+//        cancelButton.setOnClickListener(this);
         submitButton.setOnClickListener(this);
     }
 
@@ -141,42 +137,42 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         descripTextView.setText(descripString);
     }
 
-    private void getTimeShow() {
-        tourDateString = getIntent().getStringExtra("Date");
-
-        if (tourDateString == null) {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = new Date();
-            tourDateString = dateFormat.format(date);
-
-            Log.d("ades", tourDateString);
-            dateTextView.setText(tourDateString);
-        } else {
-            dateTextView.setText(tourDateString);
-        }
-
-    }//get time
-
+//    private void getTimeShow() {
+//        tourDateString = getIntent().getStringExtra("Date");
+//
+//        if (tourDateString == null) {
+//            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//            Date date = new Date();
+//            tourDateString = dateFormat.format(date);
+//
+//            Log.d("ades", tourDateString);
+//            dateTextView.setText(tourDateString);
+//        } else {
+//            dateTextView.setText(tourDateString);
+//        }
+//
+//    }//get time
 
     private void bindWidget() {
 
-        dateTextView = (TextView) findViewById(R.id.tvdate);
+     //   dateTextView = (TextView) findViewById(R.id.tvdate);
         nameTextView = (TextView) findViewById(R.id.tvnamet);
         provinceTextView = (TextView) findViewById(R.id.tvprovince);
         typeTextView = (TextView) findViewById(R.id.tvtype);
         timeuseTextView = (TextView) findViewById(R.id.tvtimeuse);
         descripTextView = (TextView) findViewById(R.id.tvdescrip);
-        addMyProgramButton = (Button) findViewById(R.id.btnaddmyprograme);
-        cancelButton = (Button) findViewById(R.id.btncancel);
-       // changedateDatePicker = (DatePicker) findViewById(R.id.dpChange);
-      //  setTimeButton = (Button) findViewById(R.id.button9);
+       // addMyProgramButton = (Button) findViewById(R.id.btnaddmyprograme);
+       // cancelButton = (Button) findViewById(R.id.btncancel);
+        // changedateDatePicker = (DatePicker) findViewById(R.id.dpChange);
+        //  setTimeButton = (Button) findViewById(R.id.button9);
 
         submitButton = (Button) findViewById(R.id.btnRating);
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        rateTextView = (TextView) findViewById(R.id.tvRateview);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar1);
+        rateTextView = (TextView) findViewById(R.id.tvRateview1);
 
         Uname = getIntent().getStringExtra("Uname");
 
+        Log.d("999", Uname);
         statusString = getIntent().getStringExtra("status1");
         //int i = Integer.parseInt(statusString.trim());
 
@@ -195,44 +191,36 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     }
 
-
     @Override
     public void onClick(View view) {
 
-
         switch (view.getId()) {
-
-            case R.id.btnaddmyprograme:
-
-                tourDateString = dateTextView.getText().toString();
-
-                Intent objintent = new Intent(showDetailTourActivity.this, ChooseTimeActivity.class );//โยนค่าไปหน้าใหม่
-                objintent.putExtra("date", tourDateString);
-                objintent.putExtra("Name", nameString);
-                objintent.putExtra("name", nameString1);
-                objintent.putExtra("MeID", meIDString);
-//                intent.putExtra("HrStart", hrStart);
-//                intent.putExtra("HrStop", hrStop);
-                objintent.putExtra("TimeUse", timeuseString);
-               // objintent.putExtra("timetour", timeTour);
-                startActivity(objintent);
-
-                break;
-
-            case R.id.btncancel:
-                Intent intent = new Intent(this, HubServiceActivity.class);
-                this.startActivity(intent);
-                finish();
-                break;
-
-
+//            case R.id.btnaddmyprograme:
+//
+//                tourDateString = dateTextView.getText().toString();
+//
+//                Intent objintent = new Intent(showDetailTourActivity.this, ChooseTimeActivity.class );//โยนค่าไปหน้าใหม่
+//                objintent.putExtra("date", tourDateString);
+//                objintent.putExtra("Name", nameString);
+////                intent.putExtra("HrStart", hrStart);
+////                intent.putExtra("HrStop", hrStop);
+//                objintent.putExtra("TimeUse", timeuseString);
+//                // objintent.putExtra("timetour", timeTour);
+//                startActivity(objintent);
+//
+//                break;
+//
+//            case R.id.btncancel:
+//                Intent intent = new Intent(this, HubServiceActivity.class);
+//                this.startActivity(intent);
+//                finish();
+//                break;
             case R.id.btnRating:
                 ShowDialogRating();
                 break;
         }
 
-
-        }
+    }
 
 //    private void upToSQLite() {
 //
@@ -259,20 +247,20 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         popDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 ratingBar.setRating(rating.getRating());
-               rateTextView.setText(String.valueOf(rating.getProgress()));
+                rateTextView.setText(String.valueOf(rating.getProgress()));
                 raingString = rateTextView.getText().toString();
-             //   updateToSQLiteRating();
-             //   Log.d("aaa", raingString);
+                //   updateToSQLiteRating();
+                //   Log.d("aaa", raingString);
                 updateToDB();
-                           dialog.dismiss();
-          }
-                })
-        // Button Cancel
-             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                 public void onClick(DialogInterface dialog, int id) {
-                     dialog.cancel();
-                 }
-             });
+                dialog.dismiss();
+            }
+        })
+                // Button Cancel
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
         popDialog.create();
         popDialog.show();
     }
@@ -283,48 +271,26 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                 .Builder().permitAll().build(); //ปลด policy ให้สามารถอัพเดทได้
         StrictMode.setThreadPolicy(myPolicy);//สามารถเชื่อมต่อ potocal http
 
-            try {
+        try {
 
-                ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
-                objNameValuePairs.add(new BasicNameValuePair("isAdd", "true")); //isAdd ตัวแปร php ในการแอดข้อมูล
-                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_user, Uname));
-                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, nameString));
-                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_Score, raingString));
+            ArrayList<NameValuePair> objNameValuePairs = new ArrayList<NameValuePair>();
+            objNameValuePairs.add(new BasicNameValuePair("isAdd", "true")); //isAdd ตัวแปร php ในการแอดข้อมูล
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_user, Uname));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, nameString));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_Score, raingString));
 
-                HttpClient objHttpClient = new DefaultHttpClient();
-                HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_rating_buk.php");
-                objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
-                objHttpClient.execute(objHttpPost);
+            HttpClient objHttpClient = new DefaultHttpClient();
+            HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_rating_buk.php");
+            objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
+            objHttpClient.execute(objHttpPost);
 
-                Toast.makeText(showDetailTourActivity.this, "Finish",
-                        Toast.LENGTH_SHORT).show();//short = 4 วิ
+            Toast.makeText(ShowDetailPlaceActivity.this, "Finish",
+                    Toast.LENGTH_SHORT).show();//short = 4 วิ
 
-            } catch (Exception e) {
-                Toast.makeText(showDetailTourActivity.this, "ไม่สามารถเชื่อมต่อ server ได้",
-                        Toast.LENGTH_SHORT).show();//short = 4 วิ
-            }
+        } catch (Exception e) {
+            Toast.makeText(ShowDetailPlaceActivity.this, "ไม่สามารถเชื่อมต่อ server ได้",
+                    Toast.LENGTH_SHORT).show();//short = 4 วิ
         }
-
-//    private void updateToSQLiteRating() {
-//
-//        MyManageTable objMyManageTable = new MyManageTable(this);
-//        objMyManageTable.addRating(Uname, nameString, raingString);
-//
-//    }
-
-//    private void listMyTour() {
-//
-//
-//        Intent objIntent = new Intent(showDetailTourActivity.this, ConfirmMytourActivity.class);
-//        objIntent.putExtra("date", tourDateString);
-//        objIntent.putExtra("Name", nameString);
-//        objIntent.putExtra("HrStart", hrStart);
-//        objIntent.putExtra("HrStop", hrStop);
-//        objIntent.putExtra("TimeUse", timeuseString);
-//        objIntent.putExtra("timetour", timeTour);
-//        startActivity(objIntent);
-//
-//    }
-
+    }
 
 }//main class

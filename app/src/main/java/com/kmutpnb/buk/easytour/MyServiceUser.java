@@ -66,7 +66,7 @@ public class MyServiceUser extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         super.onStartCommand(intent, flags, startId);
-        NameString = intent.getStringExtra("Name");
+        NameString = intent.getStringExtra("name");
         meIDString = intent.getStringExtra("MeID");
         Log.d("999", NameString);
         Log.d("999", meIDString);

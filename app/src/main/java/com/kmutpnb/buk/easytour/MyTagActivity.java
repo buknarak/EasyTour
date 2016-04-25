@@ -62,13 +62,13 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tag);
+        stopService(new Intent(MyTagActivity.this, MyService.class));
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        stopService(new Intent(MyTagActivity.this, MyService.class));
-        stopService(new Intent(MyTagActivity.this, MyServiceUser.class));
+
 //get Value from Intent
         getLatLngForIntent();
 

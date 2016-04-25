@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class MainProgramTourActivity extends TabActivity implements OnTabChangeListener {
 
     private double myLat, myLng;
-    private String statusString;
+    private String statusString,Uname, placeString = "place";
 
     /** Called when the activity is first created. */
     TabHost tabHost;
@@ -24,6 +24,7 @@ public class MainProgramTourActivity extends TabActivity implements OnTabChangeL
         myLat = getIntent().getDoubleExtra("Lat", HubServiceActivity.centerLat);//10power -6 ขยับจากจุดศูนย์กลางนิดนึง
         myLng = getIntent().getDoubleExtra("Lng", HubServiceActivity.centerLng);
         statusString = getIntent().getStringExtra("status");
+        Uname = getIntent().getStringExtra("Uname");
 
         // Get TabHost Refference
         tabHost = getTabHost();
@@ -37,7 +38,7 @@ public class MainProgramTourActivity extends TabActivity implements OnTabChangeL
         /************* TAB1 ************/
         // Create  Intents to launch an Activity for the tab (to be reused)
         intent = new Intent().setClass(this, ShowProgramTourActivity.class)
-        .putExtra("Lat", myLat).putExtra("Lng", myLng).putExtra("status", statusString);
+        .putExtra("Lat", myLat).putExtra("Lng", myLng).putExtra("status", statusString).putExtra("place", placeString).putExtra("Uname", Uname);
         spec = tabHost.newTabSpec("First").setIndicator("By GPS")
                 .setContent(intent);
 
@@ -46,7 +47,7 @@ public class MainProgramTourActivity extends TabActivity implements OnTabChangeL
         tabHost.addTab(spec);
 
         /************* TAB2 ************/
-        intent = new Intent().setClass(this, ShowProgramTourAllActivity.class).putExtra("status",statusString);
+        intent = new Intent().setClass(this, ShowProgramTourAllActivity.class).putExtra("status", statusString).putExtra("place", placeString).putExtra("Uname", Uname);;
         spec = tabHost.newTabSpec("Second").setIndicator("ALL")
                 .setContent(intent);
         tabHost.addTab(spec);

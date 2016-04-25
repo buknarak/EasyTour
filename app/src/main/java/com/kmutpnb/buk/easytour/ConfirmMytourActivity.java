@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class ConfirmMytourActivity extends AppCompatActivity {
 
     private TextView dateTextView, nameTextView;
-    private String dateString, nameString, timeuseString, hrStartString, hrStopString;
+    private String dateString, nameString, timeuseString, hrStartString, hrStopString,nameString1,meIDString;
     private ListView confirmmytourListView;
     private int timeuseint;
 
@@ -45,7 +45,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
         //timeuseint = Integer.parseInt(timeuseString);
 
-
+        nameString1  = getIntent().getStringExtra("name");
+        meIDString = getIntent().getStringExtra("MeID");
 
 
         bindwidget();
@@ -96,6 +97,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
         Toast.makeText(ConfirmMytourActivity.this, "สร้างโปรแกรมทัวร์เรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
         Intent objIntent = new Intent(ConfirmMytourActivity.this, HubServiceActivity.class);
+        objIntent.putExtra("name", nameString1);
+        objIntent.putExtra("MeID", meIDString);
         startActivity(objIntent);
         finish();
     }

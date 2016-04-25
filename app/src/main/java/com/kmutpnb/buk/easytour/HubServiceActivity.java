@@ -75,7 +75,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
     //   startService(new Intent(HubServiceActivity.this, MyService.class));
         Intent intent = new Intent(HubServiceActivity.this, MyService.class);
-        intent.putExtra("Name", nameString);
+        intent.putExtra("name", nameString);
         intent.putExtra("MeID", meIDString);
         startService(intent);
 
@@ -116,103 +116,40 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 Log.d("tree", "MINUTE " + min);
 ////                if (callCount == 0) {
                     // Do something with the time chosen by the user
-//                    Calendar cal = Calendar.getInstance();
-//                cal.set(Calendar.HOUR_OF_DAY, hr);
-//                cal.set(Calendar.MINUTE, min);
+                    Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, hr);
+                cal.set(Calendar.MINUTE, min);
 //                    int a = 10;
 //                    int b = 00;
 //                    cal.set(Calendar.HOUR_OF_DAY, a);
 //                    cal.set(Calendar.MINUTE, b);
 
-            final int _id=(int)System.currentTimeMillis();
+                      setAlarm(cal);
 
-            Intent alarmIntent = new Intent(HubServiceActivity.this, AlarmReceiverT.class); //set up alarm
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(HubServiceActivity.this, _id, alarmIntent, 0);
-
-            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            calendar.set(Calendar.HOUR_OF_DAY, hr);
-            calendar.set(Calendar.MINUTE, min); //set cal time based of db value
-
-                    /* Repeating on every 24 hours interval */
-            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY, pendingIntent); // run every date.time() in millisec
-
-            Log.d("hh","DATE VALUE TIME IS " + part1 +"--" +part2); //log part one and two to make sure time is right
-
-
-                      //setAlarm(cal);
-          //  Log.d("tree", "set  " + cal);
-               // }//if
-               // callCount++;
-//
-//            final int _id=(int)System.currentTimeMillis();
-//
-//            Intent alarmIntent = new Intent(Meds2.this, AlarmReceiver.class); //set up alarm
-//            pendingIntent = PendingIntent.getBroadcast(Meds2.this, _id, alarmIntent, 0);
-//
-//            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.setTimeInMillis(System.currentTimeMillis());
-//            calendar.set(Calendar.HOUR_OF_DAY, hr);
-//            calendar.set(Calendar.MINUTE, min); //set cal time based of db value
-//
-//                    /* Repeating on every 24 hours interval */
-//            manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-//                    AlarmManager.INTERVAL_DAY, pendingIntent); // run every date.time() in millisec
-//
-//            Log.e(TAG, "DATE VALUE TIME IS " + part1 +"--" +part2); //log part one and two to make sure time is right
-//
-
-
-//            Calendar targetcal = Calendar.getInstance(cal);
-//            targetcal.getTime() + "");
-//            sendNotification(name);
 
             cursor.moveToNext();
         }///while
        cursor.close();
     }//method
 
-//    private void setAlarm(Calendar targetCal) {
-//
-//        listValue.add(targetCal.getTime() + "");
-//        Log.d("tree", "list " + listValue);
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
-//        listAlarm.setAdapter(adapter);
-//
-//
-////        final int _id = (int) System.currentTimeMillis();
-////
-////        Intent intent = new Intent(getBaseContext(), AlarmReceiverT.class);
-////        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), _id, intent, 0);
-////        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-////        alarmManager.set(AlarmManager.RTC_WAKEUP, 5000, pendingIntent);
-//
-//
-//    }
+    private void setAlarm(Calendar targetCal) {
+
+        listValue.add(targetCal.getTime() + "");
+        Log.d("tree", "list " + listValue);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
+        listAlarm.setAdapter(adapter);
 
 
-    private void sendNotification(String message) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("iFarm App")
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-        // TimerTaskSolenoidNotification timerTaskSolenoidNotification = new TimerTaskSolenoidNotification(getApplicationContext(),0,0,true);
+        final int _id = (int) System.currentTimeMillis();
+
+        Intent intent = new Intent(getBaseContext(), AlarmReceiverT.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), _id, intent, 0);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
+
     }
+
 
     @Override
     protected void onResume() {
@@ -232,8 +169,6 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
         Log.d(tag, "myLat ==> " + myLat);
         Log.d(tag, "myLng ==> " + myLng);
-
-
 
     }
 
@@ -269,6 +204,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
         Uname = getIntent().getStringExtra("Uname");
          status = getIntent().getStringExtra("status");
 
+
        // datestartString = getIntent().getStringExtra("setdate");
        // Log.d("tree", datestartString);
 
@@ -292,6 +228,9 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 intent.putExtra("Lat", myLat);
                 intent.putExtra("Lng", myLng);
                 intent.putExtra("Uname", Uname);
+                intent.putExtra("status", status);
+                intent.putExtra("name", nameString);
+                intent.putExtra("MeID", meIDString);
                 //intent.putExtra("Name", nameString);
                 startActivity(intent);//sent value
 
@@ -310,6 +249,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 break;
             case R.id.btnStracking:
                 // การติดตาม
+
                 Intent intent1 = new Intent(HubServiceActivity.this, MyTagActivity.class);
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
@@ -319,6 +259,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 intent1.putExtra("status", status);
                 startActivity(intent1);//sent value
 
+                stopService(new Intent(HubServiceActivity.this, MyService.class));
 //                Intent intents = new Intent(HubServiceActivity.this, MyService.class);
 //                intents.putExtra("Lat", myLat);
 //                intents.putExtra("Lng", myLng);
@@ -328,16 +269,19 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnSplace:
                 //สถานที่ท่องเที่ยว
                 //โปรแกรมทัวร์ เดิม
+
+                String status1 = "1";
                 Intent intent3 = new Intent(HubServiceActivity.this, MainProgramTourActivity.class);
                 intent3.putExtra("Lat", myLat);
                 intent3.putExtra("Lng", myLng);
                 intent3.putExtra("Uname", Uname);
-                intent3.putExtra("status", status);
+                intent3.putExtra("status1", status1);
                 startActivity(intent3);//sent value
                 break;
             case R.id.btnSulist:
                 // list user
                 Intent userIntent = new Intent(HubServiceActivity.this, ShowUserActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                userIntent.putExtra("status", status);
                 startActivity(userIntent);
 
                 break;

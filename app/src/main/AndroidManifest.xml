@@ -24,11 +24,12 @@
         </activity>
         <activity
             android:name=".ShowEvent"
-            android:theme="@android:style/Theme.Dialog">
-            <receiver
-                android:name=".AlarmReceiverT"
-                android:process=":remote" />
-        </activity>
+            android:theme="@android:style/Theme.Dialog" />
+
+        <receiver
+            android:name=".AlarmReceiverT"
+            android:process=":remote" />
+
         <activity android:name=".HubServiceActivity" />
         <activity android:name=".HubTourActivity" />
         <activity android:name=".RegisterActivity" />
@@ -65,6 +66,13 @@
             android:exported="true" />
         <service
             android:name=".MyServiceUser"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".ShowDetailPlaceActivity" />
+
+        <service
+            android:name=".MyAlarmService"
             android:enabled="true"
             android:exported="true"></service>
     </application>

@@ -15,7 +15,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
     //Explicit
     private TextView showNameTextview;
     private ImageButton listtourButton, warningButton, trackingButton, recommendButton, listuserButton ;
-    private String nameString, meIDString, status;
+    private String nameString, meIDString, status, Uname;
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
     private double myLat, myLng;
@@ -40,7 +40,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
        //startService(new Intent(HubTourActivity.this, MyServiceUser.class));
         Intent intent = new Intent(HubTourActivity.this, MyServiceUser.class);
-        intent.putExtra("Name", nameString);
+        intent.putExtra("name", nameString);
         intent.putExtra("MeID",meIDString);
         startService(intent);
         //Bind wicket ผูกตัวแปร
@@ -73,10 +73,10 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
 
         listuserButton.setOnClickListener(this);
-       // warningButton.setOnClickListener(this);
+       listtourButton.setOnClickListener(this);
         trackingButton.setOnClickListener(this);
         recommendButton.setOnClickListener(this);
-        listtourButton.setOnClickListener(this);
+        //listtourButton.setOnClickListener(this);
 
 
     }
@@ -91,11 +91,12 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 //        recommendButton = (Button) findViewById(R.id.btnrecommend);
 //        listuserButton = (Button) findViewById(R.id.btnlistuser);
 
-        listtourButton = (ImageButton) findViewById(R.id.btnHulist);
+        listtourButton = (ImageButton) findViewById(R.id.btnHprogram);
         trackingButton = (ImageButton) findViewById(R.id.btnHtracking);
         recommendButton = (ImageButton) findViewById(R.id.btnHplace);
         listuserButton = (ImageButton) findViewById(R.id.btnHulist);
 
+        Uname = getIntent().getStringExtra("Uname");
         status = getIntent().getStringExtra("status");
 
     }//bind wicket
@@ -105,15 +106,14 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
         switch (view.getId()) {
 
-//            case R.id.btnwarning:
-//                Intent intent1 = new Intent(HubTourActivity.this, MyTagActivity.class);
-//                intent1.putExtra("Lat", myLat);
-//                intent1.putExtra("Lng", myLng);
-//                intent1.putExtra("meID", meIDString);
-//                startActivity(intent1);//sent value
-
-//                break;
+            case R.id.btnHprogram:
+//                  //list my program tour
+                Intent mytourIntent = new Intent(HubTourActivity.this, ShowMyTourActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                startActivity(mytourIntent);
+                break;
             case R.id.btnHtracking:
+
+
                 Intent intent1 = new Intent(HubTourActivity.this, MyTagActivity.class);
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
@@ -121,6 +121,8 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
                 intent1.putExtra("name",nameString);
                 intent1.putExtra("status", status);
                 startActivity(intent1);//sent value
+
+                stopService(new Intent(HubTourActivity.this, MyServiceUser.class));
                 break;
             case R.id.btnHplace:
                 //สถานที่ท่องเที่ยว
@@ -130,6 +132,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
                 intent3.putExtra("Lat", myLat);
                 intent3.putExtra("Lng", myLng);
                 intent3.putExtra("status", status);
+                intent3.putExtra("Uname", Uname);
                 startActivity(intent3);//sent value
 
                 break;

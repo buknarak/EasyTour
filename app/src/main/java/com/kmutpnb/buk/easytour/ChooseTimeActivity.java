@@ -25,7 +25,7 @@ public class ChooseTimeActivity extends AppCompatActivity {
     private Spinner HrStartSpinner, HrEndSpinner;
     private String Hrstart, Hrend;
     private String tourDateString, nameString, timeuseString,timeTour;
-    private String dateChooseString,Uname;
+    private String dateChooseString,Uname, nameString1,meIDString ;
     private TextView tvtourdatechoose;
     private DatePicker changedateDatePicker;
     private int year, month, day;
@@ -38,10 +38,12 @@ public class ChooseTimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_choose_time);
 
 
+        nameString1  = getIntent().getStringExtra("name");
+        meIDString = getIntent().getStringExtra("MeID");
         bindwicket();
 
         //getTimeShow();
-      //  setCurrentDateView();
+       setCurrentDateView();
         addListITEM();
 
         btnChooseTime.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +153,8 @@ public class ChooseTimeActivity extends AppCompatActivity {
         objintent.putExtra("HrStart", Hrstart);
         objintent.putExtra("HrStop", Hrend);
         objintent.putExtra("TimeUse", timeuseString);
+        objintent.putExtra("name", nameString1);
+        objintent.putExtra("MeID", meIDString);
         startActivity(objintent);
 
     }
