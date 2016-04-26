@@ -40,6 +40,8 @@ public class MyManageTable {
     public static final String table_rating = "ratingTABLE";
     public static final String column_Score = "Score";
 
+    public static final String table_tourtmp = "tourtmp";
+
 
     public MyManageTable(Context context) {
 
@@ -65,10 +67,25 @@ public class MyManageTable {
         return writeSqLiteDatabase.insert(table_mytour, null, contentValuesMytour);
     }//string to integer
 
-    public String[] readAllMyTour (int intChoose){
+    public long addtourtmp(String strMyTourName,
+                          String strMyTimeUse,
+                          String strDateStart,
+                          String strHrStart,
+                          String strHrEnd){
+        ContentValues contentValuesMytour = new ContentValues();
+        contentValuesMytour.put(column_name, strMyTourName);
+        contentValuesMytour.put(column_TimeUse, strMyTimeUse);
+        contentValuesMytour.put(column_DateStart, strDateStart);
+        contentValuesMytour.put(column_HrStart, strHrStart);
+        contentValuesMytour.put(column_HrEnd, strHrEnd);
+
+        return writeSqLiteDatabase.insert(table_tourtmp, null, contentValuesMytour);
+    }//string to integer
+
+    public String[] readAllTourtmp (int intChoose){
 
         String[] strReadAll = null;
-        Cursor objCursor = readSqLiteDatabase.query(table_mytour,
+        Cursor objCursor = readSqLiteDatabase.query(table_tourtmp,
                 new String[]{column_id, column_name, column_TimeUse},
                 null, null, null, null, null);
 

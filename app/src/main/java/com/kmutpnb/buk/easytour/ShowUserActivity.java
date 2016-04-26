@@ -26,24 +26,91 @@ public class ShowUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_user);
 
 
-        status = getIntent().getStringExtra(status);
+        status = getIntent().getStringExtra("status");
 
         //bindWindget;
 
-       //bindwidget();
-       showView();
+        Log.d("260459", status);
+
+        int i = Integer.parseInt(status.trim());
+
+        if (i == 0) {
+            ///  0 "สถานะ : นักท่องเที่ยว"
+            Log.d("260459", " สถานะ "+ i);
+            showViewuser();
+        } else {
+            Log.d("260459", " สถานะ "+ i);
+            showView();
+        }
+
+//        showViewuser();
+    }
+
+    private void showViewuser() {
+
+        //read or where
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
+        cursor.moveToFirst();
+
+        final int intCount = cursor.getCount();
+
+        final String[] nameString = new String[intCount];
+        final String[] userStrings = new String[intCount];
+        final String[] positionString = new String[intCount];
+        final String[] passString = new String[intCount];
+
+        for (int i = 0; i < intCount; i++) {
+
+            nameString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
+            userStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_user));
+            positionString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
+
+            Log.d("asd", userStrings[i]);
+
+            int intStatus = Integer.parseInt(positionString[i]);
+            positionString[i]= null;
+            switch (intStatus) {
+                case 0:
+                    positionString[i] = "นักท่องเที่ยว";
+                    break;
+                case 1:
+                    positionString[i] = "มัคคุเทศน์";
+                    break;
+            }
+            passString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_password));
+
+            cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
+
+        }
+        cursor.close();
+
+        UserAdaptor userAdaptor = new UserAdaptor(ShowUserActivity.this, nameString, userStrings, positionString, passString);
+
+        userListView = (ListView) findViewById(R.id.listViewListUser);
+        userListView.setAdapter(userAdaptor);
+
+//        userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Intent intent = new Intent(ShowUserActivity.this, ShowDetaiUserActivity.class );//โยนค่าไปหน้าใหม่
+//                intent.putExtra("Name", nameString[i]);
+//                intent.putExtra("User", userStrings[i]);
+//                intent.putExtra("Status", positionString[i]);
+//                intent.putExtra("Pass", passString[i]);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
     private void showView() {
-
 
         //read or where
        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                MODE_PRIVATE, null);
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
         cursor.moveToFirst();
-
 
         final int intCount = cursor.getCount();
 
@@ -69,14 +136,10 @@ public class ShowUserActivity extends AppCompatActivity {
                 case 1:
                     positionString[i] = "มัคคุเทศน์";
                     break;
-
             }
-
             passString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_password));
 
-
             cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
-
 
         }
         cursor.close();
@@ -85,8 +148,6 @@ public class ShowUserActivity extends AppCompatActivity {
 
         userListView = (ListView) findViewById(R.id.listViewListUser);
         userListView.setAdapter(userAdaptor);
-
-
 
             userListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -98,7 +159,6 @@ public class ShowUserActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
-
 
     }
 //    TourAdaptor tourAdapter = new TourAdaptor(ShowProgramTourActivity.this,

@@ -63,16 +63,14 @@ public class MyService extends Service {
 
     }
 
-//    @Override
-//    public int onStartCommand(Intent intent, int flags, int startId) {
-//
-//        super.onStartCommand(intent, flags, startId);
-//        NameString = intent.getStringExtra("name");
-//        meIDString = intent.getStringExtra("MeID");
-//        Log.d("999", NameString);
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        super.onStartCommand(intent, flags, startId);
+        meIDString = intent.getStringExtra("meID");
 //        Log.d("999", meIDString);
-//        return START_STICKY;
-//    }
+        return START_STICKY;
+    }
 
     @Override
     public void onCreate()
@@ -278,7 +276,7 @@ public class MyService extends Service {
         builder.setTicker("Easy Tour");
         builder.setWhen(System.currentTimeMillis());
         builder.setContentTitle("ระยะเกิน");
-        builder.setContentText(strName + "ไปไกลเกินไปแล้ว");
+        builder.setContentText("ไปไกลเกินไปแล้วนะค่ะ");
         builder.setAutoCancel(true);
 
 

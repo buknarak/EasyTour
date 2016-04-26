@@ -40,8 +40,8 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
        //startService(new Intent(HubTourActivity.this, MyServiceUser.class));
         Intent intent = new Intent(HubTourActivity.this, MyServiceUser.class);
-        intent.putExtra("name", nameString);
-        intent.putExtra("MeID",meIDString);
+       // intent.putExtra("name", nameString);
+        intent.putExtra("meID",meIDString);
         startService(intent);
         //Bind wicket ผูกตัวแปร
     }//main method
@@ -99,6 +99,8 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
         Uname = getIntent().getStringExtra("Uname");
         status = getIntent().getStringExtra("status");
 
+        Log.d("260459", status);
+
     }//bind wicket
 
     @Override
@@ -113,7 +115,6 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.btnHtracking:
 
-
                 Intent intent1 = new Intent(HubTourActivity.this, MyTagActivity.class);
                 intent1.putExtra("Lat", myLat);
                 intent1.putExtra("Lng", myLng);
@@ -122,7 +123,6 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
                 intent1.putExtra("status", status);
                 startActivity(intent1);//sent value
 
-                stopService(new Intent(HubTourActivity.this, MyServiceUser.class));
                 break;
             case R.id.btnHplace:
                 //สถานที่ท่องเที่ยว
@@ -139,6 +139,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.btnHulist:
 
                 Intent userIntent = new Intent(HubTourActivity.this, ShowUserActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                userIntent.putExtra("status", status);
                 startActivity(userIntent);
 
                 break;

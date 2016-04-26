@@ -75,8 +75,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
 
     //   startService(new Intent(HubServiceActivity.this, MyService.class));
         Intent intent = new Intent(HubServiceActivity.this, MyService.class);
-        intent.putExtra("name", nameString);
-        intent.putExtra("MeID", meIDString);
+        intent.putExtra("meID", meIDString);
         startService(intent);
 
     }//main method
@@ -202,7 +201,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
         listuserButton = (ImageButton) findViewById(R.id.btnSulist);
 
         Uname = getIntent().getStringExtra("Uname");
-         status = getIntent().getStringExtra("status");
+        status = getIntent().getStringExtra("status");
 
 
        // datestartString = getIntent().getStringExtra("setdate");
@@ -259,7 +258,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 intent1.putExtra("status", status);
                 startActivity(intent1);//sent value
 
-                stopService(new Intent(HubServiceActivity.this, MyService.class));
+
 //                Intent intents = new Intent(HubServiceActivity.this, MyService.class);
 //                intents.putExtra("Lat", myLat);
 //                intents.putExtra("Lng", myLng);

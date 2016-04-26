@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:textSize="@dimen/H1"
+        android:visibility="gone"
         android:textColor="#49c1f9" />
 
     <!--<LinearLayout-->

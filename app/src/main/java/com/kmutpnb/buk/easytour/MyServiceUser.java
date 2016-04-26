@@ -66,9 +66,7 @@ public class MyServiceUser extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         super.onStartCommand(intent, flags, startId);
-        NameString = intent.getStringExtra("name");
-        meIDString = intent.getStringExtra("MeID");
-        Log.d("999", NameString);
+        meIDString = intent.getStringExtra("meID");
         Log.d("999", meIDString);
         return START_STICKY;
     }
@@ -276,7 +274,7 @@ public class MyServiceUser extends Service {
         builder.setTicker("Easy Tour");
         builder.setWhen(System.currentTimeMillis());
         builder.setContentTitle("ระยะเกิน");
-        builder.setContentText(NameString + "ไปไกลเกินไปแล้วนะครับ");
+        builder.setContentText("ไปไกลเกินไปแล้วนะค่ะ");
         builder.setAutoCancel(true);
 
 

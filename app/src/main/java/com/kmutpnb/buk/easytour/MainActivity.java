@@ -55,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase("easyTour.db", MODE_PRIVATE, null);
-        objSqLiteDatabase.delete("mytourTABLE", null, null);
+
 
         //Blind winget ผูก widget
         blidWidget();
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         objMyManageTable = new MyManageTable(this);
 
 
-        clearConfirmMytour();
+        //clearConfirmMytour();
 
         //deleteAllSQlite
         deleteAllSQlite();

@@ -142,7 +142,7 @@ public class ChooseTimeActivity extends AppCompatActivity {
     private void upToSQLite() {
 
         MyManageTable objMyManageTable = new MyManageTable(this);
-        objMyManageTable.addMyTour(nameString, timeuseString, tourDateString, Hrstart, Hrend);
+        objMyManageTable.addtourtmp(nameString, timeuseString, tourDateString, Hrstart, Hrend);
     }
 
     private void listMyTour() {

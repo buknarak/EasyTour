@@ -16,6 +16,7 @@
         android:text="New Text"
         android:id="@+id/textView2"
         android:textSize="@dimen/H1"
+        android:visibility="gone"
         android:textColor="#49c1f9"/>
 
     <!--<LinearLayout-->

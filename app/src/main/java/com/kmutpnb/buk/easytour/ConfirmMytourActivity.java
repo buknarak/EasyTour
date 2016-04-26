@@ -57,8 +57,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
     public void clickConfirm(View view) {
 
             MyManageTable objMyManageTable = new MyManageTable(this);
-        String[] strName = objMyManageTable.readAllMyTour(1);
-        String[] strTimeUse = objMyManageTable.readAllMyTour(2);
+        String[] strName = objMyManageTable.readAllTourtmp(1);
+        String[] strTimeUse = objMyManageTable.readAllTourtmp(2);
         for (int i = 0; i < strName.length; i++) {
 
             try {
@@ -93,11 +93,11 @@ public class ConfirmMytourActivity extends AppCompatActivity {
         //delete
 
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase("easyTour.db", MODE_PRIVATE, null);
-        objSqLiteDatabase.delete("mytourTABLE", null, null);
+        objSqLiteDatabase.delete("tourtmp", null, null);
 
         Toast.makeText(ConfirmMytourActivity.this, "สร้างโปรแกรมทัวร์เรียบร้อยแล้ว", Toast.LENGTH_SHORT).show();
+        stopService(new Intent(ConfirmMytourActivity.this, MyService.class));
         Intent objIntent = new Intent(ConfirmMytourActivity.this, HubServiceActivity.class);
-        objIntent.putExtra("name", nameString1);
         objIntent.putExtra("MeID", meIDString);
         startActivity(objIntent);
         finish();
@@ -106,8 +106,8 @@ public class ConfirmMytourActivity extends AppCompatActivity {
     private void createlistview() {
 
             MyManageTable objMyManageTable = new MyManageTable(this);
-            String[] strName = objMyManageTable.readAllMyTour(1);
-           String[] strTimeUse = objMyManageTable.readAllMyTour(2);
+            String[] strName = objMyManageTable.readAllTourtmp(1);
+           String[] strTimeUse = objMyManageTable.readAllTourtmp(2);
             ConfirmMyTourAdapter objConfirmMyTourAdapter = new ConfirmMyTourAdapter(ConfirmMytourActivity.this, strName,strTimeUse);
             confirmmytourListView.setAdapter(objConfirmMyTourAdapter);
 
@@ -142,7 +142,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
         int id = intPosition + 1;
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase("easyTour.db", MODE_PRIVATE, null);
-        objSqLiteDatabase.delete("mytourTABLE", "_id" + "=" + id, null);
+        objSqLiteDatabase.delete("tourtmp", "_id" + "=" + id, null);
     }
 
     private void showmytour() {
