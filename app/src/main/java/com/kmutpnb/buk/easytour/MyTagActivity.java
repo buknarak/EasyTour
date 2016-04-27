@@ -267,14 +267,14 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
         if (i == 0) {
             ///  0 "สถานะ : นักท่องเที่ยว"
-            Log.d("99", " สถานะ "+ i);
+            Log.d("dist", " สถานะ "+ i);
             myLoopCreateMarkerforuser();
         } else {
-            Log.d("99", " สถานะ "+ i);
+            Log.d("dist", " สถานะ "+ i);
             myLoopCreateMarker();
 
         }
-        Log.d("99", statusString);
+        Log.d("dist", statusString);
 
 
 
@@ -300,10 +300,10 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             String strName = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
             String strLat = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lat));
             String strLng = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lng));
-            String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
+          //  String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
 
-            createMakerUser(strName, strLat, strLng, strStatus);
+            createMakerUser(strName, strLat, strLng);
 
 
             //  check distance
@@ -313,16 +313,18 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             //double douDistance = distance(latADouble,lngADouble, doulat2, doulng2);
             double douDistance = distance(doulat2,doulng2, latADouble, lngADouble);
 
-            Log.d("99", "distance [" + strName +" ] " + douDistance );
-
+            Log.d("dist", "distance [" + strName + " ] " + douDistance);
+//            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
+//            createMakerUser(strnamedis, strLat, strLng);
+//            Log.d("test", strnamedis);
 
             //  check
-            if (douDistance > 400) {
+            if (douDistance > 200) {
                //myNotification(strName);
 
                 myNotificationuser();
 
-                Log.d("99", strNameme);
+                Log.d("dist", strNameme);
             } //if
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
         }//for
@@ -344,7 +346,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             public void run() {
                 myLoopCreateMarkerforuser();
             }
-        }, 3000); //3 วินาที
+        }, 5000); //3 วินาที
     }
 
      private void myLoopCreateMarker() {
@@ -367,23 +369,26 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             String strName = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
             String strLat = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lat));
             String strLng = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lng));
-            String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
+           // String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
 
-                createMakerUser(strName, strLat, strLng, strStatus);
+                createMakerUser(strName, strLat, strLng);
 
 
           //  check distance
             double doulat2 = Double.parseDouble(strLat);
             double doulng2 = Double.parseDouble(strLng);
 
-            double douDistance = distance(latADouble,lngADouble, doulat2, doulng2);
+            double douDistance = distance(latADouble, lngADouble, doulat2, doulng2);
 
-            Log.d("99", "distance [" + strName +" ] " + douDistance );
+            Log.d("dist", "distance [" + strName +" ] " + douDistance );
+
+//            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
+//            createMakerUser(strnamedis, strLat, strLng);
 
 
           //  check
-            if (douDistance > 400) {
+            if (douDistance > 200) {
                myNotification(strName);
                // myNotificationuser();
             } //if
@@ -407,7 +412,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             public void run() {
                 myLoopCreateMarker();
             }
-        }, 3000); //3 วินาที
+        }, 5000); //3 วินาที
 
    }//myLoopCreateMarker
 
@@ -427,7 +432,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     private void myNotification(String strName) {
 
-      // Log.d("99", strName);
+      // Log.d("dist", strName);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.danger);
@@ -470,7 +475,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }//Noti User
 
-    private void createMakerUser(String strName, String strLat, String strLng, String strStatus) {
+    private void createMakerUser(String strName, String strLat, String strLng) {
 
 
         Double douLat = Double.parseDouble(strLat);
@@ -589,7 +594,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     private void createMakerMe() {
 
 
-        Log.d("99", meIDString);
+        Log.d("dist", meIDString);
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
 
@@ -604,8 +609,8 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
        double a = Double.parseDouble(strLat);
         double b = Double.parseDouble(strLng);
-        Log.d("99", "melat " + a);
-        Log.d("99", "melng " + b);
+        Log.d("dist", "melat " + a);
+        Log.d("dist", "melng " + b);
 
 
        // meLatLng = new LatLng(a, b); //เอาค่าไปใส่แผนที่

@@ -67,7 +67,7 @@ public class MyServiceUser extends Service {
 
         super.onStartCommand(intent, flags, startId);
         meIDString = intent.getStringExtra("meID");
-        Log.d("999", meIDString);
+        Log.d("dist", meIDString);
         return START_STICKY;
     }
 
@@ -121,11 +121,11 @@ public class MyServiceUser extends Service {
            // double douDistance = distance(latADouble,lngADouble, doulat2, doulng2);
             double douDistance = distance(doulat2,doulng2, latADouble, lngADouble);
 
-            Log.d("99", "distance [" + strName +" ] " + douDistance );
+            Log.d("dist", "distance [" + strName +" ] " + douDistance );
 
 
             //  check
-            if (douDistance > 400) {
+            if (douDistance >200) {
                 myNotification(strName);
             } //if
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
@@ -148,7 +148,7 @@ public class MyServiceUser extends Service {
             public void run() {
                 myLoopCreateMarkerforuser();
             }
-        }, 3000); //3 วินาที
+        }, 5000); //3 วินาที
     }//myLoopCreateMarker
     //
     private void createMakerUser(String strName, String strLat, String strLng) {
@@ -267,7 +267,7 @@ public class MyServiceUser extends Service {
 
     private void myNotification(String strName) {
 
-        // Log.d("99", strName);
+        // Log.d("dist", strName);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.danger);

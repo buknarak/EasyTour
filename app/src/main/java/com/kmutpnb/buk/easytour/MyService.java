@@ -117,11 +117,11 @@ public class MyService extends Service {
 
             double douDistance = distance(latADouble,lngADouble, doulat2, doulng2);
 
-            Log.d("99", "distance [" + strName +" ] " + douDistance );
+            Log.d("dist", "distance [" + strName +" ] " + douDistance );
 
 
             //check
-            if (douDistance > 400) {
+            if (douDistance > 200) {
 
                 myNotification(strName);
 
@@ -139,7 +139,6 @@ public class MyService extends Service {
 //        meLatLng = new LatLng(latADouble, lngADouble);
 
 
-
         //หน่วงเวลา และลุปไม่จบ
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -147,7 +146,7 @@ public class MyService extends Service {
             public void run() {
                 myLoopCreateMarker();
             }
-        }, 3000); //3 วินาที
+        }, 5000); //3 วินาที
 
 
 
@@ -269,7 +268,7 @@ public class MyService extends Service {
 
     private void myNotification(String strName) {
 
-        // Log.d("99", strName);
+        // Log.d("dist", strName);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.danger);
