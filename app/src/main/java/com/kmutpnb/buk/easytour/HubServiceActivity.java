@@ -36,6 +36,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
     private double myLat, myLng;
+    private String status1 = "1";
 
     //timer
     TimePicker myTimePicker;
@@ -245,6 +246,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnSprogram:
                 //list my program tour
                 Intent mytourIntent = new Intent(HubServiceActivity.this, ShowMyTourActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                mytourIntent.putExtra("status1", status1);
                 startActivity(mytourIntent);
 
                 break;
@@ -271,7 +273,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
                 //สถานที่ท่องเที่ยว
                 //โปรแกรมทัวร์ เดิม
 
-                String status1 = "1";
+
                 Intent intent3 = new Intent(HubServiceActivity.this, MainProgramTourActivity.class);
                 intent3.putExtra("Lat", myLat);
                 intent3.putExtra("Lng", myLng);

@@ -33,7 +33,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class DetailConfirmActivity extends AppCompatActivity {
-    private EditText Name,time;
+    private EditText NameedEditText,timeedEditText;
     private Button btnedit;
     private String nameString, timeString,id;
     Spinner spinnerS;
@@ -57,11 +57,12 @@ public class DetailConfirmActivity extends AppCompatActivity {
 //                Name.setEnabled(true);
 //                setValue();
 
-//                String name1 = Name.getText().toString();
-//                String time1 = time.getText().toString();
-//                updateToMySQL(name1,time1);
-//               Log.d("Test1", time1);
-//                synMytourtable();
+                String name1 = NameedEditText.getText().toString();
+                String time1 = timeedEditText.getText().toString();
+               updateToMySQL(name1,time1);
+               Log.d("Test1", time1);
+                Log.d("Test1", name1);
+               // synMytourtable();
 
             }
         });
@@ -155,8 +156,8 @@ public class DetailConfirmActivity extends AppCompatActivity {
 
     private void bindwicket() {
 
-        Name = (EditText) findViewById(R.id.tvNamePlace);
-        time = (EditText) findViewById(R.id.tvtime);
+        NameedEditText = (EditText) findViewById(R.id.tvNamePlace);
+        timeedEditText = (EditText) findViewById(R.id.tvtime);
         spinnerS = (Spinner) findViewById(R.id.spinnerS);
         btnedit = (Button) findViewById(R.id.btnedit);
 
@@ -164,8 +165,8 @@ public class DetailConfirmActivity extends AppCompatActivity {
         timeString = getIntent().getStringExtra("Hr");
         id = getIntent().getStringExtra("id");
 
-        Name.setText(nameString);
-        time.setText(timeString);
+        NameedEditText.setText(nameString);
+        timeedEditText.setText(timeString);
     }
 //
 //
