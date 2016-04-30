@@ -33,24 +33,68 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:id="@+id/lintxt"
+    android:layout_below="@+id/linConfirm"
+    android:layout_height="wrap_content">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="#49c1f9"
+        android:textSize="18dp"
 
-    <Button
+    android:text="เวลา"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:textColor="#49c1f9"
+        android:textSize="18dp"
+        android:text="สถานที่"/>
+
+</LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/clickConfirm"
-        android:onClick="clickConfirm"
-        android:background="#057aac"
-        android:textColor="#ffff"
-        android:text="ตกลง"
-        android:layout_alignParentBottom="true"/>
+        android:id="@+id/linearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clickConfirm"
+            android:onClick="clickConfirm"
+            android:background="#057aac"
+            android:textColor="#ffff"
+            android:layout_weight="1"
+            android:text="ตกลง" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit"
+            android:onClick="clickedit"
+            android:visibility="gone"
+            android:background="#057aac"
+            android:textColor="#ffff"
+            android:layout_weight="1"
+            android:text="แก้ไข" />
+    </LinearLayout>
+
+
+
     <ListView
         android:layout_width="wrap_content"
         android:id="@+id/listviewConfirmMyTour"
-        android:layout_below="@+id/linConfirm"
-        android:layout_above="@id/clickConfirm"
-
-        android:layout_height="wrap_content">
-       ' android:background="#82ffffff"
+        android:layout_height="330dp"
+        android:layout_below="@+id/lintxt"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/linearLayout">
+        ' android:background="#82ffffff"
     </ListView>
+
 </RelativeLayout>

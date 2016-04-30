@@ -29,6 +29,7 @@ public class MyManageTable {
     public static final String column_TimeUse = "TimeUse";
     public static final String column_Lat = "Lat";
     public static final String column_Lng = "Lng";
+    public static final String column_Image = "Image";
    // public static final String column_TotalScore = "TotalScore";
 
 
@@ -86,7 +87,7 @@ public class MyManageTable {
 
         String[] strReadAll = null;
         Cursor objCursor = readSqLiteDatabase.query(table_tourtmp,
-                new String[]{column_id, column_name, column_TimeUse},
+                new String[]{column_id, column_name, column_HrStart},
                 null, null, null, null, null);
 
         if (objCursor != null) {
@@ -96,7 +97,7 @@ public class MyManageTable {
                 if (intChoose == 1) {
                     strReadAll[i] = objCursor.getString(objCursor.getColumnIndex(column_name));
                 } else {
-                    strReadAll[i] = objCursor.getString(objCursor.getColumnIndex(column_TimeUse));
+                    strReadAll[i] = objCursor.getString(objCursor.getColumnIndex(column_HrStart));
                 }
                 objCursor.moveToNext();
             }
@@ -113,7 +114,8 @@ public class MyManageTable {
                         String strType,
                         String strTimeUse,
                         String strLat,
-                        String strLng) {
+                        String strLng,
+                        String strImage) {
 
         ContentValues ContentValues = new ContentValues();
         ContentValues.put(column_Category, strCategory);
@@ -124,6 +126,7 @@ public class MyManageTable {
         ContentValues.put(column_TimeUse, strTimeUse);
         ContentValues.put(column_Lat, strLat);
         ContentValues.put(column_Lng, strLng);
+        ContentValues.put(column_Image, strImage);
 
 
 

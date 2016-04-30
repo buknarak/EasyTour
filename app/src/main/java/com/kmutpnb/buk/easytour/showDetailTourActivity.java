@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
@@ -46,6 +47,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
     private RatingBar ratingBar;
     private RelativeLayout rateRelativeLayout;
     private String nameString1,meIDString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,6 +161,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
 
     private void bindWidget() {
+
 
         dateTextView = (TextView) findViewById(R.id.tvdate);
         nameTextView = (TextView) findViewById(R.id.tvnamet);

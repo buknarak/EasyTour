@@ -30,7 +30,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             "Type text, " +
             "TimeUse text, " +
             "Lat text, " +
-            "Lng text);";
+            "Lng text, " +
+            "Image text);";
 
     private static final String create_mytour_table = "create table mytourTABLE (" +
             "_id integer primary key, " +

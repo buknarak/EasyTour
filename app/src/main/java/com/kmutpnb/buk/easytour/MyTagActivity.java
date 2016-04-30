@@ -272,7 +272,6 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         } else {
             Log.d("dist", " สถานะ "+ i);
             myLoopCreateMarker();
-
         }
         Log.d("dist", statusString);
 
@@ -303,7 +302,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
           //  String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
 
-            createMakerUser(strName, strLat, strLng);
+            //createMakerUser(strName, strLat, strLng);
 
 
             //  check distance
@@ -314,9 +313,11 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             double douDistance = distance(doulat2,doulng2, latADouble, lngADouble);
 
             Log.d("dist", "distance [" + strName + " ] " + douDistance);
-//            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
-//            createMakerUser(strnamedis, strLat, strLng);
-//            Log.d("test", strnamedis);
+            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
+            //createMakerUser(strName, strLat, strLng);
+
+            createMakerUser(strnamedis, strLat, strLng);
+         //  Log.d("test", strnamedis);
 
             //  check
             if (douDistance > 200) {
@@ -346,7 +347,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             public void run() {
                 myLoopCreateMarkerforuser();
             }
-        }, 5000); //3 วินาที
+        }, 60000); //3 วินาที 3000
     }
 
      private void myLoopCreateMarker() {
@@ -372,7 +373,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
            // String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
 
-                createMakerUser(strName, strLat, strLng);
+                //createMakerUser(strName, strLat, strLng);
 
 
           //  check distance
@@ -383,8 +384,11 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
             Log.d("dist", "distance [" + strName +" ] " + douDistance );
 
-//            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
-//            createMakerUser(strnamedis, strLat, strLng);
+            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
+            //createMakerUser(strName, strLat, strLng);
+            Log.d("dist", strnamedis);
+
+            createMakerUser(strnamedis, strLat, strLng);
 
 
           //  check
@@ -412,7 +416,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             public void run() {
                 myLoopCreateMarker();
             }
-        }, 5000); //3 วินาที
+        }, 60000); //3 วินาที 3000
 
    }//myLoopCreateMarker
 
@@ -447,6 +451,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         Uri soundUri = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);
         builder.setSound(soundUri);
 
+
         android.app.Notification notification = builder.build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(1000, notification);
@@ -471,11 +476,11 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
         android.app.Notification notification = builder.build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(1000, notification);
+        notificationManager.notify(1000, notification);//1000
 
     }//Noti User
 
-    private void createMakerUser(String strName, String strLat, String strLng) {
+    private void createMakerUser(String strnamedis, String strLat, String strLng) {
 
 
         Double douLat = Double.parseDouble(strLat);
@@ -485,7 +490,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         LatLng latLng = new LatLng(douLat,douLng);
         mMap.addMarker(new MarkerOptions()
         .position(latLng)
-        .title(strName));
+        .title(strnamedis));
 
 
     }//CreateMakerUser

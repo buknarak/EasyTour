@@ -74,7 +74,9 @@
         <service
             android:name=".MyAlarmService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".DetailConfirmActivity"></activity>
     </application>
 
 </manifest>

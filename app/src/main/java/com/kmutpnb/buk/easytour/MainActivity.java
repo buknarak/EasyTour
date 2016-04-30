@@ -1,7 +1,10 @@
 package com.kmutpnb.buk.easytour;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,9 +21,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -34,6 +41,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -50,12 +58,27 @@ public class MainActivity extends AppCompatActivity {
     private double latADouble, lngADouble;
     private String meIDString = "0";
 
+    //timer
+    TimePicker myTimePicker;
+    Button buttonstartSetDialog;
+    private ListView listAlarm;
+    public static ArrayList<String> listValue;
+    private TextView textView2;
+
+    TimePickerDialog timePickerDialog;
+
+    final static int RQS_1 = 1;
+    //timer
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
+        listAlarm = (ListView)findViewById(R.id.listView1);
+        listValue = new ArrayList<String>();
 
         //Blind winget ผูก widget
         blidWidget();
@@ -115,6 +138,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
+        listAlarm.setAdapter(adapter);
 
         objLocationManager.removeUpdates(objLocationListener);
         latADouble = 0;
@@ -280,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
 
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
             objMyAlertDialog.myDialog(MainActivity.this, "Password False",
-                  "Please Try again"  );
+                    "Please Try again");
 
         }//if
 
@@ -288,6 +314,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void welcome(final String strName, final String strStatus) {
 
+        alarmTimer();
 
         AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
         objBuilder.setIcon(R.drawable.icon_myaccount);
@@ -348,6 +375,77 @@ public class MainActivity extends AppCompatActivity {
         objBuilder.show();
 
     }//welcome
+
+    private void alarmTimer() {
+
+        //int callCount=0;
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
+        //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
+
+
+        cursor.moveToFirst();
+
+        //float count = cursor.getFloat(cursor.getColumnIndex("DateStart1"));
+        //  Log.d("tree" , "cout " + count);
+
+        while (!cursor.isAfterLast()) { // Loop until all vales have been seen
+
+
+            String name = cursor.getString(1);
+
+            Log.d("tree", "name tour " + name);
+            // Log.d("aess", "66 " + datestartString);
+
+            String time = cursor.getString(4);
+            String[] parts = time.split(":"); //Split  String Value stored in db
+            String part1 = parts[0]; // hour
+            String part2 = parts[1]; // minute
+            int hr = Integer.parseInt(part1);
+            int min = Integer.parseInt(part2);
+
+            Log.d("tree", "hour " + hr);
+            Log.d("tree", "MINUTE " + min);
+////                if (callCount == 0) {
+            // Do something with the time chosen by the user
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.HOUR_OF_DAY, hr);
+            cal.set(Calendar.MINUTE, min);
+//                    int a = 10;
+//                    int b = 00;
+//                    cal.set(Calendar.HOUR_OF_DAY, a);
+//                    cal.set(Calendar.MINUTE, b);
+
+            setAlarm(cal);
+
+
+            cursor.moveToNext();
+        }///while
+        cursor.close();
+
+    }
+
+    private void setAlarm(Calendar targetCal) {
+
+        listValue.add(targetCal.getTime() + "");
+        Log.d("tree", "list " + listValue);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listValue);
+        listAlarm.setAdapter(adapter);
+
+
+        final int _id = (int) System.currentTimeMillis();
+
+        Intent intent = new Intent(getBaseContext(), AlarmReceiverT.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), _id, intent, 0);
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
+
+    }
+
 
     private String checkPosition(String strStatus) {
 
@@ -465,9 +563,10 @@ public class MainActivity extends AppCompatActivity {
                             String strTimeUse = object.getString(MyManageTable.column_TimeUse);
                             String strLat = object.getString(MyManageTable.column_Lat);
                             String strLng = object.getString(MyManageTable.column_Lng);
+                            String strImage = object.getString(MyManageTable.column_Image);
 
                             objMyManageTable.addTour(strCategory, strNametour, strProvince, strDescription,
-                                    strType, strTimeUse, strLat, strLng);
+                                    strType, strTimeUse, strLat, strLng, strImage);
 
                             break;
 

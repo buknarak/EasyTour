@@ -59,7 +59,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         //read or where
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE WHERE Category = " + "'" + categoryString + "'", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE WHERE Category = " + "'" + categoryString + "' ORDER BY NAME ASC", null);
         cursor.moveToFirst();
 
 
@@ -70,6 +70,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         final String[] typeStrings = new String[intCount];
         final String[] descripStrings = new String[intCount];
         final String[] timeUseStrings = new String[intCount];
+        final String[] imageStrings = new String[intCount];
 
         for (int i = 0; i < intCount; i++) {
 
@@ -78,6 +79,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
             timeUseStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
             typeStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Type));
             descripStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Description));
+            imageStrings [i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Image));
 
             cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
         }
@@ -102,6 +104,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
                 intent.putExtra("Uname",uname);
                 intent.putExtra("status", statusString);
                 intent.putExtra("ID", i);
+                intent.putExtra("Img", imageStrings[i]);
                 startActivity(intent);
 
             }//on item
@@ -128,7 +131,7 @@ public class ShowProgramTourActivity extends AppCompatActivity {
         //read or where
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE WHERE Category = " + "'" + categoryString + "'", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM tourTABLE WHERE Category = " + "'" + categoryString + "' ORDER BY NAME ASC", null);
         cursor.moveToFirst();
 
 

@@ -170,6 +170,13 @@
             android:textColor="#49c1f9"
             android:layout_marginTop="10dp" />
 
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/imgPlace"
+
+            />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

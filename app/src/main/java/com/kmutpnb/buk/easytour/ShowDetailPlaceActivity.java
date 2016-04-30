@@ -16,12 +16,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -45,6 +48,7 @@ public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnCli
     private String  nameString, provinceString, typeString, timeuseString, descripString, Uname, raingString,statusString;
     private RatingBar ratingBar;
     private RelativeLayout rateRelativeLayout;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +139,10 @@ public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnCli
         typeTextView.setText(typeString);
         timeuseTextView.setText(timeuseString);
         descripTextView.setText(descripString);
+
+
+        String strImage = getIntent().getStringExtra("Img");
+        Picasso.with(this).load(strImage).resize(280,200).into(imageView);
     }
 
 //    private void getTimeShow() {
@@ -156,6 +164,7 @@ public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnCli
     private void bindWidget() {
 
      //   dateTextView = (TextView) findViewById(R.id.tvdate);
+        imageView = (ImageView) findViewById(R.id.imgPlace);
         nameTextView = (TextView) findViewById(R.id.tvnamet);
         provinceTextView = (TextView) findViewById(R.id.tvprovince);
         typeTextView = (TextView) findViewById(R.id.tvtype);

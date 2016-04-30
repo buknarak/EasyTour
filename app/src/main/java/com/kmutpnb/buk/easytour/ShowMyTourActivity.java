@@ -26,7 +26,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private int year, month, day;
     private TextView textViewPro;
-    private String dateString,nameString, curdateString;
+    private String dateString, nameString, curdateString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
         day = c.get(Calendar.DAY_OF_MONTH);
 
     }
+
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
@@ -72,12 +73,13 @@ public class ShowMyTourActivity extends AppCompatActivity {
                 //set date picker as current date
 
 
-                return new DatePickerDialog(this,  dataPickerListener,
+                return new DatePickerDialog(this, dataPickerListener,
                         year, month, day);
         }
         return null;
 
     }
+
     private DatePickerDialog.OnDateSetListener dataPickerListener = new DatePickerDialog.OnDateSetListener() {
 
         public void onDateSet(DatePicker view, int selectedYear,
@@ -97,7 +99,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
             dateString = textViewPro.getText().toString();
 
             Log.d("tree", dateString);
-          //  showView();
+            //  showView();
             SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                     MODE_PRIVATE, null);
             // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
@@ -129,7 +131,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
             cursor.close();
 
             MytourAdaptor mytourAdapter = new MytourAdaptor(ShowMyTourActivity.this,
-                    dateStrings,hrStartString, nameString);
+                    dateStrings, hrStartString, nameString);
             mytourListViewListView.setAdapter(mytourAdapter);
 
         }
@@ -139,13 +141,12 @@ public class ShowMyTourActivity extends AppCompatActivity {
     private void showView() {
 
 
-
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
-       // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
-     //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = " + "'" + dateString + "'", null);
+        // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
+        //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = " + "'" + dateString + "'", null);
         //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE Name = "หาดสิชล" " , null);
-         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
         cursor.moveToFirst();
 
 
@@ -154,26 +155,43 @@ public class ShowMyTourActivity extends AppCompatActivity {
         final String[] nameString = new String[intCount];
         final String[] dateStrings = new String[intCount];
         final String[] hrStartString = new String[intCount];
+        final String[] id = new String[intCount];
 
 
         for (int i = 0; i < intCount; i++) {
 
+
             nameString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
             dateStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_DateStart));
             hrStartString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_HrStart));
+            id [i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_id));
 
             cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
 
             Log.d("tree", "int = " + i);
 
-           curdateString = dateStrings[i];
+            curdateString = dateStrings[i];
         }
         cursor.close();
 
         MytourAdaptor mytourAdapter = new MytourAdaptor(ShowMyTourActivity.this,
-               dateStrings,hrStartString, nameString);
+                dateStrings, hrStartString, nameString);
         mytourListViewListView.setAdapter(mytourAdapter);
         textViewPro.setText(getResources().getString(R.string.listtourdate) + " " + curdateString);
+        mytourListViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                Intent intent = new Intent(ShowMyTourActivity.this, DetailConfirmActivity.class );//โยนค่าไปหน้าใหม่
+                intent.putExtra("Name", nameString[i]);
+                intent.putExtra("Date",  dateStrings[i]);
+                intent.putExtra("Hr",  hrStartString[i]);
+                intent.putExtra("id",  id[i]);
+                startActivity(intent);
+            }
+        });
+
 
 
     }

@@ -1,17 +1,24 @@
 package com.kmutpnb.buk.easytour;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.StrictMode;
+import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,13 +35,13 @@ import org.apache.http.message.BasicNameValuePair;
 import java.sql.SQLData;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ConfirmMytourActivity extends AppCompatActivity {
 
     private TextView dateTextView, nameTextView;
     private String dateString, nameString, timeuseString, hrStartString, hrStopString,nameString1,meIDString;
     private ListView confirmmytourListView;
-    private int timeuseint;
 
 
 
@@ -43,7 +50,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_mytour);
 
-        //timeuseint = Integer.parseInt(timeuseString);
+
 
         nameString1  = getIntent().getStringExtra("name");
         meIDString = getIntent().getStringExtra("MeID");
@@ -106,19 +113,35 @@ public class ConfirmMytourActivity extends AppCompatActivity {
     private void createlistview() {
 
             MyManageTable objMyManageTable = new MyManageTable(this);
-            String[] strName = objMyManageTable.readAllTourtmp(1);
-           String[] strTimeUse = objMyManageTable.readAllTourtmp(2);
+            final String[] strName = objMyManageTable.readAllTourtmp(1);
+           final String[] strTimeUse = objMyManageTable.readAllTourtmp(4); //timeuse = timeTour
             ConfirmMyTourAdapter objConfirmMyTourAdapter = new ConfirmMyTourAdapter(ConfirmMytourActivity.this, strName,strTimeUse);
-            confirmmytourListView.setAdapter(objConfirmMyTourAdapter);
+           confirmmytourListView.setAdapter(objConfirmMyTourAdapter);
+        registerForContextMenu(confirmmytourListView);
+      confirmmytourListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            public void onItemClick(AdapterView<?> parent, View view, final int masterListPosition, long id) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(ConfirmMytourActivity.this);
+//                ListView modeListview = new ListView(ConfirmMytourActivity.this);
+//                String[] modes = new String[]{"Edit", "Delete"};
+//                ArrayAdapter<String> modeAdapter = new ArrayAdapter<String>(ConfirmMytourActivity.this,
+//                        android.R.layout.simple_list_item_1, android.R.id.text1, modes);
+//                modeListview.setAdapter(modeAdapter);
+//                builder.setView(modeListview);
+//                final Dialog dialog = builder.create();
+//                dialog.show();
+//                modeListview.setOnClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "Clicked: ", Toast.LENGTH_LONG).show();
+                            editAndDeleteMytour(masterListPosition);
 
-        confirmmytourListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                editAndDeleteMytour(i);
+//                    }
+//                    });
             }
         });
-    }
+   }
+
 
     private void editAndDeleteMytour(final int intPosition) {
 
@@ -167,5 +190,10 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
         dateTextView = (TextView) findViewById(R.id.tvDateTour);
         confirmmytourListView = (ListView) findViewById(R.id.listviewConfirmMyTour);
+    }
+
+    public void clickedit(View view) {
+
+
     }
 }

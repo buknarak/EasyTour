@@ -67,7 +67,7 @@ public class MyServiceUser extends Service {
 
         super.onStartCommand(intent, flags, startId);
         meIDString = intent.getStringExtra("meID");
-        Log.d("dist", meIDString);
+      //  Log.d("dist", meIDString);
         return START_STICKY;
     }
 
