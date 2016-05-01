@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="รายชื่อผู้ใช้ในระบบ"
+        android:text="รายชื่อผู้ชื่อกลุ่มทัวร์"
         android:textColor="#49c1f9"
         android:id="@+id/tvListUser"
         android:layout_centerHorizontal="true"

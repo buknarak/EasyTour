@@ -80,7 +80,7 @@ public class ConfirmMytourActivity extends AppCompatActivity {
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, strName[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_TimeUse, strTimeUse[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_DateStart, dateString));
-                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, hrStartString));
+                objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrStart, strTimeUse[i]));
                 objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_HrEnd, hrStopString));
 
 

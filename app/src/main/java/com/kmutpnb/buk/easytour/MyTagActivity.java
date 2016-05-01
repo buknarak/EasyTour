@@ -444,7 +444,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         builder.setWhen(System.currentTimeMillis());
         builder.setContentTitle("ระยะเกิน");
        // builder.setContentText("กลับมาได้แล้ว " +strName + "ไปไกลเกินไปแล้ว");
-        builder.setContentText(strName + "ไปไกลเกินไปแล้ว");
+        builder.setContentText("คุณ" + strName + "ไปไกลเกินไปแล้วนะค่ะ");
         builder.setAutoCancel(true);
 
 
@@ -467,7 +467,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         builder.setTicker("Easy Tour");
         builder.setWhen(System.currentTimeMillis());
         builder.setContentTitle("ระยะเกิน");
-        builder.setContentText(strNameme + "ไปไกลเกินไปแล้วนะครับ");
+        builder.setContentText("คุณ" + strNameme + "ไปไกลเกินไปแล้วนะค่ะ");
         builder.setAutoCancel(true);
 
 

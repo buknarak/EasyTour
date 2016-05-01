@@ -125,5 +125,7 @@
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/btnregister"
+        android:textColor="#e3e3e3"
+        android:background="#057aac"
         android:layout_alignParentBottom="true" />
 </RelativeLayout>
