@@ -24,8 +24,8 @@ public class ChooseTimeActivity extends AppCompatActivity {
     private Button btnChooseTime, btnChooseDate;
     private Spinner HrStartSpinner, HrEndSpinner;
     private String Hrstart, Hrend;
-    private String tourDateString, nameString, timeuseString,timeTour;
-    private String dateChooseString,Uname, nameString1,meIDString ;
+    private String tourDateString, nameString, timeuseString;
+    private String nameString1,meIDString ;
     private TextView tvtourdatechoose;
     private DatePicker changedateDatePicker;
     private int year, month, day;

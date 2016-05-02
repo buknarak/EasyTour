@@ -45,7 +45,6 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
     private Button setTimeButton, addMyProgramButton, cancelButton, submitButton;
     private String tourDateString, nameString, provinceString, typeString, timeuseString, descripString,hrStart,hrStop, Uname, raingString,statusString;
     private RatingBar ratingBar;
-    private RelativeLayout rateRelativeLayout;
     private String nameString1,meIDString;
 
 

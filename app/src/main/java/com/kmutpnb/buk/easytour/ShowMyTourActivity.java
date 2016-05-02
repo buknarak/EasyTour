@@ -38,7 +38,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private int year, month, day;
     private TextView textViewPro;
-    private String dateString, nameString, curdateString, status;
+    private String dateString, curdateString, status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,11 @@ public class ShowMyTourActivity extends AppCompatActivity {
 
         bindwicket();
         setdateshow();
+
         status = getIntent().getStringExtra("status1");
+        if (status == null ) {
+            status = "0";
+        }
 
         int i = Integer.parseInt(status.trim());
 
@@ -59,7 +63,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
             Log.d("260459", " สถานะ "+ i);
             showView();
         }
-
+        ///showView();
     }
 
     private void showViewuser() {

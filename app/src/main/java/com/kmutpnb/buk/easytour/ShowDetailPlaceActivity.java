@@ -47,7 +47,6 @@ public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnCli
     private Button  submitButton;
     private String  nameString, provinceString, typeString, timeuseString, descripString, Uname, raingString,statusString;
     private RatingBar ratingBar;
-    private RelativeLayout rateRelativeLayout;
     private ImageView imageView;
 
     @Override

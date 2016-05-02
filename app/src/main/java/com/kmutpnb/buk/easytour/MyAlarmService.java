@@ -35,6 +35,7 @@ public class MyAlarmService extends Service {
         mManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
         Intent intent1 = new Intent(this.getApplicationContext(),ShowMyTourActivity.class);
 
+
         Notification notification = new Notification(R.drawable.ic_time,"ถึงเวลาท่องเที่ยวแล้วค่ะ!", System.currentTimeMillis());
         intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

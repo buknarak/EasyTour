@@ -147,9 +147,9 @@ public class ConfirmMytourActivity extends AppCompatActivity {
 
         AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
         objBuilder.setIcon(R.drawable.danger);
-        objBuilder.setTitle("Are you Sure ?");
-        objBuilder.setMessage("Delete this Program ?");
-        objBuilder.setPositiveButton("Delete Program", new DialogInterface.OnClickListener() {
+        objBuilder.setTitle("กรุณายืนยันการทำรายการ ?");
+        objBuilder.setMessage("คุณต้องการลบรายการนี้ใช่ไหม ?");
+        objBuilder.setPositiveButton("ยืนยัน", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 deleteprogram(intPosition);
