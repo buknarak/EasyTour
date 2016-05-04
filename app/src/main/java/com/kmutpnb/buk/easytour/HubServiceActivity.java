@@ -122,6 +122,8 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnSadduser:
                 ///add user
                 Intent authenIntent = new Intent(HubServiceActivity.this, RegisterActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
+                authenIntent.putExtra("Lat", myLat);
+                authenIntent.putExtra("Lng", myLng);
                 startActivity(authenIntent);
 
                 break;

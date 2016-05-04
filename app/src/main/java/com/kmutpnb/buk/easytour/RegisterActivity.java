@@ -30,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioButton tourRadioButton, adminRadioButton;
     private Button registerButton;
     private String userString, passwordString, nameString, positionString="0";
+    private String DFLat,DFLng;
 
 
     @Override
@@ -150,6 +151,8 @@ public class RegisterActivity extends AppCompatActivity {
             objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_password, passwordString));
             objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_name, nameString));
             objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_status, positionString));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_Lat, DFLat));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_Lng, DFLng));
 
             HttpClient objHttpClient = new DefaultHttpClient();
             HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_user_buk.php");
@@ -209,6 +212,9 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = (Button) findViewById(R.id.btnregister);
 
 
+        //get lat lng from admin into new user
+        DFLat = getIntent().getStringExtra("Lat");
+        DFLng = getIntent().getStringExtra("Lng") ;
 
 
     }//bind wicket

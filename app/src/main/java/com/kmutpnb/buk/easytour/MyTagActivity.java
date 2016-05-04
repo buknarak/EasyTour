@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,6 +58,8 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
     private double latADouble, lngADouble;
     private String meIDString,statusString, unameString,strNameme;
     MyService myservice;
+    private  String strnameT;
+    public static ArrayList<String> listValuename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,8 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
 
 
+
+        listValuename = new ArrayList<String>();
 //get Value from Intent
         getLatLngForIntent();
 
@@ -355,11 +360,9 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         mMap.clear();
          synUserTable();
 
-
         //เอา ละ ลอง ทั้งหมดมาแสดง (เฉพาะ Status 0 (ทัวร์))
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
-
        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE Status = 0", null);
        /// Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
         cursor.moveToFirst();
@@ -372,17 +375,14 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             String strLng = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Lng));
            // String strStatus = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
-
                 //createMakerUser(strName, strLat, strLng);
-
-
           //  check distance
             double doulat2 = Double.parseDouble(strLat);
             double doulng2 = Double.parseDouble(strLng);
 
             double douDistance = distance(latADouble, lngADouble, doulat2, doulng2);
 
-            Log.d("dist", "distance [" + strName +" ] " + douDistance );
+//            Log.d("dist", "distance [" + strName +" ] " + douDistance );
 
             String strnamedis = strName + " อยู่ห่าง = " + douDistance;
             //createMakerUser(strName, strLat, strLng);
@@ -393,10 +393,22 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
           //  check
             if (douDistance > 200) {
-               myNotification(strName);
-               // myNotificationuser();
+
+                do {
+                    listValuename.add(strName + "");
+                    Log.d("nameover", "list " + listValuename);
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listValuename);
+
+                } while (listValuename.size()>intcount);
+
+               // myNotification(strName);
+
+                //// myNotificationuser();
             } //if
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
+
+            myNotification(listValuename);
         }//for
 
         //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์
@@ -409,14 +421,16 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
         createMakerMe();
 
-        //หน่วงเวลา และลุปไม่จบ
+//        //หน่วงเวลา และลุปไม่จบ
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 myLoopCreateMarker();
             }
-        }, 60000); //3 วินาที 3000
+        }, 60000); //3 วินาที 3000 -- 60000 1 minus
+
+         listValuename.clear();
 
    }//myLoopCreateMarker
 
@@ -434,7 +448,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
     }
 
-    private void myNotification(String strName) {
+    private void myNotification(ArrayList strName) {
 
       // Log.d("dist", strName);
 
@@ -447,6 +461,7 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
         builder.setContentText("คุณ" + strName + "ไปไกลเกินไปแล้วนะค่ะ");
         builder.setAutoCancel(true);
 
+       // Log.d("nameover", strName);
 
         Uri soundUri = RingtoneManager.getDefaultUri(Notification.DEFAULT_SOUND);
         builder.setSound(soundUri);
