@@ -256,7 +256,6 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
        statusString = getIntent().getStringExtra("status");
 
-      //  Log.d("value" , strNameme);
     }
 
 
@@ -394,7 +393,6 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
             createMakerUser(strnamedis, strLat, strLng);
 
-
           //  check
             if (douDistance > 200) {
 
@@ -412,7 +410,6 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
                 myNotification(listValuename);
             } //if
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
-
 
         }//for
 
@@ -643,6 +640,5 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
                 .position(meLatLng)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.friend)));
     }//createMakerMe
-
 
 }//Main Class

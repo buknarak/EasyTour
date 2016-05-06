@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
                 "Password = " + passwordString + "\n" +
                 "Name = "  + nameString + "\n" +
                 "Position = " + positionStrings[intIndex]);
-        objBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        objBuilder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-        objBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        objBuilder.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
