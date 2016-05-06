@@ -3,6 +3,7 @@ package com.kmutpnb.buk.easytour;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class ShowUserActivity extends AppCompatActivity {
 
@@ -36,10 +49,10 @@ public class ShowUserActivity extends AppCompatActivity {
 
         if (i == 0) {
             ///  0 "สถานะ : นักท่องเที่ยว"
-            Log.d("260459", " สถานะ "+ i);
+          //  Log.d("260459", " สถานะ "+ i);
             showViewuser();
         } else {
-            Log.d("260459", " สถานะ "+ i);
+          //  Log.d("260459", " สถานะ "+ i);
             showView();
         }
 
@@ -48,10 +61,11 @@ public class ShowUserActivity extends AppCompatActivity {
 
     private void showViewuser() {
 
+        synUsertable();
         //read or where
         SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                 MODE_PRIVATE, null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE ORDER BY Status DESC", null);
         cursor.moveToFirst();
 
         final int intCount = cursor.getCount();
@@ -67,7 +81,7 @@ public class ShowUserActivity extends AppCompatActivity {
             userStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_user));
             positionString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
 
-            Log.d("asd", userStrings[i]);
+           // Log.d("asd", userStrings[i]);
 
             int intStatus = Integer.parseInt(positionString[i]);
             positionString[i]= null;
@@ -106,10 +120,12 @@ public class ShowUserActivity extends AppCompatActivity {
 
     private void showView() {
 
+
+        synUsertable();
         //read or where
        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
                MODE_PRIVATE, null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE ORDER BY Status DESC", null);
         cursor.moveToFirst();
 
         final int intCount = cursor.getCount();
@@ -159,6 +175,77 @@ public class ShowUserActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+    }
+
+    private void synUsertable() {
+
+        ///        delete UserTable
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        sqLiteDatabase.delete(MyManageTable.table_user, null,null);
+
+        //// Connect Protocal
+        StrictMode.ThreadPolicy threadPolicy  =  new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
+        InputStream inputStream =null;
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://swiftcodingthai.com/puk/php_get_user_buk.php");
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+
+        }catch (Exception e){
+
+            Log.d("31", "Input ==> " +e.toString());
+
+        }
+
+        String strJson = null;
+        try {
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String strLine = null;
+
+            while ((strLine = bufferedReader.readLine())!= null) {
+
+                stringBuilder.append(strLine);
+            }
+            inputStream.close();
+            strJson = stringBuilder.toString();
+
+        }catch (Exception e){
+            Log.d("31", "Input ==> " + e.toString());
+        }
+
+        try {
+            JSONArray jsonArray =new JSONArray(strJson);
+
+            for (int i=0; i<jsonArray.length();i++ ){
+
+
+                JSONObject jsonobject = jsonArray.getJSONObject(i);
+
+                String strUser = jsonobject.getString(MyManageTable.column_user);
+                String strPassword = jsonobject.getString(MyManageTable.column_password);
+                String strName = jsonobject.getString(MyManageTable.column_name);
+                String strStatus = jsonobject.getString(MyManageTable.column_status);
+                String strLat = jsonobject.getString(MyManageTable.column_Lat);
+                String strLng = jsonobject.getString(MyManageTable.column_Lng);
+
+                MyManageTable myManageTable = new MyManageTable(this);
+                myManageTable.addUser(strUser,strPassword,strName,strStatus,strLat,strLng);
+            }
+
+        } catch (Exception e) {
+            Log.d("31", "Update ==> " + e.toString());
+        }
+
 
     }
 //    TourAdaptor tourAdapter = new TourAdaptor(ShowProgramTourActivity.this,

@@ -44,6 +44,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class MyTagActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -384,7 +385,10 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
 
 //            Log.d("dist", "distance [" + strName +" ] " + douDistance );
 
-            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
+            DecimalFormat form = new DecimalFormat("0.00");
+
+            String doubledisString = form.format(douDistance);
+            String strnamedis = strName + " อยู่ห่าง = " + doubledisString + " เมตร";
             //createMakerUser(strName, strLat, strLng);
             Log.d("dist", strnamedis);
 
@@ -405,10 +409,11 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
                // myNotification(strName);
 
                 //// myNotificationuser();
+                myNotification(listValuename);
             } //if
             cursor.moveToNext(); //ทำต่อไปเรื่อยๆ
 
-            myNotification(listValuename);
+
         }//for
 
         //where เฉพาะ 0 ดึงค่า double สร้างมาเกอร์

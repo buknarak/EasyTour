@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase("easyTour.db", MODE_PRIVATE, null);
-        objSqLiteDatabase.delete("mytourTABLE", null, null);
+        objSqLiteDatabase.delete("tourtmp", null, null);
 
     }
 
@@ -611,7 +611,7 @@ public class MainActivity extends AppCompatActivity {
         objSqLiteDatabase.delete(MyManageTable.table_user, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
         objSqLiteDatabase.delete(MyManageTable.table_tour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
         objSqLiteDatabase.delete(MyManageTable.table_mytour, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
-        objSqLiteDatabase.delete(MyManageTable.table_rating, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
+        objSqLiteDatabase.delete(MyManageTable.table_tourtmp, null, null); //ลบทั้งหมด ไม่ได้เลือกลบแค่บางแถว
 
     }
 

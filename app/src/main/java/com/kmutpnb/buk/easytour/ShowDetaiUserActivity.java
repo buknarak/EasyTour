@@ -47,6 +47,7 @@ public class ShowDetaiUserActivity extends AppCompatActivity implements View.OnC
         nameTextView.setText(nameString);
         userTextView.setText(userString);
         passTextView.setText(passString);
+          //     Log.d("ShowSt", positionString);
 
 
         if (positionString == "นักท่องเที่ยว") {
@@ -54,8 +55,8 @@ public class ShowDetaiUserActivity extends AppCompatActivity implements View.OnC
 
 //            positionRadioGroup.check(R.id.rdTour);
         } else {
-            posTextView.setText("มัคคุเทศก์");
-//            Log.d("Status", positionString );
+            posTextView.setText(positionString);
+         //  Log.d("ShowSt", positionString);
 //            positionRadioGroup.check(R.id.rdAdmin);
         }
 

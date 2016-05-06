@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private String userString, passwordString, nameString, positionString="0";
     private String DFLat,DFLng;
+    private Double dfLatADouble, dfLngADouble;
 
 
     @Override
@@ -213,9 +215,15 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         //get lat lng from admin into new user
-        DFLat = getIntent().getStringExtra("Lat");
-        DFLng = getIntent().getStringExtra("Lng") ;
+        dfLatADouble = getIntent().getDoubleExtra("Lat", 0);
+        dfLngADouble = getIntent().getDoubleExtra("Lng", 0) ;
 
+//dfLatADouble = Double.parseDouble(DFLat);
+//        dfLngADouble = Double.parseDouble(DFLng);
+      DFLat = Double.toString(dfLatADouble);
+        DFLng = Double.toString(dfLngADouble);
+        Log.d("DESD", "-" + dfLatADouble);
+        Log.d("DESD", DFLat);
 
     }//bind wicket
 }// main class

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">EasyTour</string>
 
-    <string name="authen">กำหนดสิทธิ์ผู้ใช้</string>
+    <string name="authen">กำหนดสิทธิ์</string>
     <string name="listtour">แหล่งท่องเที่ยว</string>
     <string name="listtourdate">โปรแกรมทัวร์ประจำวันที่</string>
     <string name="warning">การแจ้งเตือน</string>
@@ -9,8 +9,8 @@
     <string name="recommend">แนะนำสถานที่ท่องเที่ยว</string>
     <string name="listuser">รายชื่อทัวร์</string>
 
-    <string name="user">User</string>
-    <string name="pass">Password</string>
+    <string name="user">ยูสเซอร์เนม</string>
+    <string name="pass">พาสเวิร์ด</string>
     <string name="name">ชื่อผู้ใช้</string>
     <string name="tour">ลูกทัวร์</string>
     <string name="admin">มัคคุเทศน์</string>
