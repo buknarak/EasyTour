@@ -136,6 +136,7 @@
                 android:layout_toRightOf="@+id/tvRating"
                 android:id="@+id/tvRateview1"
                 android:textSize="@dimen/T15"
+                android:visibility="gone"
                 android:textColor="#ffffff" />
             <RatingBar
 
@@ -156,9 +157,9 @@
                 android:background="#3682a6"
                 android:textColor="#e3e3e3"
                 android:layout_marginTop="20dp"
+                android:text="โหวต"
                 android:layout_toRightOf="@+id/ratingBar1"
-                android:text="Vote!"
-                />
+                android:layout_toEndOf="@+id/ratingBar1" />
         </RelativeLayout>
 
         <TextView

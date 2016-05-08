@@ -24,13 +24,20 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -82,6 +89,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     private void showRating() {
 
+        SynRatingTable();
         //int id = intPosition + 1;
 //        int id = getIntent().getIntExtra("ID",0);
 //       int positionint = id + 1;
@@ -119,6 +127,72 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         }
     }
 
+    private void SynRatingTable() {
+
+        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,
+                MODE_PRIVATE, null);
+        sqLiteDatabase.delete(MyManageTable.table_rating, null,null);
+
+        //// Connect Protocal
+        StrictMode.ThreadPolicy threadPolicy  =  new StrictMode.ThreadPolicy
+                .Builder().permitAll().build();
+        StrictMode.setThreadPolicy(threadPolicy);
+
+        InputStream inputStream =null;
+        try {
+
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost("http://swiftcodingthai.com/puk/php_get_rating_buk.php");
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            inputStream = httpEntity.getContent();
+
+        }catch (Exception e){
+
+            Log.d("31", "Input ==> " +e.toString());
+
+        }
+
+        String strJson = null;
+        try {
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            StringBuilder stringBuilder = new StringBuilder();
+            String strLine = null;
+
+            while ((strLine = bufferedReader.readLine())!= null) {
+
+                stringBuilder.append(strLine);
+            }
+            inputStream.close();
+            strJson = stringBuilder.toString();
+
+        }catch (Exception e){
+            Log.d("31", "Input ==> " + e.toString());
+        }
+
+        try {
+            JSONArray jsonArray =new JSONArray(strJson);
+
+            for (int i=0; i<jsonArray.length();i++ ){
+
+
+                JSONObject jsonobject = jsonArray.getJSONObject(i);
+
+                String strUser = jsonobject.getString(MyManageTable.column_user);
+                String strName = jsonobject.getString(MyManageTable.column_name);
+                String strScore = jsonobject.getString(MyManageTable.column_Score);
+
+
+                MyManageTable myManageTable = new MyManageTable(this);
+                myManageTable.addRating(strUser,strName,strScore);
+            }
+
+        } catch (Exception e) {
+            Log.d("31", "Update ==> " + e.toString());
+        }
+    }
+
     private void buttonController() {
 
        // setTimeButton.setOnClickListener(this);
@@ -138,7 +212,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         nameTextView.setText(nameString);
         provinceTextView.setText(provinceString);
         typeTextView.setText(typeString);
-        timeuseTextView.setText(timeuseString);
+        timeuseTextView.setText(timeuseString + " ชั่วโมง");
         descripTextView.setText(descripString);
     }
 
@@ -254,11 +328,11 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         rating.setMax(7);
         rating.setNumStars(7);
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("Vote!! ");
+        popDialog.setTitle("ให้ระดับความพึงพอใจของท่าน!! ");
         popDialog.setView(rating);
 
         // Button OK
-        popDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+        popDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 ratingBar.setRating(rating.getRating());
                rateTextView.setText(String.valueOf(rating.getProgress()));
@@ -270,7 +344,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
           }
                 })
         // Button Cancel
-             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+             .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                  public void onClick(DialogInterface dialog, int id) {
                      dialog.cancel();
                  }
@@ -298,7 +372,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                 objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
                 objHttpClient.execute(objHttpPost);
 
-                Toast.makeText(showDetailTourActivity.this, "ระบบได้รับคะแนนโหวตแล้วค่ะ",
+                Toast.makeText(showDetailTourActivity.this, "ระบบได้รับผลโหวตแล้วค่ะ",
                         Toast.LENGTH_SHORT).show();//short = 4 วิ
 
             } catch (Exception e) {

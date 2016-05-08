@@ -9,9 +9,9 @@
     <string name="recommend">แนะนำสถานที่ท่องเที่ยว</string>
     <string name="listuser">รายชื่อทัวร์</string>
 
-    <string name="user">ยูสเซอร์เนม</string>
-    <string name="pass">พาสเวิร์ด</string>
-    <string name="name">ชื่อผู้ใช้</string>
+    <string name="user">ชื่อผู้ใช้</string>
+    <string name="pass">รหัสผ่าน</string>
+    <string name="name">ชื่อ</string>
     <string name="tour">ลูกทัวร์</string>
     <string name="admin">มัคคุเทศน์</string>
     <string name="title_activity_my_tag">Map</string>

@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
         objBuilder.setIcon(R.drawable.icon_myaccount);
         objBuilder.setTitle("Welcome To EasyTour");
-        objBuilder.setMessage("ยินดีต้อนรับ" + strName + "\n" + checkPosition(strStatus));
+        objBuilder.setMessage("ยินดีต้อนรับ " + strName + "\n" + checkPosition(strStatus));
         objBuilder.setCancelable(false);
         objBuilder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {//เมื่อมีการกด ตกลง
             @Override
