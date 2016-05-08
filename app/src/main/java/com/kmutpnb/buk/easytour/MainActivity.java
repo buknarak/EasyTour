@@ -288,8 +288,8 @@ public class MainActivity extends AppCompatActivity {
         catch (Exception e) {
 
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
-            objMyAlertDialog.myDialog(MainActivity.this, "No This User",
-                    "No " + useString + " in my database");
+            objMyAlertDialog.myDialog(MainActivity.this, "ไม่พบยูสเซอร์",
+                    "ไม่มี " + useString + " ในระบบ");
 
         }
 
@@ -305,8 +305,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
 
             MyAlertDialog objMyAlertDialog = new MyAlertDialog();
-            objMyAlertDialog.myDialog(MainActivity.this, "Password False",
-                    "Please Try again");
+            objMyAlertDialog.myDialog(MainActivity.this, "พาสเวิร์ด ไม่ถูกต้อง",
+                    "กรุณาลองใหม่ค่ะ");
 
         }//if
 
@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
         objBuilder.setIcon(R.drawable.icon_myaccount);
-        objBuilder.setTitle("Welcome");
+        objBuilder.setTitle("Welcome To EasyTour");
         objBuilder.setMessage("ยินดีต้อนรับ" + strName + "\n" + checkPosition(strStatus));
         objBuilder.setCancelable(false);
         objBuilder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {//เมื่อมีการกด ตกลง

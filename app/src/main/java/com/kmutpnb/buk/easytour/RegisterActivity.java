@@ -113,10 +113,10 @@ public class RegisterActivity extends AppCompatActivity {
         AlertDialog.Builder objBuilder = new AlertDialog.Builder(this);
         objBuilder.setIcon(R.drawable.icon_myaccount);
         objBuilder.setTitle("โปรดตรวจข้อมูล");
-        objBuilder.setMessage("User = " + userString + "\n" +
-                "Password = " + passwordString + "\n" +
-                "Name = "  + nameString + "\n" +
-                "Position = " + positionStrings[intIndex]);
+        objBuilder.setMessage("ยูสเซอร์เนม = " + userString + "\n" +
+                "พาสเวิร์ด = " + passwordString + "\n" +
+                "ชื่อผู้ใช้ = "  + nameString + "\n" +
+                "สถานะ = " + positionStrings[intIndex]);
         objBuilder.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

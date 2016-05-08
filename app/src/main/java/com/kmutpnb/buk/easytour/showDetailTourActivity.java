@@ -108,10 +108,10 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
             for (int i=0 ; i <intcount;i++) {
                 String strName = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
                 //String strScore = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Score));
-                Log.d("abc", strName);
+               // Log.d("abc", strName);
                 // Log.d("abc", strScore);
-                Log.d("abc", "จำนวนคะแนน " +avgScore);
-                Log.d("abc", "แถว " +totalCount);
+               // Log.d("abc", "จำนวนคะแนน " +avgScore);
+               //Log.d("abc", "แถว " +totalCount);
                 ratingBar.setRating(avgScore);
                 String strAvg=Float.toString(avgScore);
                 rateTextView.setText(strAvg);
@@ -298,7 +298,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
                 objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
                 objHttpClient.execute(objHttpPost);
 
-                Toast.makeText(showDetailTourActivity.this, "Finish",
+                Toast.makeText(showDetailTourActivity.this, "ระบบได้รับคะแนนโหวตแล้วค่ะ",
                         Toast.LENGTH_SHORT).show();//short = 4 วิ
 
             } catch (Exception e) {

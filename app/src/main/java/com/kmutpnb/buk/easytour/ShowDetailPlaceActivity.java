@@ -292,7 +292,7 @@ public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnCli
             objHttpPost.setEntity(new UrlEncodedFormEntity(objNameValuePairs, "UTF-8"));
             objHttpClient.execute(objHttpPost);
 
-            Toast.makeText(ShowDetailPlaceActivity.this, "Finish",
+            Toast.makeText(ShowDetailPlaceActivity.this, "ระบบได้รับคะแนนโหวตแล้วค่ะ",
                     Toast.LENGTH_SHORT).show();//short = 4 วิ
 
         } catch (Exception e) {
