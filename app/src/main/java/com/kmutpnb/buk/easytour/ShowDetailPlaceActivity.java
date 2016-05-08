@@ -324,7 +324,7 @@ public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnCli
         rating.setMax(7);
         rating.setNumStars(7);
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("กรุณาให้ระดับความพึงพอใจของท่าน!! ");
+        popDialog.setTitle("ระดับความพึงพอใจ!! ");
         popDialog.setView(rating);
 
         // Button OK

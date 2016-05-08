@@ -328,7 +328,7 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
         rating.setMax(7);
         rating.setNumStars(7);
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("ให้ระดับความพึงพอใจของท่าน!! ");
+        popDialog.setTitle("ระดับความพึงพอใจ!! ");
         popDialog.setView(rating);
 
         // Button OK
