@@ -120,6 +120,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 //                  //list my program tour
                 Intent mytourIntent = new Intent(HubTourActivity.this, ShowMyTourActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
                 mytourIntent.putExtra("status1", status);
+                mytourIntent.putExtra("Uname", Uname);
                 startActivity(mytourIntent);
                 break;
             case R.id.btnHtracking:

@@ -38,7 +38,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
     private DatePicker datePicker;
     private int year, month, day;
     private TextView textViewPro;
-    private String dateString, curdateString, status;
+    private String dateString, curdateString, status,uname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +72,8 @@ public class ShowMyTourActivity extends AppCompatActivity {
                 MODE_PRIVATE, null);
         // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE ", null);
         //  Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = " + "'" + dateString + "'", null);
-        //Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE Name = "หาดสิชล" " , null);
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE INNER JOIN tourTABLE on mytourTABLE.Name = tourTABLE.Name WHERE DateStart = current_date" , null);
+       // Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM mytourTABLE WHERE DateStart = current_date", null);
         cursor.moveToFirst();
 
 
@@ -83,6 +83,11 @@ public class ShowMyTourActivity extends AppCompatActivity {
         final String[] dateStrings = new String[intCount];
         final String[] hrStartString = new String[intCount];
         final String[] id = new String[intCount];
+        final String[] type = new String[intCount];
+        final String[] Descrip = new String[intCount];
+        final String[] Img = new String[intCount];
+        final String[] province = new String[intCount];
+        final String[] timeuse = new String[intCount];
 
 
         for (int i = 0; i < intCount; i++) {
@@ -92,6 +97,11 @@ public class ShowMyTourActivity extends AppCompatActivity {
             dateStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_DateStart));
             hrStartString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_HrStart));
             id [i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_id));
+            type[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Type));
+            Descrip[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Description));
+            Img[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Image));
+            province[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_Province));
+            timeuse[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_TimeUse));
 
             cursor.moveToNext(); // ขยับ cursor เป็นค่าถัดไป
 
@@ -105,6 +115,20 @@ public class ShowMyTourActivity extends AppCompatActivity {
                 dateStrings, hrStartString, nameString);
         mytourListViewListView.setAdapter(mytourAdapter);
         textViewPro.setText(getResources().getString(R.string.listtourdate) + " " + curdateString);
+        mytourListViewListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(ShowMyTourActivity.this, ShowDetailPlaceActivity.class );//โยนค่าไปหน้าใหม่
+                intent.putExtra("Name", nameString[i]);
+                intent.putExtra("Province", province[i]);
+                intent.putExtra("Type", type[i]);
+                intent.putExtra("TimeUse", timeuse[i]);
+                intent.putExtra("Descrip", Descrip[i]);
+                intent.putExtra("Img", Img[i]);
+                intent.putExtra("Uname", uname);
+                startActivity(intent);
+            }//on item
+        });
 
 
     }
@@ -116,6 +140,7 @@ public class ShowMyTourActivity extends AppCompatActivity {
         datePicker = (DatePicker) findViewById(R.id.dpmytour);
         textViewPro = (TextView) findViewById(R.id.textView7);
 
+        uname = getIntent().getStringExtra("Uname");
 
         //nameString = "หาดสิชล";
     }
