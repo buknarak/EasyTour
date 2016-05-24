@@ -402,11 +402,18 @@ public class MainActivity extends AppCompatActivity {
 
             String time = cursor.getString(4);
             String[] parts = time.split(":"); //Split  String Value stored in db
+
             String part1 = parts[0]; // hour
             String part2 = parts[1]; // minute
             int hr = Integer.parseInt(part1);
             int min = Integer.parseInt(part2);
 
+            if (min == 00) {
+                min = 50;
+                hr = hr - 1;
+            } else {
+                min = min -10;
+            }
             Log.d("tree", "hour " + hr);
             Log.d("tree", "MINUTE " + min);
 ////                if (callCount == 0) {

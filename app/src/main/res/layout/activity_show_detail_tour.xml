@@ -176,8 +176,8 @@
                 android:isIndicator="true"
                 android:stepSize="1.0"
                 style = "?android:attr/ratingBarStyleIndicator"
-                android:numStars="7"
-                android:max="7"/>
+                android:numStars="5"
+                android:max="5"/>
 
             <Button
                 android:layout_width="wrap_content"

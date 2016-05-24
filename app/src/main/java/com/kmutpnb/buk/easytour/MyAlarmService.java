@@ -36,12 +36,12 @@ public class MyAlarmService extends Service {
         Intent intent1 = new Intent(this.getApplicationContext(),ShowMyTourActivity.class);
 
 
-        Notification notification = new Notification(R.drawable.ic_time,"ถึงเวลาท่องเที่ยวแล้วค่ะ!", System.currentTimeMillis());
+        Notification notification = new Notification(R.drawable.ic_time,"ใกล้เวลาท่องเที่ยวแล้วค่ะ!", System.currentTimeMillis());
         intent1.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         PendingIntent pendingNotificationIntent = PendingIntent.getActivity( this.getApplicationContext(),0, intent1,PendingIntent.FLAG_UPDATE_CURRENT);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.setLatestEventInfo(this.getApplicationContext(), "Easy Tour", "ถึงเวลาท่องเที่ยวแล้วค่ะ!", pendingNotificationIntent);
+        notification.setLatestEventInfo(this.getApplicationContext(), "Easy Tour", "อีก 10 นาทจะถึงเวลาท่องเที่ยวค่ะ!", pendingNotificationIntent);
 
         mManager.notify(0, notification);
     }

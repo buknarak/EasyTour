@@ -318,15 +318,40 @@ public class showDetailTourActivity extends AppCompatActivity implements OnClick
 
     private void ShowDialogRating() {
 
+//        dialog = new Dialog(this,android.R.style.Theme_Translucent_NoTitleBar);
+//
+//        dialog.setContentView(R.layout.custom_dialog);
+//
+//        LayoutParams lp=dialog.getWindow().getAttributes();
+//        lp.x=100;lp.y=100;lp.width=100;lp.height=200;lp.gravity=Gravity.TOP | Gravity.LEFT;
+//        lp.dimAmount=0;
+//        lp.flags=LayoutParams.FLAG_LAYOUT_NO_LIMITS | LayoutParams.FLAG_NOT_TOUCH_MODAL;
+//        //   dialog.getWindow().setAttributes(lp);
+//
+//        dialog.show();  ex
+
+//        epSize = (float) 0.5;
+//        rating = new RatingBar(Task_Details.this);
+//        rating.setNumStars(numStar);
+//        rating.setStepSize(stepSize);
+//
+//        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams
+//                (LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//        param.topMargin = 500;9
+//        rating.setLayoutParams(param);
+//        lL.addView(rating);
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
         final RatingBar rating = new RatingBar(this);
 
-        rating.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT));
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams
+                (LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//        rating.setLayoutParams(new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                RelativeLayout.LayoutParams.WRAP_CONTENT));
+        rating.setLayoutParams(param);
 
-        rating.setMax(7);
-        rating.setNumStars(7);
+        rating.setMax(5);
+        rating.setNumStars(5);
         popDialog.setIcon(android.R.drawable.btn_star_big_on);
         popDialog.setTitle("ระดับความพึงพอใจ!! ");
         popDialog.setView(rating);

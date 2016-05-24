@@ -317,8 +317,11 @@ public class MyTagActivity extends FragmentActivity implements OnMapReadyCallbac
             //double douDistance = distance(latADouble,lngADouble, doulat2, doulng2);
             double douDistance = distance(doulat2,doulng2, latADouble, lngADouble);
 
-            Log.d("dist", "distance [" + strName + " ] " + douDistance);
-            String strnamedis = strName + " อยู่ห่าง = " + douDistance;
+
+            DecimalFormat form = new DecimalFormat("0.00");
+
+            String doubledisString = form.format(douDistance);
+            String strnamedis = strName + " อยู่ห่าง = " + doubledisString + " เมตร";
             //createMakerUser(strName, strLat, strLng);
 
             createMakerUser(strnamedis, strLat, strLng);
