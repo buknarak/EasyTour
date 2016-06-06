@@ -19,7 +19,10 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             "Name text, " +
             "Status text, " +
             "Lat text," +
-            "Lng text);";
+            "Lng text," +
+            "Phone text," +
+            "Email text," +
+            "Image text);";
 
     private static final String create_tour_table = "create table tourTABLE (" +
             "_id integer primary key, " +
@@ -55,6 +58,11 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             "HrStart text, " +
             "HrEnd text);";
 
+    private static final String create_tourpic_table = "create table tourpic (" +
+            "_id integer primary key, " +
+            "User text, " +
+            "image longblob);";
+
 
     public MyOpenHelper(Context contex) {
         super(contex, database_name, null, database_version);
@@ -70,6 +78,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
             db.execSQL(create_mytour_table);//สร้าง db ที่มีตารางตามนี้
             db.execSQL(create_rating_table);//สร้าง db ที่มีตารางตามนี้
             db.execSQL(create_tourtmp_table);//สร้าง db ที่มีตารางตามนี้
+            db.execSQL(create_tourpic_table);//สร้าง db
+
     }//ถ้าไม่มีก้อสร้าง
 
     @Override

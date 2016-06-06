@@ -425,8 +425,16 @@ public class MainActivity extends AppCompatActivity {
 //                    int b = 00;
 //                    cal.set(Calendar.HOUR_OF_DAY, a);
 //                    cal.set(Calendar.MINUTE, b);
+            if (Calendar.HOUR_OF_DAY <= hr) {
+                Log.d("tree", "hour >>" + hr);
+                if (Calendar.MINUTE < min) {
+                    Log.d("tree", "min >> " + min);
+                    setAlarm(cal);
+                }
 
-            setAlarm(cal);
+            }
+
+
 
 
             cursor.moveToNext();
@@ -555,8 +563,11 @@ public class MainActivity extends AppCompatActivity {
                             String strStatus = object.getString(MyManageTable.column_status);
                             String strLat1 = object.getString(MyManageTable.column_Lat);
                             String strLng1 = object.getString(MyManageTable.column_Lng);
+                            String strPhone = object.getString(MyManageTable.column_phone);
+                            String strEmail = object.getString(MyManageTable.column_email);
+                            String strimage = object.getString(MyManageTable.column_Image);
 
-                            objMyManageTable.addUser(strUser, strPassword, strName, strStatus, strLat1,  strLng1);
+                            objMyManageTable.addUser(strUser, strPassword, strName, strStatus, strLat1,  strLng1, strPhone,strEmail,strimage);
 
                             break;
                         case 2:
@@ -624,8 +635,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void testAddValue() {
 
-       objMyManageTable.addUser("testUser", "testPass", "testName", "testStatus", "Lat", "Lng");
-        objMyManageTable.addMyTour("test", "test", "test", "test", "test");
+      //objMyManageTable.addUser("testUser", "testPass", "testName", "testStatus", "Lat", "Lng");
+       // objMyManageTable.addMyTour("test", "test", "test", "test", "test");
 
     }//void คือ ไม่ต้องรีเทริืค่า
 }//MainClass

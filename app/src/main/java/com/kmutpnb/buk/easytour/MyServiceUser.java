@@ -224,9 +224,12 @@ public class MyServiceUser extends Service {
                 String strStatus = jsonobject.getString(MyManageTable.column_status);
                 String strLat = jsonobject.getString(MyManageTable.column_Lat);
                 String strLng = jsonobject.getString(MyManageTable.column_Lng);
+                String strPhone = jsonobject.getString(MyManageTable.column_phone);
+                String strEmail = jsonobject.getString(MyManageTable.column_email);
+                String strImage = jsonobject.getString(MyManageTable.column_Image);
 
                 MyManageTable myManageTable = new MyManageTable(this);
-                myManageTable.addUser(strUser,strPassword,strName,strStatus,strLat,strLng);
+                myManageTable.addUser(strUser,strPassword,strName,strStatus,strLat,strLng,strPhone,strEmail,strImage);
             }
 
         } catch (Exception e) {

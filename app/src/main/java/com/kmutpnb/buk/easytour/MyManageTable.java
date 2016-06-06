@@ -20,6 +20,9 @@ public class MyManageTable {
     public static final String column_password = "Password";
     public static final String column_name = "Name";
     public static final String column_status = "Status";
+    public static final String column_phone = "Phone";
+    public static final String column_email = "Email";
+  //  public static final String column_image = "Image";
 
     public static final String table_tour = "tourTABLE";
     public static final String column_Category = "Category";
@@ -175,7 +178,10 @@ public class MyManageTable {
                         String strName,
                         String strStatus,
                         String strLat,
-                        String strLng) {
+                        String strLng,
+                        String strPhone,
+                        String strEmail,
+                        String strImage) {
 
         ContentValues objContentValues = new ContentValues();
         objContentValues.put(column_user, strUser);
@@ -184,6 +190,9 @@ public class MyManageTable {
         objContentValues.put(column_status, strStatus);
         objContentValues.put(column_Lat, strLat);
         objContentValues.put(column_Lng, strLng);
+        objContentValues.put(column_phone, strPhone);
+        objContentValues.put(column_email, strEmail);
+        objContentValues.put(column_Image, strImage);
 
         return writeSqLiteDatabase.insert(table_user, null, objContentValues); //แปลง string to long int
     }

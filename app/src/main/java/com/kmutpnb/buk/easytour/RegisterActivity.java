@@ -26,11 +26,11 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     //explicit
-    private EditText userEditText, passEditText, nameEditText;
+    private EditText userEditText, passEditText, nameEditText,phoneEditText,emailEditText;
     private RadioGroup positonRadioGroup;
     private RadioButton tourRadioButton, adminRadioButton;
     private Button registerButton;
-    private String userString, passwordString, nameString, positionString="0";
+    private String userString, passwordString, nameString, positionString="0",phoString,emailString;
     private String DFLat,DFLng;
     private Double dfLatADouble, dfLngADouble;
 
@@ -155,6 +155,8 @@ public class RegisterActivity extends AppCompatActivity {
             objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_status, positionString));
             objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_Lat, DFLat));
             objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_Lng, DFLng));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_phone, phoString));
+            objNameValuePairs.add(new BasicNameValuePair(MyManageTable.column_email, emailString));
 
             HttpClient objHttpClient = new DefaultHttpClient();
             HttpPost objHttpPost = new HttpPost("http://swiftcodingthai.com/puk/php_add_user_buk.php");
@@ -212,6 +214,8 @@ public class RegisterActivity extends AppCompatActivity {
         tourRadioButton = (RadioButton) findViewById(R.id.ragtour);
         adminRadioButton = (RadioButton) findViewById(R.id.ragadmin);
         registerButton = (Button) findViewById(R.id.btnregister);
+        phoneEditText = (EditText) findViewById(R.id.editTextphone);
+        emailEditText = (EditText) findViewById(R.id.editTextemail);
 
 
         //get lat lng from admin into new user

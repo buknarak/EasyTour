@@ -147,8 +147,8 @@
                 android:isIndicator="true"
                 android:stepSize="1.0"
                 style = "?android:attr/ratingBarStyleIndicator"
-                android:numStars="7"
-                android:max="7"/>
+                android:numStars="5"
+                android:max="5"/>
 
             <Button
                 android:layout_width="wrap_content"
@@ -159,7 +159,7 @@
                 android:layout_marginTop="20dp"
                 android:text="โหวต"
                 android:layout_toRightOf="@+id/ratingBar1"
-                android:layout_toEndOf="@+id/ratingBar1" />
+                android:layout_alignBottom="@+id/ratingBar1" />
         </RelativeLayout>
 
         <TextView

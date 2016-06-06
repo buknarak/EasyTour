@@ -182,7 +182,7 @@ public class HubServiceActivity extends AppCompatActivity implements View.OnClic
             case R.id.btnSulist:
                 // list user
                 Intent userIntent = new Intent(HubServiceActivity.this, ShowUserActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
-                userIntent.putExtra("status", status);
+                userIntent.putExtra("status1", status1);
                 startActivity(userIntent);
 
                 break;

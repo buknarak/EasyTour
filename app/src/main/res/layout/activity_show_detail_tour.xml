@@ -188,7 +188,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_toRightOf="@+id/ratingBar"
                 android:text="โหวต"
-               />
+                android:layout_alignBottom="@+id/ratingBar" />
         </RelativeLayout>
 
 

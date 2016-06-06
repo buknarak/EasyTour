@@ -31,7 +31,7 @@ public class ShowUserActivity extends AppCompatActivity {
 
    // private TextView showUserTextView;
     private ListView userListView;
-    private String status;
+    private String status,status1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,24 +39,28 @@ public class ShowUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_user);
 
 
-        status = getIntent().getStringExtra("status");
+        //status = getIntent().getStringExtra("status");
+        status1 = getIntent().getStringExtra("status1");
 
         //bindWindget;
 
-        Log.d("260459", status);
+       // Log.d("260459", status);
 
-        int i = Integer.parseInt(status.trim());
-
-        if (i == 0) {
-            ///  0 "สถานะ : นักท่องเที่ยว"
-          //  Log.d("260459", " สถานะ "+ i);
-            showViewuser();
-        } else {
-          //  Log.d("260459", " สถานะ "+ i);
-            showView();
-        }
+//        int i = Integer.parseInt(status.trim());
+//
+//        if (i == 0) {
+//            ///  0 "สถานะ : นักท่องเที่ยว"
+//          //  Log.d("260459", " สถานะ "+ i);
+////            showViewuser();
+//            showView();
+//        } else {
+//          //  Log.d("260459", " สถานะ "+ i);
+//            showView();
+//        }
 
 //        showViewuser();
+
+        showView();
     }
 
     private void showViewuser() {
@@ -134,12 +138,16 @@ public class ShowUserActivity extends AppCompatActivity {
         final String[] userStrings = new String[intCount];
         final String[] positionString = new String[intCount];
         final String[] passString = new String[intCount];
+        final String[] emailStrings = new String[intCount];
+        final String[] telStrings = new String[intCount];
 
         for (int i = 0; i < intCount; i++) {
 
             nameString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_name));
             userStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_user));
            positionString[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_status));
+            emailStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_email));
+            telStrings[i] = cursor.getString(cursor.getColumnIndex(MyManageTable.column_phone));
 
             Log.d("asd", userStrings[i]);
 
@@ -172,6 +180,9 @@ public class ShowUserActivity extends AppCompatActivity {
                     intent.putExtra("User", userStrings[i]);
                     intent.putExtra("Status", positionString[i]);
                     intent.putExtra("Pass", passString[i]);
+                    intent.putExtra("Email", emailStrings[i]);
+                    intent.putExtra("Tel", telStrings[i]);
+                    intent.putExtra("Status1",status1);
                     startActivity(intent);
                 }
             });
@@ -237,9 +248,12 @@ public class ShowUserActivity extends AppCompatActivity {
                 String strStatus = jsonobject.getString(MyManageTable.column_status);
                 String strLat = jsonobject.getString(MyManageTable.column_Lat);
                 String strLng = jsonobject.getString(MyManageTable.column_Lng);
+                String strPhone = jsonobject.getString(MyManageTable.column_phone);
+                String strEmail = jsonobject.getString(MyManageTable.column_email);
+                String strImage = jsonobject.getString(MyManageTable.column_Image);
 
                 MyManageTable myManageTable = new MyManageTable(this);
-                myManageTable.addUser(strUser,strPassword,strName,strStatus,strLat,strLng);
+                myManageTable.addUser(strUser,strPassword,strName,strStatus,strLat,strLng,strPhone,strEmail,strImage);
             }
 
         } catch (Exception e) {

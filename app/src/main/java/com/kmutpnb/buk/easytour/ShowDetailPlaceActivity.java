@@ -312,41 +312,57 @@ public class ShowDetailPlaceActivity  extends AppCompatActivity implements OnCli
 //        objMyManageTable.addMyTour(nameString, timeuseString, tourDateString, hrStart, hrStop);
 //    }
 
+    public void setRating(float score){
+        //แสดงคะแนนใน txtRating
+        int b = (int)Math.round(score);
+        String rate = Integer.toString(b);
+        rateTextView.setText(rate);
+
+        ratingBar.setRating(score);
+        raingString = rateTextView.getText().toString();
+        Log.d("rating",rate);
+        Log.d("rating",raingString);
+       updateToDB();
+    }
     private void ShowDialogRating() {
 
-        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
-        final RatingBar rating = new RatingBar(this);
+        DialogRating dialograting = new DialogRating(this);
+        dialograting.show();
 
-        rating.setLayoutParams(new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT));
 
-        rating.setMax(7);
-        rating.setNumStars(7);
-        popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("ระดับความพึงพอใจ!! ");
-        popDialog.setView(rating);
-
-        // Button OK
-        popDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                ratingBar.setRating(rating.getRating());
-                rateTextView.setText(String.valueOf(rating.getProgress()));
-                raingString = rateTextView.getText().toString();
-                //   updateToSQLiteRating();
-                //   Log.d("aaa", raingString);
-                updateToDB();
-                dialog.dismiss();
-            }
-        })
-                // Button Cancel
-                .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-        popDialog.create();
-        popDialog.show();
+//        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+//        final RatingBar rating = new RatingBar(this);
+//
+//        rating.setLayoutParams(new RelativeLayout.LayoutParams(
+//                RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                RelativeLayout.LayoutParams.WRAP_CONTENT));
+//
+//        rating.setMax(7);
+//        rating.setNumStars(7);
+//        popDialog.setIcon(android.R.drawable.btn_star_big_on);
+//        popDialog.setTitle("ระดับความพึงพอใจ!! ");
+//        popDialog.setView(rating);
+//
+//        // Button OK
+//        popDialog.setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int which) {
+//                ratingBar.setRating(rating.getRating());
+//                rateTextView.setText(String.valueOf(rating.getProgress()));
+//                raingString = rateTextView.getText().toString();
+//                //   updateToSQLiteRating();
+//                //   Log.d("aaa", raingString);
+//                updateToDB();
+//                dialog.dismiss();
+//            }
+//        })
+//                // Button Cancel
+//                .setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.cancel();
+//                    }
+//                });
+//        popDialog.create();
+//        popDialog.show();
     }
 
     private void updateToDB() {

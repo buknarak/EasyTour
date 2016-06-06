@@ -31,7 +31,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
     public static final double centerLat = 14.47723421;
     public static final double centerLng = 100.64575195;
     private double myLat, myLng;
-
+    private String status1 = "0";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +150,7 @@ public class HubTourActivity extends AppCompatActivity implements View.OnClickLi
 
                 Intent userIntent = new Intent(HubTourActivity.this, ShowUserActivity.class); //เปลี่ยนหน้าจากปัจจุบันไปหน้าใหม่
                 userIntent.putExtra("status", status);
+                userIntent.putExtra("status1", status1);
                 startActivity(userIntent);
 
                 break;
